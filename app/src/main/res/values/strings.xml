@@ -2,4 +2,7 @@
     <string name="app_name">Laza</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_txt">Create your individual and unique style and look amazing everyday.</string>
+    <string name="look_good_feel_good">Look Good, Feel Good</string>
+    <string name="let_s_start">Let\'s Start</string>
 </resources>
