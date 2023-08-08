@@ -82,4 +82,6 @@
         <item name="fontFamily">@font/poppins_thin</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+
 </resources>

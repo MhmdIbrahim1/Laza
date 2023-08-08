@@ -21,4 +21,8 @@
     <style name="TextInputLayoutTheme" parent="Widget.Design.TextInputLayout">
         <item name="colorOnSurface">@color/purple_500</item>
     </style>
+
+    <style name="AppTheme.Black">
+        <item name="colorAccent">@color/g_black</item> <!-- Whatever color you want-->
+    </style>
 </resources>

@@ -16,4 +16,19 @@
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="hint_last_name">Last Name</string>
+    <string name="welcome">Welcome</string>
+    <string name="please_enter_your_data_to_continue">Please enter your data to continue</string>
+    <string name="forgot_password">Forget Password?</string>
+    <string name="termsAndConditions">By connecting your account confirm that you agree</string>
+    <string name="term_and_condition">with out Term and Condition</string>
+    <string name="arrowCd">arrowCd</string>
+    <string name="facebook_icon_cd">FacebookIconCd</string>
+    <string name="or">OR</string>
+    <string name="forgot_password_fragment">Forgot Password</string>
+    <string name="please_write_your_email_to_receive_a_confirmation_code_to_set_a_new_password">Please write your email to receive a Link \n to set a new password.</string>
+    <string name="send">Send</string>
+    <string name="men">Men</string>
+    <string name="women">Women</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
 </resources>

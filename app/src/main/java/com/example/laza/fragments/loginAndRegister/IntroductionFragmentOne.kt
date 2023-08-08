@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.laza.R
 
-class IntroductionFragment : Fragment() {
+class IntroductionFragmentOne : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_introduction, container, false)
+        return inflater.inflate(R.layout.fragment_introduction_one, container, false)
     }
 }

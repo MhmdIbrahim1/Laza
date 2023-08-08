@@ -24,10 +24,11 @@
         app:layout_constraintBottom_toBottomOf="@id/backArrow"
         app:layout_constraintEnd_toEndOf="@id/backArrow"
         app:layout_constraintStart_toStartOf="@id/backArrow"
-        app:layout_constraintTop_toTopOf="@id/backArrow" />
+        app:layout_constraintTop_toTopOf="@id/backArrow"
+        android:contentDescription="@string/arrowCd" />
 
     <TextView
-        android:id="@+id/getStarted"
+        android:id="@+id/welcome_tv"
         style="@style/h4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,6 +55,7 @@
         app:layout_constraintTop_toTopOf="@+id/guidelineGroup3">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/logInWithFacebook"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:backgroundTint="@color/g_background_facebook"
@@ -71,7 +73,8 @@
                     android:src="@drawable/facebook"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@id/guideline7"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/facebook_icon_cd" />
 
                 <TextView
                     android:id="@+id/facebookText"
@@ -139,6 +142,7 @@
 
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/logInWithGoogle"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="@dimen/_8sdp"
@@ -242,6 +246,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_4sdp"
             android:text="@string/sign_in"
+            android:paddingEnd="@dimen/_40sdp"
             android:textColor="@color/g_black"
             android:textStyle="bold" />
     </LinearLayout>
@@ -252,8 +257,7 @@
         android:backgroundTint="@color/g_background_twitter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -268,8 +272,10 @@
                 android:gravity="center"
                 android:textSize="@dimen/_15ssp"
                 style="@style/h3"
-                android:paddingBottom="@dimen/_15ssp"
-                android:layout_marginTop="@dimen/_15sdp"
+                android:paddingStart="@dimen/_60sdp"
+                android:paddingEnd="@dimen/_60sdp"
+                android:paddingBottom="@dimen/_18ssp"
+                android:paddingTop="@dimen/_20ssp"
                 android:text="@string/create_account"
                 android:textColor="@color/g_white"
                 android:textStyle="bold" />

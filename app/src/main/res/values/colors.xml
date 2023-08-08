@@ -33,5 +33,8 @@
     <color name="g_background_facebook">#4267B2</color>
     <color name="g_background_google">#EA4335</color>
     <color name="g_background_twitter">#1DA1F2</color>
+    <color name="button_men">#8F959E</color>
+    <color name="custom_progress_color">#141313</color>
+    <color name="custom_secondary_progress_color">#00FF00</color>
 
 </resources>
