@@ -5,4 +5,10 @@
     <string name="welcome_txt">Create your individual and unique style and look amazing everyday.</string>
     <string name="look_good_feel_good">Look Good, Feel Good</string>
     <string name="let_s_start">Let\'s Start</string>
+    <string name="get_started">Let’s Get Started</string>
+    <string name="facebook">Facebook</string>
+    <string name="google">Google</string>
+    <string name="twitter">Twitter</string>
+    <string name="sign_in">Sign in</string>
+    <string name="create_account">Create an Account</string>
 </resources>

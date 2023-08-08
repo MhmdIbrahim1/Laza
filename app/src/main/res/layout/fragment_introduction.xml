@@ -116,8 +116,8 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="@dimen/smallButtonWidth"
                 android:layout_height="@dimen/smallButtonHeight"
-                style="@style/blueButtonStyle"
                 android:text="@string/let_s_start"
+                style="@style/blueButtonStyle"
                 app:layout_constraintStart_toStartOf="@id/welcome_text"
                 app:layout_constraintEnd_toEndOf="@id/welcome_text"
                 app:layout_constraintTop_toBottomOf="@id/welcome_text"

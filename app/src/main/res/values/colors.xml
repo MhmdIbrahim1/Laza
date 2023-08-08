@@ -29,4 +29,9 @@
     <color name="g_green">#11FF00</color>
     <color name="g_text_hint">#969899</color>
     <color name="g_light_gray">#F5F8FA</color>
+    <color name="g_circle_back_arrow">#F5F6FA</color>
+    <color name="g_background_facebook">#4267B2</color>
+    <color name="g_background_google">#EA4335</color>
+    <color name="g_background_twitter">#1DA1F2</color>
+
 </resources>
