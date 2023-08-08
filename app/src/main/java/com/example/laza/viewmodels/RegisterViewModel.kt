@@ -3,13 +3,14 @@ package com.example.laza.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.laza.data.User
+import com.example.laza.utils.Constants.USER_COLLECTION
 import com.example.laza.utils.NetworkResult
 import com.example.laza.utils.RegisterFailedState
 import com.example.laza.utils.RegisterValidation
 import com.example.laza.utils.validateEmail
 import com.example.laza.utils.validatePassword
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -21,11 +22,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val firebaseAuth: FirebaseAuth
+    private val firebaseAuth: FirebaseAuth,
+    private val db: FirebaseFirestore
 ) : ViewModel() {
     private val _register =
-        MutableStateFlow<NetworkResult<FirebaseUser>>(NetworkResult.UnSpecified())
-    val register: Flow<NetworkResult<FirebaseUser>> = _register
+        MutableStateFlow<NetworkResult<User>>(NetworkResult.UnSpecified())
+    val register: Flow<NetworkResult<User>> = _register
 
     private val _validation = Channel<RegisterFailedState>()
     val validation = _validation.receiveAsFlow()
@@ -35,9 +37,9 @@ class RegisterViewModel @Inject constructor(
                 _register.emit(NetworkResult.Loading())
             }
             firebaseAuth.createUserWithEmailAndPassword(user.emil, password)
-                .addOnSuccessListener {
-                    it.user?.let {
-                        _register.value = NetworkResult.Success(it)
+                .addOnSuccessListener {firebaseUser ->
+                    firebaseUser.user?.let {
+                        saveUserInfo(it.uid,user)
                     }
                 }
                 .addOnFailureListener {
@@ -52,6 +54,18 @@ class RegisterViewModel @Inject constructor(
                 _validation.send(registerValidation)
             }
         }
+    }
+
+    private fun saveUserInfo(userUid: String,user: User) {
+        db.collection(USER_COLLECTION)
+            .document(userUid)
+            .set(user)
+            .addOnSuccessListener {
+                _register.value = NetworkResult.Success(user)
+            }
+            .addOnFailureListener {
+                _register.value = NetworkResult.Error(it.message.toString())
+            }
     }
 
     private fun checkValidation(user: User, password: String): Boolean {

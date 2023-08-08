@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.laza.R
@@ -66,15 +67,20 @@ class RegisterFragment : Fragment() {
                         Log.d("RegisterFragment", it.data.toString())
                         hideProgressBar()
                         // Navigate to login screen
-                        Snackbar.make(
-                            requireView(),
+                        Toast.makeText(
+                            requireContext(),
                             "Register success",
-                            Snackbar.LENGTH_SHORT
+                            Toast.LENGTH_SHORT
                         ).show()
                     }
                     is NetworkResult.Error -> {
                         Log.e("test", it.message.toString())
                         hideProgressBar()
+                        Toast.makeText(
+                            requireContext(),
+                            it.message.toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                     else -> Unit
                 }
