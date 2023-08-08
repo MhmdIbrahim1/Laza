@@ -12,10 +12,13 @@ import com.example.laza.R
 import com.example.laza.data.User
 import com.example.laza.databinding.FragmentRegisterBinding
 import com.example.laza.utils.NetworkResult
+import com.example.laza.utils.RegisterValidation
 import com.example.laza.viewmodels.RegisterViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class RegisterFragment : Fragment() {
@@ -34,6 +37,7 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         register()
         observeRegister()
+        observeValidation()
     }
 
     private fun register(){
@@ -73,6 +77,29 @@ class RegisterFragment : Fragment() {
                         hideProgressBar()
                     }
                     else -> Unit
+                }
+            }
+        }
+    }
+
+    private fun observeValidation(){
+        lifecycleScope.launchWhenStarted {
+            viewModel.validation.collect{ validation ->
+                if (validation.email is RegisterValidation.Failed){
+                    withContext(Dispatchers.Main){
+                        binding.edEmail.apply {
+                            requestFocus()
+                            error = validation.email.message
+                        }
+                    }
+                }
+                if (validation.password is RegisterValidation.Failed){
+                    withContext(Dispatchers.Main){
+                        binding.edPassword.apply {
+                            requestFocus()
+                            error = validation.password.message
+                        }
+                    }
                 }
             }
         }
