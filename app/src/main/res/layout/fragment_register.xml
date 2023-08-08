@@ -66,7 +66,7 @@
         app:layout_constraintTop_toBottomOf="@id/guideline3">
 
         <EditText
-            android:id="@+id/edFirstName"
+            android:id="@+id/edFirstNameReg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="First Name"
@@ -107,7 +107,7 @@
         app:layout_constraintEnd_toEndOf="@id/guideline5">
 
         <EditText
-            android:id="@+id/edEmail"
+            android:id="@+id/edEmailReg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="Email"

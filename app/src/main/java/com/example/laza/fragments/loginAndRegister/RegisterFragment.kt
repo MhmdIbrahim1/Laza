@@ -45,9 +45,9 @@ class RegisterFragment : Fragment() {
         binding.apply {
             createAccount.setOnClickListener {
                 val user = User(
-                    edFirstName.text.toString().trim(),
+                    edFirstNameReg.text.toString().trim(),
                     edLastName.text.toString().trim(),
-                    edEmail.text.toString().trim(),
+                    edEmailReg.text.toString().trim(),
                 )
                 val password = edPassword.text.toString()
                 viewModel.createAccountWithEmailAndPassword(user,password)
@@ -93,7 +93,7 @@ class RegisterFragment : Fragment() {
             viewModel.validation.collect{ validation ->
                 if (validation.email is RegisterValidation.Failed){
                     withContext(Dispatchers.Main){
-                        binding.edEmail.apply {
+                        binding.edEmailReg.apply {
                             requestFocus()
                             error = validation.email.message
                         }

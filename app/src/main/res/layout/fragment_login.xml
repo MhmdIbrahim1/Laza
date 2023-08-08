@@ -89,13 +89,13 @@
         app:layout_constraintTop_toBottomOf="@id/guide_h2">
 
         <EditText
-            android:id="@+id/edFirstName"
+            android:id="@+id/edEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="First Name"
             android:ems="10"
             android:hint="@string/hint_email"
-            android:inputType="textCapWords" />
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -160,6 +160,7 @@
 
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/loginWithGoogle"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="@dimen/_8sdp"
@@ -207,7 +208,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_4sdp"
         app:layout_constraintEnd_toEndOf="@id/guideline_v2"
         app:layout_constraintStart_toStartOf="@id/guideline_v1"
         app:layout_constraintTop_toBottomOf="@id/guideline_h3">
@@ -231,6 +232,7 @@
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:backgroundTint="@color/g_background_twitter"
@@ -244,7 +246,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/createAccount"
+                android:id="@+id/login_tv"
                 style="@style/h3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -261,4 +263,16 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:theme="@style/AppTheme.Black"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/cardView2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_v2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
