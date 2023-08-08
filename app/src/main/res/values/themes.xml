@@ -14,5 +14,11 @@
         <!-- Customize your theme here. -->
         <item name="android:windowIsTranslucent">true</item>
 
+<!--        <item name="textInputStyle">@style/TextInputLayoutTheme</item>-->
+
+    </style>
+
+    <style name="TextInputLayoutTheme" parent="Widget.Design.TextInputLayout">
+        <item name="colorOnSurface">@color/purple_500</item>
     </style>
 </resources>
