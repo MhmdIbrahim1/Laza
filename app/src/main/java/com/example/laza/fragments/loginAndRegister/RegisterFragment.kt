@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.laza.R
 import com.example.laza.data.User
 import com.example.laza.databinding.FragmentRegisterBinding
@@ -39,6 +40,10 @@ class RegisterFragment : Fragment() {
         register()
         observeRegister()
         observeValidation()
+
+        binding.backArrow.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     private fun register(){
@@ -66,6 +71,13 @@ class RegisterFragment : Fragment() {
                     is NetworkResult.Success -> {
                         Log.d("RegisterFragment", it.data.toString())
                         hideProgressBar()
+                        binding.apply {
+                            edFirstNameReg.setText("")
+                            edLastName.setText("")
+                            edEmailReg.setText("")
+                            edPassword.setText("")
+                        }
+                        findNavController().navigate(R.id.action_registerFragment_to_getStartedFragment)
                         // Navigate to login screen
                         Toast.makeText(
                             requireContext(),

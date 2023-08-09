@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login_register_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/introductionFragmentOne">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -11,11 +11,9 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
-        <action
             android:id="@+id/action_loginFragment_to_resetPasswordFragment"
-            app:destination="@id/resetPasswordFragment" />
+            app:destination="@id/resetPasswordFragment"
+            app:popUpTo="@id/getStartedFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -25,6 +23,10 @@
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_getStartedFragment"
+            app:destination="@id/getStartedFragment"
+            app:popUpTo="@id/getStartedFragment" />
     </fragment>
     <fragment
         android:id="@+id/introductionFragmentSecond"
@@ -35,8 +37,10 @@
             android:id="@+id/action_introductionFragmentSecond_to_introductionFragmentOne"
             app:destination="@id/introductionFragmentOne" />
         <action
-            android:id="@+id/action_introductionFragmentSecond_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            android:id="@+id/action_introductionFragmentSecond_to_getStartedFragment"
+            app:destination="@id/getStartedFragment"
+            app:popUpTo="@id/introductionFragmentOne"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/introductionFragmentOne"
@@ -47,8 +51,8 @@
             android:id="@+id/action_introductionFragmentOne_to_introductionFragmentSecond"
             app:destination="@id/introductionFragmentSecond" />
         <action
-            android:id="@+id/action_introductionFragmentOne_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            android:id="@+id/action_introductionFragmentOne_to_getStartedFragment"
+            app:destination="@id/getStartedFragment" />
     </fragment>
     <fragment
         android:id="@+id/resetPasswordFragment"
@@ -57,6 +61,23 @@
         tools:layout="@layout/fragment_reset_password" >
         <action
             android:id="@+id/action_resetPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/getStartedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/getStartedFragment"
+        android:name="com.example.laza.fragments.loginAndRegister.GetStartedFragment"
+        android:label="fragment_get_started"
+        tools:layout="@layout/fragment_get_started" >
+        <action
+            android:id="@+id/action_getStartedFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_getStartedFragment_to_introductionFragmentOne"
+            app:destination="@id/introductionFragmentOne"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_getStartedFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
 </navigation>

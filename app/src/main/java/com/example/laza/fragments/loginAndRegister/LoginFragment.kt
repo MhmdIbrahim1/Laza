@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.laza.R
 import com.example.laza.activites.ShoppingActivity
 import com.example.laza.databinding.FragmentLoginBinding
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.LoginViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -30,6 +32,14 @@ class LoginFragment : Fragment() {
         login()
         observeLogin()
 
+        binding.forgotPassword.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_resetPasswordFragment)
+        }
+
+        binding.arrow1.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         return binding.root
     }
 
@@ -38,7 +48,11 @@ class LoginFragment : Fragment() {
             loginTv.setOnClickListener {
                 val email = edEmail.text.toString().trim()
                 val password = edPassword.text.toString()
-                viewModel.login(email,password)
+                if (email.isNotEmpty() && password.isNotEmpty()) {
+                    viewModel.login(email, password)
+                } else {
+                    Snackbar.make(requireView(), "Please enter the email and password!!", Snackbar.LENGTH_LONG).show()
+                }
             }
         }
     }

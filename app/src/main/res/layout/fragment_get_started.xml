@@ -197,7 +197,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="50dp" />
+        app:layout_constraintGuide_percent="0.08" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineGroup2"
@@ -238,7 +238,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
-            android:text="Already have an account?" />
+            android:text="@string/already_have_an_account" />
 
         <TextView
             android:id="@+id/logIn"
@@ -265,7 +265,7 @@
             android:orientation="vertical">
             
             <TextView
-                android:id="@+id/login_tv"
+                android:id="@+id/createAccountGetStarted"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
