@@ -32,8 +32,7 @@
         style="@style/h4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginTop="8dp"
         android:text="@string/get_started"
         android:textColor="@color/g_black"
         android:textSize="@dimen/_20ssp"
@@ -48,6 +47,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
+        android:gravity="center"
         android:padding="@dimen/_25sdp"
         app:layout_constraintBottom_toTopOf="@+id/guidelineGroup4"
         app:layout_constraintEnd_toStartOf="@+id/guidelineGroup2"
@@ -204,7 +204,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="360dp" />
+        app:layout_constraintGuide_percent="0.87" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineGroup3"

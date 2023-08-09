@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.laza.R
 import com.example.laza.activites.ShoppingActivity
@@ -40,6 +42,10 @@ class LoginFragment : Fragment() {
             findNavController().navigateUp()
         }
 
+        binding.forgotPassword.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_resetPasswordFragment)
+        }
+
         return binding.root
     }
 
@@ -57,32 +63,36 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun observeLogin(){
+    private fun observeLogin() {
         lifecycleScope.launch {
-            viewModel.login.collect(){
-                when(it){
-                    is NetworkResult.Loading ->{
-                        showProgress()
-                    }
-                    is NetworkResult.Success ->{
-                        Intent(requireActivity(), ShoppingActivity::class.java).also {intent ->
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                            startActivity(intent)
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.login.collect() {
+                    when (it) {
+                        is NetworkResult.Loading -> {
+                            showProgress()
                         }
-                        hideProgress()
-                        Toast.makeText(requireContext(), "Login Success", Toast.LENGTH_SHORT).show()
-                    }
 
-                    is NetworkResult.Error ->{
-                        hideProgress()
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                        is NetworkResult.Success -> {
+                            Intent(requireActivity(), ShoppingActivity::class.java).also { intent ->
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                                startActivity(intent)
+                            }
+                            hideProgress()
+                            Toast.makeText(requireContext(), "Login Success", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+
+                        is NetworkResult.Error -> {
+                            hideProgress()
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                        }
+
+                        else -> Unit
                     }
-                    else ->Unit
                 }
             }
         }
     }
-
     private fun hideProgress() {
         binding.progressBar2.visibility = View.GONE
     }

@@ -145,6 +145,7 @@
         android:orientation="vertical"
         android:paddingStart="@dimen/_32sdp"
         android:paddingEnd="@dimen/_32sdp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="@id/guideline_v2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/guideline_v1"
@@ -188,6 +189,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/google"
                     android:textColor="@color/g_white"
+                    android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/googleIcon"
                     app:layout_constraintTop_toTopOf="parent" />
