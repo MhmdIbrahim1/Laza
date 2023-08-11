@@ -83,5 +83,16 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="BottomNavigationItem">
+        <item name="android:paddingTop">@dimen/_10sdp</item>
+        <item name="android:paddingBottom">@dimen/_10sdp</item>
+        <item name="android:layout_height">70dp</item>
+    </style>
+
+    <style name="BottomNavigationItem.NoIcon">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
 
 </resources>

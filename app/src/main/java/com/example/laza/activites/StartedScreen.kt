@@ -4,15 +4,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import com.example.laza.R
 
-class SplashScreen : AppCompatActivity() {
+class StartedScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
-        Handler().postDelayed({
-            startActivity(Intent(this@SplashScreen, LoginRegisterActivity::class.java))
+        Handler(Looper.myLooper()!!).postDelayed({
+            startActivity(Intent(this@StartedScreen, LoginRegisterActivity::class.java))
             finish()
         }, 3000)
     }

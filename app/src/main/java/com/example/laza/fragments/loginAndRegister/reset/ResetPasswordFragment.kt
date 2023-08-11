@@ -1,4 +1,4 @@
-package com.example.laza.fragments.loginAndRegister
+package com.example.laza.fragments.loginAndRegister.reset
 
 import android.os.Bundle
 import android.util.Log
@@ -11,7 +11,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.laza.R
 import com.example.laza.databinding.FragmentResetPasswordBinding
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.LoginViewModel

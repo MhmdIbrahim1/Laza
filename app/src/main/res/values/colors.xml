@@ -36,5 +36,6 @@
     <color name="button_men">#8F959E</color>
     <color name="custom_progress_color">#141313</color>
     <color name="custom_secondary_progress_color">#00FF00</color>
+    <color name="transparent">#00000000</color>
 
 </resources>

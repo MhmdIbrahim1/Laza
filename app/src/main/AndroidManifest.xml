@@ -17,7 +17,7 @@
             android:name=".activites.ShoppingActivity"
             android:exported="false" />
         <activity
-            android:name=".activites.SplashScreen"
+            android:name=".activites.StartedScreen"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#3D93F8"
-    tools:context=".fragments.loginAndRegister.IntroductionFragmentOne">
+    tools:context=".fragments.loginAndRegister.introduction.IntroductionFragmentOne">
 
     <ImageView
         android:id="@+id/circle_top_left"

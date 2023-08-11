@@ -1,4 +1,4 @@
-package com.example.laza.fragments.loginAndRegister
+package com.example.laza.fragments.loginAndRegister.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -66,7 +66,7 @@ class LoginFragment : Fragment() {
     private fun observeLogin() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.login.collect() {
+                viewModel.login.collect {
                     when (it) {
                         is NetworkResult.Loading -> {
                             showProgress()

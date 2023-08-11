@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.laza.fragments.loginAndRegister.LoginFragment"
+        android:name="com.example.laza.fragments.loginAndRegister.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.laza.fragments.loginAndRegister.RegisterFragment"
+        android:name="com.example.laza.fragments.loginAndRegister.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/introductionFragmentSecond"
-        android:name="com.example.laza.fragments.loginAndRegister.IntroductionFragmentSecond"
+        android:name="com.example.laza.fragments.loginAndRegister.introduction.IntroductionFragmentSecond"
         android:label="IntroductionFragmentSecond"
         tools:layout="@layout/fragment_introduction_second" >
         <action
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/introductionFragmentOne"
-        android:name="com.example.laza.fragments.loginAndRegister.IntroductionFragmentOne"
+        android:name="com.example.laza.fragments.loginAndRegister.introduction.IntroductionFragmentOne"
         android:label="IntroductionFragmentSecond"
         tools:layout="@layout/fragment_introduction_one" >
         <action
@@ -65,7 +65,7 @@
     </fragment>
     <fragment
         android:id="@+id/resetPasswordFragment"
-        android:name="com.example.laza.fragments.loginAndRegister.ResetPasswordFragment"
+        android:name="com.example.laza.fragments.loginAndRegister.reset.ResetPasswordFragment"
         android:label="fragment_reset_password"
         tools:layout="@layout/fragment_reset_password" >
         <action
@@ -76,7 +76,7 @@
     </fragment>
     <fragment
         android:id="@+id/getStartedFragment"
-        android:name="com.example.laza.fragments.loginAndRegister.GetStartedFragment"
+        android:name="com.example.laza.fragments.loginAndRegister.getstarted.GetStartedFragment"
         android:label="fragment_get_started"
         tools:layout="@layout/fragment_get_started" >
         <action

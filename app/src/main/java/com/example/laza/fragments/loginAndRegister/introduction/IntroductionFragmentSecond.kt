@@ -1,4 +1,4 @@
-package com.example.laza.fragments.loginAndRegister
+package com.example.laza.fragments.loginAndRegister.introduction
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
