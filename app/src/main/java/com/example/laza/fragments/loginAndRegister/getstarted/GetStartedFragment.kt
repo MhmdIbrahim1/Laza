@@ -23,9 +23,7 @@ import com.example.laza.viewmodels.LoginViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
-import com.twitter.sdk.android.core.identity.TwitterLoginButton
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class GetStartedFragment : Fragment() {
@@ -34,6 +32,7 @@ class GetStartedFragment : Fragment() {
 
     private var doubleBackToExitPressedOnce = false
     private val doublePressHandler = Handler(Looper.myLooper()!!)
+    private var shouldHandleBackPress = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,20 +66,27 @@ class GetStartedFragment : Fragment() {
             }
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback {
-            if (doubleBackToExitPressedOnce) {
-                requireActivity().finish()
-            } else {
-                doubleBackToExitPressedOnce = true
-                showExitSnackBar()
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            if (shouldHandleBackPress) {
+                if (doubleBackToExitPressedOnce) {
+                    requireActivity().finish()
+                } else {
+                    doubleBackToExitPressedOnce = true
+                    showExitSnackBar()
 
-                doublePressHandler.postDelayed({
-                    doubleBackToExitPressedOnce = false
-                }, 2000) // Delay for resetting the double press flag
+                    doublePressHandler.postDelayed({
+                        doubleBackToExitPressedOnce = false
+                    }, 2000) // Delay for resetting the double press flag
+                }
+            } else {
+                // If not handling the back press, let the activity handle it
+                isEnabled = false
+                requireActivity().onBackPressed()
+                isEnabled = true
             }
         }
 
-        binding.logInWithGoogle.setOnClickListener {
+    binding.logInWithGoogle.setOnClickListener {
             val signInClient = getGoogleSignInClient(requireContext())
             Log.d("GetStartedFragment", "Launching Google Sign-In Intent")
             googleSignInLauncher.launch(signInClient.signInIntent)

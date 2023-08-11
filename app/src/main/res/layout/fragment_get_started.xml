@@ -48,7 +48,6 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         android:gravity="center"
-        android:padding="@dimen/_25sdp"
         app:layout_constraintBottom_toTopOf="@+id/guidelineGroup4"
         app:layout_constraintEnd_toStartOf="@+id/guidelineGroup2"
         app:layout_constraintStart_toStartOf="@+id/guidelineGroup1"
@@ -92,7 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="88dp" />
+                    app:layout_constraintGuide_percent="0.38" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
@@ -136,7 +135,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="88dp" />
+                    app:layout_constraintGuide_percent="0.38" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
@@ -154,7 +153,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.08" />
+        app:layout_constraintGuide_percent="0.14" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineGroup2"
@@ -194,6 +193,8 @@
             android:id="@+id/haveAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_marginStart="@dimen/_10sdp"
             android:text="@string/already_have_an_account" />
 
@@ -203,7 +204,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_4sdp"
             android:text="@string/sign_in"
-            android:paddingEnd="@dimen/_40sdp"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:textColor="@color/g_black"
             android:textStyle="bold" />
     </LinearLayout>
@@ -220,7 +222,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            
+
             <TextView
                 android:id="@+id/createAccountGetStarted"
                 android:layout_width="wrap_content"
@@ -237,7 +239,7 @@
                 android:textColor="@color/g_white"
                 android:textStyle="bold" />
         </LinearLayout>
-            
+
 
     </androidx.cardview.widget.CardView>
 
