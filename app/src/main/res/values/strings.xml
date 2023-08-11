@@ -32,4 +32,7 @@
     <string name="skip">Skip</string>
     <string name="next">Next</string>
     <string name="already_have_an_account">Already have an account?</string>
+
+    <string name="web_client_id">820533389903-kv1rntb9dgj71msvuira54d7lgghcfus.apps.googleusercontent.com</string>
+
 </resources>

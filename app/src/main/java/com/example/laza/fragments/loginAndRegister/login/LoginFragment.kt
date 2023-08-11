@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -16,7 +17,10 @@ import com.example.laza.R
 import com.example.laza.activites.ShoppingActivity
 import com.example.laza.databinding.FragmentLoginBinding
 import com.example.laza.utils.NetworkResult
+import com.example.laza.utils.getGoogleSignInClient
 import com.example.laza.viewmodels.LoginViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -92,7 +96,26 @@ class LoginFragment : Fragment() {
                 }
             }
         }
+
+        binding.loginWithGoogle.setOnClickListener {
+            val signInClient = getGoogleSignInClient(requireContext())
+            googleSignInLauncher.launch(signInClient.signInIntent)
+        }
+
     }
+    private val googleSignInLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                account?.let {
+                    viewModel.signInWithGoogle(it.idToken!!)
+                }
+            } catch (e: ApiException) {
+                Toast.makeText(requireContext(), "Google sign-in failed", Toast.LENGTH_LONG).show()
+            }
+        }
+
     private fun hideProgress() {
         binding.progressBar2.visibility = View.GONE
     }

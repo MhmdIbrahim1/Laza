@@ -1,20 +1,34 @@
 package com.example.laza.fragments.loginAndRegister.getstarted
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.laza.R
+import com.example.laza.activites.ShoppingActivity
 import com.example.laza.databinding.FragmentGetStartedBinding
+import com.example.laza.utils.getGoogleSignInClient
+import com.example.laza.viewmodels.LoginViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class GetStartedFragment : Fragment() {
     private lateinit var binding: FragmentGetStartedBinding
+    private val viewModel by viewModels<LoginViewModel>()
+
     private var doubleBackToExitPressedOnce = false
     private val doublePressHandler = Handler(Looper.myLooper()!!)
 
@@ -62,7 +76,33 @@ class GetStartedFragment : Fragment() {
                 }, 2000) // Delay for resetting the double press flag
             }
         }
+
+        binding.logInWithGoogle.setOnClickListener {
+            val signInClient = getGoogleSignInClient(requireContext())
+            Log.d("GetStartedFragment", "Launching Google Sign-In Intent")
+            googleSignInLauncher.launch(signInClient.signInIntent)
+        }
     }
+
+    private val googleSignInLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        try {
+            val account = task.getResult(ApiException::class.java)
+            account?.let {
+                viewModel.signInWithGoogle(it.idToken!!)
+                // Navigate to ShoppingActivity
+                val shoppingActivityIntent = Intent(requireActivity(), ShoppingActivity::class.java)
+                shoppingActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(shoppingActivityIntent)
+            } ?: run {
+                Toast.makeText(requireContext(), "Google sign-in failed: No account", Toast.LENGTH_LONG).show()
+            }
+        } catch (e: ApiException) {
+            Toast.makeText(requireContext(), "Google sign-in failed: ${e.statusCode}", Toast.LENGTH_LONG).show()
+        }
+    }
+
 
     private fun showExitSnackBar() {
         Snackbar.make(binding.root, "Press again to exit the app", Snackbar.LENGTH_SHORT)
