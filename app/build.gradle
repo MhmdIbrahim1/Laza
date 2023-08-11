@@ -102,4 +102,7 @@ dependencies {
 
     implementation "androidx.core:core-splashscreen:1.0.0"
 
+
+    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+
 }
