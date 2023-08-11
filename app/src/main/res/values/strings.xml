@@ -34,5 +34,6 @@
     <string name="already_have_an_account">Already have an account?</string>
 
     <string name="web_client_id">820533389903-kv1rntb9dgj71msvuira54d7lgghcfus.apps.googleusercontent.com</string>
-
+    <string name="twitter_api_key">KZaIlExxhn0TrSwwRwenaIZaW</string>
+    <string name="twitter_api_secret">qP7uzXORTvTO0oGVy9jYXBjTvzhhfkRnG4YQ9a60HllGjzmliP</string>
 </resources>

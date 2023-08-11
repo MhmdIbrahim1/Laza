@@ -102,7 +102,7 @@ dependencies {
 
     implementation "androidx.core:core-splashscreen:1.0.0"
 
-
-    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+    //Twitter
+    implementation 'com.twitter.sdk.android:twitter-core:3.3.0' // Core Twitter SDK
 
 }

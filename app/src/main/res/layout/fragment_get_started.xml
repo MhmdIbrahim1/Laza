@@ -55,6 +55,7 @@
         app:layout_constraintTop_toTopOf="@+id/guidelineGroup3">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/logInWithTwitter"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="@dimen/_8sdp"
