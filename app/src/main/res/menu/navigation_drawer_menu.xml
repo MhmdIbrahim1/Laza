@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/account_information">
+        <menu>
+            <item
+                android:id="@+id/nav_info"
+                android:icon="@drawable/info_circle"
+                android:title="@string/account_information" />
+        </menu>
+    </item>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_orders"
+            android:icon="@drawable/ic_all_orders"
+            android:title="@string/orders" />
+
+        <item
+            android:id="@+id/nav_cart"
+            android:icon="@drawable/cart"
+            android:title="@string/cart" />
+
+        <item
+            android:id="@+id/nav_wishlist"
+            android:icon="@drawable/wishlist"
+            android:title="@string/wishlist" />
+    </group>
+
+    <item android:title="@string/settings">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/setting"
+                android:title="@string/settings" />
+        </menu>
+    </item>
+
+<!--    &lt;!&ndash; This group is now placed at the bottom &ndash;&gt;-->
+<!--    <group android:checkableBehavior="single">-->
+<!--        <item-->
+<!--            android:id="@+id/nav_logout"-->
+<!--            android:icon="@drawable/logout"-->
+<!--            android:title="@string/sign_out"-->
+<!--            android:iconTint="@color/g_red"-->
+<!--            tools:targetApi="o" />-->
+<!--    </group>-->
+</menu>
