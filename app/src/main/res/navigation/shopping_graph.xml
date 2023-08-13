@@ -10,7 +10,20 @@
         android:name="com.example.laza.fragments.shopping.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home"
-        />
+        >
+        <action
+            android:id="@+id/action_homeFragment_to_adidasFragment"
+            app:destination="@id/adidasFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_filaFragment"
+            app:destination="@id/filaFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_pumaFragment"
+            app:destination="@id/pumaFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_nikeFragment"
+            app:destination="@id/nikeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.laza.fragments.shopping.SearchFragment"
@@ -29,4 +42,24 @@
         android:label="WishlistFragment"
         tools:layout="@layout/fragment_wishlist"
         />
+    <fragment
+        android:id="@+id/adidasFragment"
+        android:name="com.example.laza.fragments.brands.AdidasFragment"
+        android:label="fragment_adidas"
+        tools:layout="@layout/fragment_adidas" />
+    <fragment
+        android:id="@+id/filaFragment"
+        android:name="com.example.laza.fragments.brands.FilaFragment"
+        android:label="fragment_fila"
+        tools:layout="@layout/fragment_fila" />
+    <fragment
+        android:id="@+id/pumaFragment"
+        android:name="com.example.laza.fragments.brands.PumaFragment"
+        android:label="fragment_puma"
+        tools:layout="@layout/fragment_puma" />
+    <fragment
+        android:id="@+id/nikeFragment"
+        android:name="com.example.laza.fragments.brands.NikeFragment"
+        android:label="fragment_nike"
+        tools:layout="@layout/fragment_nike" />
 </navigation>

@@ -240,7 +240,6 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-
     </androidx.cardview.widget.CardView>
 
 

@@ -7,4 +7,6 @@
     <dimen name="mediumButtonWidth">200dp</dimen>
     <dimen name="mediumButtonHeight">55dp</dimen>
     <dimen name="edittextHeight">60dp</dimen>
+    <dimen name="spacing">16dp</dimen> <!-- Adjust this value -->
+
 </resources>
