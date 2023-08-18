@@ -9,8 +9,10 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.laza.R
 import com.example.laza.databinding.ActivityShoppingBinding
 import com.example.laza.fragments.shopping.HomeFragment
+import dagger.hilt.android.AndroidEntryPoint
 import de.hdodenhof.circleimageview.CircleImageView
 
+@AndroidEntryPoint
 class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
     private val binding by lazy { ActivityShoppingBinding.inflate(layoutInflater) }
 

@@ -120,9 +120,9 @@
                 android:layout_height="@dimen/smallButtonHeight"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="28dp"
-                android:background="@drawable/button_shape_men"
+                android:background="@drawable/button_shape_women"
                 android:text="@string/men"
-                android:textColor="@color/button_men"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toTopOf="@+id/skip"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/welcome_text"
@@ -132,9 +132,9 @@
                 android:id="@+id/women_btn"
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="@dimen/smallButtonHeight"
-                android:background="@drawable/button_shape_women"
+                android:background="@drawable/button_shape_men"
                 android:text="@string/women"
-                android:textColor="@color/white"
+                android:textColor="@color/button_men"
                 app:layout_constraintBottom_toBottomOf="@+id/men_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/men_btn" />
@@ -158,8 +158,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline6" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

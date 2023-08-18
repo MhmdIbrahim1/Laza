@@ -6,216 +6,265 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circleImageMenu"
-        android:layout_width="@dimen/_40sdp"
-        android:layout_height="@dimen/_40sdp"
-        android:src="@color/g_circle_back_arrow"
-        app:civ_border_color="@color/g_circle_back_arrow"
-        app:civ_border_width="1dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@id/guideline1"
-        app:layout_constraintEnd_toEndOf="@id/guideline2"
-        app:layout_constraintStart_toStartOf="@id/guideline3"
-        app:layout_constraintTop_toTopOf="@id/guideline4" />
-
-    <ImageView
-        android:id="@+id/drawer_menu"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:src="@drawable/menu"
-        app:layout_constraintBottom_toBottomOf="@id/circleImageMenu"
-        app:layout_constraintEnd_toEndOf="@+id/circleImageMenu"
-        app:layout_constraintStart_toStartOf="@id/circleImageMenu"
-        app:layout_constraintTop_toTopOf="@id/circleImageMenu" />
-
-    <TextView
-        android:id="@+id/tvHello"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello"
-        android:textColor="@color/g_black"
-        android:textSize="@dimen/_22ssp"
-        android:textStyle="bold"
-        android:layout_marginStart="@dimen/_4sdp"
-        android:layout_marginTop="@dimen/_12sdp"
-        app:layout_constraintTop_toBottomOf="@id/guideline1"
-        app:layout_constraintStart_toStartOf="@id/guideline3"
-        app:layout_constraintEnd_toEndOf="@id/guideline2"/>
-
-
-    <TextView
-        android:id="@+id/welcome_to_laza"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome_to_laza"
-        android:textSize="@dimen/_14ssp"
-        app:layout_constraintStart_toStartOf="@+id/tvHello"
-        app:layout_constraintTop_toBottomOf="@+id/tvHello" />
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardSearch"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_48sdp"
-        android:elevation="0dp"
-        app:cardCornerRadius="@dimen/_10sdp"
-        app:layout_constraintEnd_toEndOf="@id/search_V_2"
-        app:layout_constraintStart_toStartOf="@id/search_V_1"
-        app:layout_constraintTop_toBottomOf="@id/search_H_1"
-        app:layout_constraintBottom_toBottomOf="@id/search_H_2">
-
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:id="@+id/nestedScrollMainCategory">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#F5F6FA">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_search"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:hint="Search..."
-                android:singleLine="true"
-                android:textColor="#8F959E"
-                android:textDirection="anyRtl"
-                android:textSize="@dimen/_12ssp"
-                android:paddingStart="@dimen/_6sdp"
-                app:drawableStartCompat="@drawable/search"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardMic"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_48sdp"
-        android:elevation="0dp"
-        app:cardCornerRadius="@dimen/_10sdp"
-        app:layout_constraintStart_toStartOf="@id/search_V_3"
-        app:layout_constraintEnd_toEndOf="@id/search_V_4"
-        app:layout_constraintTop_toBottomOf="@id/search_H_1"
-        app:layout_constraintBottom_toTopOf="@id/search_H_2">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/g_background_twitter"
-            >
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circleImageMenu"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:src="@color/g_circle_back_arrow"
+                app:civ_border_color="@color/g_circle_back_arrow"
+                app:civ_border_width="1dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toTopOf="@id/guideline1"
+                app:layout_constraintEnd_toEndOf="@id/guideline2"
+                app:layout_constraintStart_toStartOf="@id/guideline3"
+                app:layout_constraintTop_toTopOf="@id/guideline4" />
 
             <ImageView
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/voice"
+                android:id="@+id/drawer_menu"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:src="@drawable/menu"
+                app:layout_constraintBottom_toBottomOf="@id/circleImageMenu"
+                app:layout_constraintEnd_toEndOf="@+id/circleImageMenu"
+                app:layout_constraintStart_toStartOf="@id/circleImageMenu"
+                app:layout_constraintTop_toTopOf="@id/circleImageMenu" />
+
+            <TextView
+                android:id="@+id/tvHello"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hello"
+                android:textColor="@color/g_black"
+                android:textSize="@dimen/_22ssp"
+                android:textStyle="bold"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                app:layout_constraintTop_toBottomOf="@id/guideline1"
+                app:layout_constraintStart_toStartOf="@id/guideline3"
+                app:layout_constraintEnd_toEndOf="@id/guideline2"/>
+
+
+            <TextView
+                android:id="@+id/welcome_to_laza"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome_to_laza"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintStart_toStartOf="@+id/tvHello"
+                app:layout_constraintTop_toBottomOf="@+id/tvHello" />
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardSearch"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_48sdp"
+                android:elevation="0dp"
+                app:cardCornerRadius="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@id/search_V_2"
+                app:layout_constraintStart_toStartOf="@id/search_V_1"
+                app:layout_constraintTop_toBottomOf="@id/search_H_1"
+                app:layout_constraintBottom_toBottomOf="@id/search_H_2">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#F5F6FA">
+
+                    <TextView
+                        android:id="@+id/tv_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:hint="Search..."
+                        android:singleLine="true"
+                        android:textColor="#8F959E"
+                        android:textDirection="anyRtl"
+                        android:textSize="@dimen/_12ssp"
+                        android:paddingStart="@dimen/_6sdp"
+                        app:drawableStartCompat="@drawable/search"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardMic"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_48sdp"
+                android:elevation="0dp"
+                app:cardCornerRadius="@dimen/_10sdp"
+                app:layout_constraintStart_toStartOf="@id/search_V_3"
+                app:layout_constraintEnd_toEndOf="@id/search_V_4"
+                app:layout_constraintTop_toBottomOf="@id/search_H_1"
+                app:layout_constraintBottom_toTopOf="@id/search_H_2">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/g_background_twitter"
+                    >
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/voice"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/choose_brandTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/choose_brand"
+                android:textColor="@color/g_black"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/cardSearch"
+                app:layout_constraintTop_toBottomOf="@+id/cardSearch" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/brandRv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                app:layout_constraintEnd_toEndOf="@+id/cardMic"
+                app:layout_constraintStart_toStartOf="@+id/choose_brandTv"
+                app:layout_constraintTop_toBottomOf="@+id/choose_brandTv" />
+
+            <TextView
+                android:id="@+id/new_arrivalsTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:text="@string/new_arrivals"
+                android:textColor="@color/g_black"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/choose_brandTv"
+                app:layout_constraintTop_toBottomOf="@+id/brandRv" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/newArrivalsRv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:overScrollMode="never"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/new_arrivalsTv" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.Black"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.468"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintVertical_bias="0.855" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.1" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.19951338" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.01" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.01" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.30"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/search_H_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.20" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/search_H_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.30" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/search_V_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.0424" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/search_V_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.76" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/search_V_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.80" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/search_V_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.96" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/choose_brandTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_14sdp"
-        android:text="@string/choose_brand"
-        android:textColor="@color/g_black"
-        android:textSize="@dimen/_14ssp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/cardSearch"
-        app:layout_constraintTop_toBottomOf="@+id/cardSearch" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/brandRv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/choose_brandTv" />
-        />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.13" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.19951338" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.01" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.04" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.30"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/search_H_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="190dp" />
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/search_H_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/search_V_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.0424" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/search_V_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.76" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/search_V_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.80" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/search_V_4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.96" />
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,7 +25,6 @@ class BrandAdapter(private val brandItems: List<BrandItem>) : RecyclerView.Adapt
             )
         )
     }
-
     override fun getItemCount(): Int {
         return brandItems.size
     }
@@ -38,11 +37,17 @@ class BrandAdapter(private val brandItems: List<BrandItem>) : RecyclerView.Adapt
         brandLogo.setImageResource(brandItem.imageResId)
         brandName.text = brandItem.brandName
 
-        holder.itemView.setOnClickListener {
-            val navController = it.findNavController()
-            navController.navigate(brandItem.navigationAction)
+        if (onBrandClickListener != null) {
+            holder.itemView.setOnClickListener {
+                onBrandClickListener!!.onBrandClick(position,brandItem)
+            }
         }
-    }
-    data class BrandItem(val fragment: Fragment, val imageResId: Int, val brandName: String, val navigationAction: Int)
 
+    }
+    data class BrandItem(val imageResId: Int, val brandName: String)
+
+    var onBrandClickListener: OnBrandClickListener? = null
+   fun interface OnBrandClickListener {
+        fun onBrandClick(position: Int,brandItem: BrandItem)
+    }
 }

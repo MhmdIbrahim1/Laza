@@ -5,15 +5,14 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/_10sdp"
-    app:cardElevation="0dp"
-    >
+    app:cardElevation="0dp">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F5F6FA">
+        android:background="@color/card_background">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView3"
