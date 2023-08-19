@@ -69,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_25sdp"
                 android:text="$25"
+                android:visibility="invisible"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp" />
 

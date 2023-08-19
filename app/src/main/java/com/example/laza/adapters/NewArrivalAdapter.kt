@@ -1,6 +1,8 @@
 package com.example.laza.adapters
 
+import android.graphics.Paint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -26,6 +28,8 @@ class NewArrivalAdapter : RecyclerView.Adapter<NewArrivalAdapter.ViewHolder>() {
                 if (product.offerPercentage != null) {
                     val discountedPrice = product.price - (product.price * product.offerPercentage / 100)
                     brandPriceAfterOffer.text = "$$discountedPrice"
+                    brandPriceAfterOffer.visibility = View.VISIBLE
+                    brandPriceBeforeOffer.paintFlags = brandPriceBeforeOffer.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 } else {
                     brandPriceAfterOffer.text = "" // Set a default value or empty text
                 }
