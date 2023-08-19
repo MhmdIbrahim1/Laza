@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.brands.PumaFragment">
+    tools:context=".fragments.brands.BrandsFragment">
 
     <TextView
+        android:id="@+id/brand_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:textSize="30sp"
-        android:text="Puma" />
+        android:text="" />
 
 </FrameLayout>

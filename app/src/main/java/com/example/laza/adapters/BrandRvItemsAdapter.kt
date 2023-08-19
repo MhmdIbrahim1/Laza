@@ -1,18 +1,14 @@
 package com.example.laza.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.laza.R
 import com.example.laza.databinding.BrandListItemBinding
 
-class BrandAdapter(private val brandItems: List<BrandItem>) : RecyclerView.Adapter<BrandAdapter.BrandViewHolder>() {
+class BrandRvItemsAdapter(private val brandItems: List<BrandItem>) : RecyclerView.Adapter<BrandRvItemsAdapter.BrandViewHolder>() {
 
     class BrandViewHolder(binding : BrandListItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -39,11 +35,11 @@ class BrandAdapter(private val brandItems: List<BrandItem>) : RecyclerView.Adapt
 
         if (onBrandClickListener != null) {
             holder.itemView.setOnClickListener {
-                onBrandClickListener!!.onBrandClick(position,brandItem)
+                onBrandClickListener!!.onBrandClick(position, brandItem)
             }
         }
-
     }
+
     data class BrandItem(val imageResId: Int, val brandName: String)
 
     var onBrandClickListener: OnBrandClickListener? = null

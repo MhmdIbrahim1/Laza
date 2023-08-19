@@ -6,14 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.laza.R
+import com.example.laza.databinding.FragmentBrandsBinding
 
-
-class NikeFragment : Fragment() {
+class BrandsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_nike, container, false)
+    ): View {
+        val binding = FragmentBrandsBinding.inflate(inflater, container, false)
+        val brandName = arguments?.getString("brandName") ?: ""
+        binding.brandName.text = brandName
+        return binding.root
     }
 }

@@ -12,8 +12,8 @@
         tools:layout="@layout/fragment_home"
         >
         <action
-            android:id="@+id/action_homeFragment_to_adidasFragment"
-            app:destination="@id/adidasFragment" />
+            android:id="@+id/action_homeFragment_to_brandsFragment"
+            app:destination="@id/brandsFragment" />
         <action
             android:id="@+id/action_homeFragment_to_filaFragment"
             app:destination="@id/filaFragment" />
@@ -43,10 +43,14 @@
         tools:layout="@layout/fragment_wishlist"
         />
     <fragment
-        android:id="@+id/adidasFragment"
-        android:name="com.example.laza.fragments.brands.AdidasFragment"
+        android:id="@+id/brandsFragment"
+        android:name="com.example.laza.fragments.brands.BrandsFragment"
         android:label="fragment_adidas"
-        tools:layout="@layout/fragment_adidas" />
+        tools:layout="@layout/fragment_brands" >
+        <argument
+            android:name="brandName"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/filaFragment"
         android:name="com.example.laza.fragments.brands.FilaFragment"

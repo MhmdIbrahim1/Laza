@@ -12,18 +12,16 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.laza.R
-import com.example.laza.adapters.BrandAdapter
+import com.example.laza.adapters.BrandRvItemsAdapter
 import com.example.laza.adapters.NewArrivalAdapter
 import com.example.laza.databinding.FragmentHomeBinding
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.HomeFragmentViewModel
 import com.example.storein.utils.HorizontalItemDecoration
-import com.example.storein.utils.VerticalItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -32,9 +30,9 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var drawerOpener: DrawerOpener
-    private lateinit var brandItem: List<BrandAdapter.BrandItem>
+    private lateinit var brandItem: List<BrandRvItemsAdapter.BrandItem>
     private lateinit var newArrivalAdapter: NewArrivalAdapter
-    private lateinit var brandAdapter: BrandAdapter
+    private lateinit var brandAdapter: BrandRvItemsAdapter
     private val viewModel by viewModels<HomeFragmentViewModel>()
     // Interface to communicate with the activity
     interface DrawerOpener {
@@ -49,17 +47,16 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         changeStatusBarColor(R.color.white)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setDrawer()
         brandItem = listOf(
-            BrandAdapter.BrandItem(R.drawable.adidas, "Adidas"),
-            BrandAdapter.BrandItem(R.drawable.nike, "Nike"),
-            BrandAdapter.BrandItem(R.drawable.puma, "Puma"),
-            BrandAdapter.BrandItem(R.drawable.fila, "Fila")
+            BrandRvItemsAdapter.BrandItem(R.drawable.adidas, "Adidas"),
+            BrandRvItemsAdapter.BrandItem(R.drawable.vector, "Nike"),
+            BrandRvItemsAdapter.BrandItem(R.drawable.puma, "Puma"),
+            BrandRvItemsAdapter.BrandItem(R.drawable.fila, "Fila")
             // Add more BrandItems for other brands as needed
         )
         setUpBrandRV()
@@ -118,28 +115,17 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setUpBrandRV(){
-        brandAdapter = BrandAdapter(brandItem)
-        brandAdapter.onBrandClickListener = BrandAdapter.OnBrandClickListener{ position, _ ->
-            when(position){
-                0 -> {
-                    val action = HomeFragmentDirections.actionHomeFragmentToAdidasFragment()
-                    requireView().findNavController().navigate(action)
-                }
-                1 -> {
-                    val action = HomeFragmentDirections.actionHomeFragmentToNikeFragment()
-                    requireView().findNavController().navigate(action)
-                }
-                2 -> {
-                    val action = HomeFragmentDirections.actionHomeFragmentToPumaFragment()
-                    requireView().findNavController().navigate(action)
-                }
-                3 -> {
-                    val action = HomeFragmentDirections.actionHomeFragmentToFilaFragment()
-                    requireView().findNavController().navigate(action)
-                }
-            }
+    private fun setUpBrandRV() {
+        brandAdapter = BrandRvItemsAdapter(brandItem)
+        brandAdapter.onBrandClickListener = BrandRvItemsAdapter.OnBrandClickListener { position, brandItem ->
+//            val bundle = Bundle()
+//            bundle.putString("brandName", brandItem.brandName)
+//            view?.findNavController()?.navigate(R.id.action_homeFragment_to_brandsFragment, bundle)
+
+            val action = HomeFragmentDirections.actionHomeFragmentToBrandsFragment(brandItem.brandName)
+            view?.findNavController()?.navigate(action)
         }
+
         binding.brandRv.apply {
             layoutManager = LinearLayoutManager(
                 requireContext(),
@@ -150,6 +136,7 @@ class HomeFragment : Fragment() {
             adapter = brandAdapter
         }
     }
+
 
     private fun setUpNewArrivalRV(){
         newArrivalAdapter = NewArrivalAdapter()
