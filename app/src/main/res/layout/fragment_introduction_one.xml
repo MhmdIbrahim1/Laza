@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3D93F8"
+    android:background="@color/background_intro_1"
     tools:context=".fragments.loginAndRegister.introduction.IntroductionFragmentOne">
 
     <ImageView
@@ -86,7 +86,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/background_intro__card_1"
+            >
 
             <TextView
                 android:id="@+id/lookGood_text"
@@ -94,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:text="@string/look_good_feel_good"
-                android:textColor="@color/g_black"
+                android:textColor="@color/background_intro__mentv_2"
                 android:textSize="@dimen/_20ssp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -108,7 +110,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/sf_pro_display"
                 android:text="@string/welcome_txt"
-                android:textColor="@color/g_black"
+                android:textColor="@color/background_intro__mentv_5"
                 app:layout_constraintEnd_toEndOf="@id/lookGood_text"
                 app:layout_constraintStart_toStartOf="@+id/lookGood_text"
                 app:layout_constraintTop_toBottomOf="@id/lookGood_text" />
@@ -122,7 +124,7 @@
                 android:layout_marginTop="28dp"
                 android:background="@drawable/button_shape_women"
                 android:text="@string/men"
-                android:textColor="@color/white"
+                android:textColor="@color/background_intro__mentv_1"
                 app:layout_constraintBottom_toTopOf="@+id/skip"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/welcome_text"
@@ -134,7 +136,7 @@
                 android:layout_height="@dimen/smallButtonHeight"
                 android:background="@drawable/button_shape_men"
                 android:text="@string/women"
-                android:textColor="@color/button_men"
+                android:textColor="@color/background_intro__mentv_2"
                 app:layout_constraintBottom_toBottomOf="@+id/men_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/men_btn" />
@@ -155,6 +157,7 @@
                 android:paddingStart="@dimen/_60sdp"
                 android:paddingEnd="@dimen/_60sdp"
                 android:layout_marginBottom="@dimen/_6ssp"
+                android:textColor="@color/background_intro__mentv_1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline6" />

@@ -12,17 +12,28 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="android:windowIsTranslucent">true</item>
-
 <!--        <item name="textInputStyle">@style/TextInputLayoutTheme</item>-->
+
+<!--        <item name="bottomNavigationStyle">@style/CustomBottomNavigationViewStyle</item>-->
+        <item name="android:windowIsTranslucent">true</item>
 
     </style>
 
     <style name="TextInputLayoutTheme" parent="Widget.Design.TextInputLayout">
         <item name="colorOnSurface">@color/purple_500</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
     <style name="AppTheme.Black">
         <item name="colorAccent">@color/g_black</item> <!-- Whatever color you want-->
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/g_white</item>
+    </style>
+
+    <style name="ThemeOverlay.AppTheme.TextInputEditText.Outlined" parent="">
+        <item name="colorPrimary">@color/bottom_nav_item_shadow_color</item>
     </style>
 </resources>

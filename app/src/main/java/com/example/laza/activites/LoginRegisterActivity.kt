@@ -11,5 +11,10 @@ open class LoginRegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_register)
+        changeStatusBarColor()
+    }
+
+    private fun changeStatusBarColor(){
+        window.statusBarColor = resources.getColor(R.color.status_bar, null)
     }
 }

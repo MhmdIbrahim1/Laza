@@ -30,7 +30,8 @@ class HomeFragmentViewModel @Inject constructor(
              viewModelScope.launch {
                  _newArrival.emit(NetworkResult.Loading())
              }
-             firestore.collection(PRODUCT_COLLECTION).limit(newArrivalPagingInfo.page * 10)
+             firestore.collection(PRODUCT_COLLECTION).whereIn("brand", listOf("Adidas", "New Arrival")) // or for fetch just one field we use WhereEqualTo
+             .limit(newArrivalPagingInfo.page * 10)
                  .get()
                  .addOnSuccessListener { result ->
                      val newArrivalList = result.toObjects(Product::class.java)

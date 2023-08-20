@@ -27,7 +27,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         onLogout()
-
+        changeStatusBarColor()
         // set up the navigation controller
         val navController = findNavController(R.id.shoppingHostFragment)
         binding.bottomNavigation.setupWithNavController(navController)
@@ -77,4 +77,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
         Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
     }
 
+    private fun changeStatusBarColor(){
+        window.statusBarColor = resources.getColor(R.color.status_bar, null)
+    }
 }

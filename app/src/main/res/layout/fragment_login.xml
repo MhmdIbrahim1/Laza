@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color_general"
     tools:context=".fragments.loginAndRegister.login.LoginFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -11,7 +12,7 @@
         android:layout_width="@dimen/_45sdp"
         android:layout_height="@dimen/_45sdp"
         android:layout_marginStart="@dimen/_12sdp"
-        android:src="@color/g_circle_back_arrow"
+        android:src="@color/circle_image_back"
         app:layout_constraintBottom_toTopOf="@id/guideline_h1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp"
         android:text="@string/welcome"
-        android:textColor="@color/g_black"
+        android:textColor="@color/background_intro__mentv_2"
         android:textSize="@dimen/_20ssp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,9 +82,15 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayoutEdEmail"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+        android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp"
+        app:boxStrokeColor="@color/bottom_nav_item_shadow_color"
+        app:counterTextColor="@color/bottom_nav_item_shadow_color"
+        app:prefixTextColor="@color/bottom_nav_item_shadow_color"
+        app:hintTextColor="@color/bottom_nav_item_shadow_color"
         app:layout_constraintEnd_toStartOf="@id/guideline_v2"
         app:layout_constraintStart_toStartOf="@id/guideline_v1"
         app:layout_constraintTop_toBottomOf="@id/guide_h2">
@@ -92,6 +99,7 @@
             android:id="@+id/edEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColorHighlight="@color/bottom_nav_item_shadow_color"
             android:autofillHints="First Name"
             android:ems="10"
             android:hint="@string/hint_email"
@@ -105,6 +113,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp"
         app:passwordToggleEnabled="true"
+
+        android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+        app:boxStrokeColor="@color/bottom_nav_item_shadow_color"
+        app:counterTextColor="@color/bottom_nav_item_shadow_color"
+        app:prefixTextColor="@color/bottom_nav_item_shadow_color"
+        app:hintTextColor="@color/bottom_nav_item_shadow_color"
         app:layout_constraintEnd_toStartOf="@id/guideline_v2"
         app:layout_constraintStart_toStartOf="@id/guideline_v1"
         app:layout_constraintTop_toBottomOf="@id/inputLayoutEdEmail">
@@ -113,6 +127,7 @@
             android:id="@+id/edPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColorHighlight="@color/bottom_nav_item_shadow_color"
             android:autofillHints="Password"
             android:ems="10"
             android:hint="@string/hint_password"
@@ -126,7 +141,8 @@
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:text="@string/forgot_password"
-        android:textColor="@color/g_red"
+        android:textColor="@color/g_gray500"
+        android:textStyle="bold"
         android:textSize="@dimen/_12ssp"
         app:layout_constraintEnd_toEndOf="@id/inputLayoutEdPassword"
         app:layout_constraintTop_toBottomOf="@id/inputLayoutEdPassword" />
@@ -238,7 +254,7 @@
         android:id="@+id/cardView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:backgroundTint="@color/g_background_twitter"
+        android:backgroundTint="@color/background_buttom_card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

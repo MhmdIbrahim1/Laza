@@ -51,7 +51,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        changeStatusBarColor(R.color.white)
         return binding.root
     }
 
@@ -174,10 +173,6 @@ class HomeFragment : Fragment() {
 //            binding.newArrivalsRv.addItemDecoration(ItemSpacingDecoration(10))
 //            adapter = newArrivalAdapter
         }
-    }
-
-    private fun changeStatusBarColor(color: Int){
-        requireActivity().window.statusBarColor = color
     }
 }
 

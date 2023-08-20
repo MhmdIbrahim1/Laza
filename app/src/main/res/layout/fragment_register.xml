@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color_general"
     tools:context=".fragments.loginAndRegister.register.RegisterFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -11,7 +12,7 @@
         android:layout_width="@dimen/_45sdp"
         android:layout_height="@dimen/_45sdp"
         android:layout_marginStart="@dimen/_12sdp"
-        android:src="@color/g_circle_back_arrow"
+        android:src="@color/circle_image_back"
         app:layout_constraintBottom_toTopOf="@id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -41,7 +42,7 @@
         android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:text="@string/sign_up"
-        android:textColor="@color/g_black"
+        android:textColor="@color/background_intro__mentv_2"
         android:textSize="@dimen/_20ssp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,16 +58,22 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayoutEdFirstName"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+        app:boxStrokeColor="@color/bottom_nav_item_shadow_color"
+        app:counterTextColor="@color/bottom_nav_item_shadow_color"
+        app:hintTextColor="@color/bottom_nav_item_shadow_color"
         app:layout_constraintEnd_toEndOf="@id/guideline5"
         app:layout_constraintStart_toStartOf="@id/guideline4"
-        app:layout_constraintTop_toBottomOf="@id/guideline3">
+        app:layout_constraintTop_toBottomOf="@id/guideline3"
+        app:prefixTextColor="@color/bottom_nav_item_shadow_color">
 
         <EditText
             android:id="@+id/edFirstNameReg"
             android:layout_width="match_parent"
+            android:textColorHighlight="@color/bottom_nav_item_shadow_color"
             android:layout_height="wrap_content"
             android:autofillHints="First Name"
             android:ems="10"
@@ -76,17 +83,24 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayoutEdLastName"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintTop_toBottomOf="@id/inputLayoutEdFirstName"
+        android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+        app:boxStrokeColor="@color/bottom_nav_item_shadow_color"
+        app:counterTextColor="@color/bottom_nav_item_shadow_color"
+        app:hintTextColor="@color/bottom_nav_item_shadow_color"
+        app:layout_constraintEnd_toEndOf="@id/guideline5"
         app:layout_constraintStart_toStartOf="@id/guideline4"
-        app:layout_constraintEnd_toEndOf="@id/guideline5">
+        app:layout_constraintTop_toBottomOf="@id/inputLayoutEdFirstName"
+
+        app:prefixTextColor="@color/bottom_nav_item_shadow_color">
 
         <EditText
             android:id="@+id/edLastName"
             android:layout_width="match_parent"
+            android:textColorHighlight="@color/bottom_nav_item_shadow_color"
             android:layout_height="wrap_content"
             android:autofillHints="Last Name"
             android:ems="10"
@@ -97,18 +111,25 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayoutEdEmail"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintTop_toBottomOf="@id/inputLayoutEdLastName"
+        android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+        app:boxStrokeColor="@color/bottom_nav_item_shadow_color"
+        app:counterTextColor="@color/bottom_nav_item_shadow_color"
+        app:hintTextColor="@color/bottom_nav_item_shadow_color"
+        app:layout_constraintEnd_toEndOf="@id/guideline5"
         app:layout_constraintStart_toStartOf="@id/guideline4"
-        app:layout_constraintEnd_toEndOf="@id/guideline5">
+        app:layout_constraintTop_toBottomOf="@id/inputLayoutEdLastName"
+
+        app:prefixTextColor="@color/bottom_nav_item_shadow_color">
 
         <EditText
             android:id="@+id/edEmailReg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColorHighlight="@color/bottom_nav_item_shadow_color"
             android:autofillHints="Email"
             android:ems="10"
             android:hint="@string/hint_email"
@@ -117,14 +138,20 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayoutEdPassword"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        app:passwordToggleEnabled="true"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintTop_toBottomOf="@id/inputLayoutEdEmail"
+        android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+        app:boxStrokeColor="@color/bottom_nav_item_shadow_color"
+        app:counterTextColor="@color/bottom_nav_item_shadow_color"
+        app:hintTextColor="@color/bottom_nav_item_shadow_color"
+        app:layout_constraintEnd_toEndOf="@id/guideline5"
         app:layout_constraintStart_toStartOf="@id/guideline4"
-        app:layout_constraintEnd_toEndOf="@id/guideline5">
+        app:layout_constraintTop_toBottomOf="@id/inputLayoutEdEmail"
+        app:passwordToggleEnabled="true"
+
+        app:prefixTextColor="@color/bottom_nav_item_shadow_color">
 
         <EditText
             android:id="@+id/edPassword"
@@ -132,6 +159,7 @@
             android:layout_height="wrap_content"
             android:autofillHints="Password"
             android:ems="10"
+            android:textColorHighlight="@color/bottom_nav_item_shadow_color"
             android:hint="@string/hint_password"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -140,7 +168,7 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:backgroundTint="@color/g_background_twitter"
+        android:backgroundTint="@color/background_buttom_card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -188,8 +216,8 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:theme="@style/AppTheme.Black"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline4"

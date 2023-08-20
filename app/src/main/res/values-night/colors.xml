@@ -32,38 +32,36 @@
     <color name="g_circle_back_arrow">#F5F6FA</color>
     <color name="g_background_facebook">#4267B2</color>
     <color name="g_background_google">#EA4335</color>
-    <color name="g_background_twitter">#1DA1F2</color>
+    <color name="g_background_twitter">@color/bottom_nav_item_shadow_color</color>
     <color name="button_men">#8F959E</color>
     <color name="custom_progress_color">#141313</color>
     <color name="custom_secondary_progress_color">#00FF00</color>
     <color name="transparent">#00000000</color>
     <color name="card_background">#F5F6FA</color>
-    <color name="background_intro_1">#3D93F8</color>
-    <color name="background_intro__card_1">#F5F6FA</color>
-    <color name="background_intro__men_1">#3D93F8</color>
-    <color name="background_intro__mentv_1">#FEFEFE</color>
-    <color name="background_intro__mentv_2">@color/g_black</color>
-    <color name="background_intro__women_1">#B4FEFEFE</color>
+    <color name="splash_color">#1B262C</color>
+    <color name="splash_color_ic">#9775FA</color>
+    <color name="background_intro_1">#1B262C</color>
+    <color name="background_intro__card_1">#29363D</color>
+    <color name="background_intro__men_1">#222E34</color>
+    <color name="background_intro__mentv_1">#8F959E</color>
+    <color name="background_intro__mentv_2">#F5F8FB</color>
+    <color name="background_intro__women_1">#9775FA</color>
 
-    <color name="background_intro_2">#9873AC</color>
-    <color name="background_intro__mentv_5">@color/g_black</color>
-    <color name="background_intro__mentv_6">@color/button_men</color>
-    <color name="splash_color">#3D93F8</color>
-    <color name="splash_color_ic">#FEFEFE</color>
-    <color name="background_color_general">@color/white</color>
+    <color name="background_intro_2">#1B262C</color>
+    <color name="background_intro__mentv_5">#8F959E</color>
+    <color name="background_intro__mentv_6">@color/g_background_twitter</color>
 
-    <color name="background_buttom_card">@color/g_background_twitter</color>
-    <color name="circle_image_back">@color/white</color>
-    <color name="arrow_image_back">@color/black</color>
+    <color name="background_color_general">#1B262C</color>
+    <color name="background_buttom_card">#29363D</color>
+    <color name="circle_image_back">#222E34</color>
+    <color name="arrow_image_back">@color/white</color>
 
-    <color name="brand_rv_background_color">@color/white</color>
-    <color name="brand_rv_background__card_color">@color/white</color>
+    <color name="brand_rv_background_color">#222E34</color>
+    <color name="brand_rv_background__card_color">#29363D</color>
 
+    <color name="status_bar">@color/bottom_nav_item_shadow_color</color>
     <color name="bottom_nav_item_shadow_color">#6e9bd2</color>
-
     <color name="g_background_twitter_l">#1DA1F2</color>
+    <color name="progress_bar_color">@color/white</color>
 
-    <color name="status_bar">@color/g_background_twitter</color>
-
-    <color name="progress_bar_color">@color/g_background_twitter</color>
 </resources>

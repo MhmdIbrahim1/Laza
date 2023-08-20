@@ -11,7 +11,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/brand_rv_background_color"
+        >
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView3"
@@ -21,6 +23,7 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_5sdp"
             app:cardCornerRadius="@dimen/_8sdp"
+            android:backgroundTint="@color/brand_rv_background__card_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -32,7 +35,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/_5sdp"
                 android:scaleType="centerInside"
-                android:src="@drawable/adidas" />
+                android:src="@drawable/nike" />
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -43,7 +46,7 @@
             android:paddingStart="@dimen/_6sdp"
             android:paddingEnd="@dimen/_15sdp"
             android:text="Adidas"
-            android:textColor="@color/black"
+            android:textColor="@color/background_intro__mentv_2"
             android:textSize="@dimen/_10ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

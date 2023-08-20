@@ -8,14 +8,13 @@
     app:cardCornerRadius="@dimen/_18sdp"
     app:cardElevation="0dp">
 
-    >
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="25dp"
-        android:background="@color/g_light_gray"
+        android:background="@color/background_intro__card_1"
         >
 
     <ImageView
@@ -37,6 +36,7 @@
         android:paddingEnd="20dp"
         android:text="@string/are_you_sure_you_want_to_logout"
         android:textSize="18sp"
+        android:textColor="@color/background_intro__mentv_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageView" />

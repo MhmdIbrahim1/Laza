@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color_general"
     tools:context=".fragments.loginAndRegister.getstarted.GetStartedFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -11,7 +12,7 @@
         android:layout_width="@dimen/_45sdp"
         android:layout_height="@dimen/_45sdp"
         android:layout_marginStart="@dimen/_12sdp"
-        android:src="@color/g_circle_back_arrow"
+        android:src="@color/circle_image_back"
         app:layout_constraintBottom_toTopOf="@id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/get_started"
-        android:textColor="@color/g_black"
+        android:textColor="@color/background_intro__mentv_2"
         android:textSize="@dimen/_20ssp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="@dimen/_8sdp"
-            android:backgroundTint="@color/g_background_twitter"
+            android:backgroundTint="@color/g_background_twitter_l"
             app:cardCornerRadius="@dimen/_10ssp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -206,14 +207,14 @@
             android:text="@string/sign_in"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textColor="@color/g_black"
+            android:textColor="@color/background_intro__mentv_2"
             android:textStyle="bold" />
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:backgroundTint="@color/g_background_twitter"
+        android:backgroundTint="@color/background_buttom_card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

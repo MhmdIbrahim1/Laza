@@ -21,7 +21,8 @@
             android:exported="false" />
         <activity
             android:name=".activites.StartedScreen"
-            android:exported="true">
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

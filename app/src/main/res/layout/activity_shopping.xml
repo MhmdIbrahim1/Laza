@@ -31,10 +31,11 @@
             android:layout_height="70dp"
             app:menu="@menu/bottom_navigation_menu"
             app:labelVisibilityMode="unlabeled"
-            android:background="#FEFEFE"
+            android:background="@color/brand_rv_background__card_color"
             app:itemPaddingTop="@dimen/_10sdp"
             app:itemPaddingBottom="@dimen/_10sdp"
             app:itemRippleColor="@color/g_white"
+            app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
@@ -47,7 +48,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/navigation_drawer_menu"
-        app:headerLayout="@layout/nav_header">
+        app:headerLayout="@layout/nav_header"
+        android:background="@color/brand_rv_background__card_color"
+        >
         <LinearLayout
             android:id="@+id/logout_layout"
             android:layout_width="match_parent"
