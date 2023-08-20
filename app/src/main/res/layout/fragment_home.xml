@@ -150,6 +150,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:text="@string/new_arrivals"
+                android:visibility="gone"
                 android:textColor="@color/g_black"
                 android:textSize="@dimen/_14ssp"
                 android:textStyle="bold"

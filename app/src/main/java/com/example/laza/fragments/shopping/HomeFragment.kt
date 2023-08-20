@@ -1,6 +1,5 @@
 package com.example.laza.fragments.shopping
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -99,9 +98,11 @@ class HomeFragment : Fragment() {
 
     private fun hideLoading() {
         binding.progressBar.visibility = View.GONE
+        binding.newArrivalsTv.visibility = View.VISIBLE
     }
 
     private fun showLoading() {
+        binding.newArrivalsTv.visibility = View.GONE
        binding.progressBar.visibility = View.VISIBLE
     }
 
@@ -121,7 +122,7 @@ class HomeFragment : Fragment() {
 
     private fun setUpBrandRV() {
         brandAdapter = BrandRvItemsAdapter(brandItem)
-        brandAdapter.onBrandClickListener = BrandRvItemsAdapter.OnBrandClickListener { position, brandItem ->
+        brandAdapter.onBrandClickListener = BrandRvItemsAdapter.OnBrandClickListener { _, brandItem ->
             val action = HomeFragmentDirections.actionHomeFragmentToBrandsFragment(brandItem.brandName)
             view?.findNavController()?.navigate(action)
         }

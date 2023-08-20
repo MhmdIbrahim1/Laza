@@ -47,4 +47,7 @@
     <string name="welcome_to_laza">Welcome to Laza.</string>
     <string name="choose_brand">Choose Brand</string>
     <string name="new_arrivals">New Arraival</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="are_you_sure_you_want_to_logout">Are you sure you want to logout?</string>
 </resources>

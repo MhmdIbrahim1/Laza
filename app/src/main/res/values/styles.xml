@@ -28,6 +28,13 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
+    <style name="redButtonStyle">
+        <item name="android:background">@drawable/red_background</item>
+        <item name="android:fontFamily">@font/poppins_thin</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/h2TextSize</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
     <style name="whiteButtonStyle">
         <item name="android:background">@drawable/white_background</item>
         <item name="android:fontFamily">@font/poppins_thin</item>
@@ -45,7 +52,7 @@
 
 
     <dimen name="h4TextSize">35sp</dimen>
-    <dimen name="h2TextSize">17sp</dimen>
+    <dimen name="h2TextSize">14sp</dimen>
     <dimen name="h3TextSize">22sp</dimen>
     <style name="DialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
@@ -93,6 +100,13 @@
     <style name="BottomNavigationItem.NoIcon">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/dialog_background</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
     </style>
 
 
