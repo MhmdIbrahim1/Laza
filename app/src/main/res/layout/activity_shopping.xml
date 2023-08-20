@@ -49,6 +49,7 @@
         app:menu="@menu/navigation_drawer_menu"
         app:headerLayout="@layout/nav_header">
         <LinearLayout
+            android:id="@+id/logout_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
