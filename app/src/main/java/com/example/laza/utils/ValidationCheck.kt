@@ -32,8 +32,8 @@ fun validatePassword(password: String): RegisterValidation {
 
  fun getGoogleSignInClient(context: Context): GoogleSignInClient {
     val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        .requestEmail()
         .requestIdToken(context.getString(R.string.web_client_id))
+        .requestEmail()
         .build()
     return GoogleSignIn.getClient(context, gso)
 }

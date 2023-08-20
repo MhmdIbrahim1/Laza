@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.laza.R
@@ -142,16 +143,24 @@ class HomeFragment : Fragment() {
     private fun setUpNewArrivalRV(){
         newArrivalAdapter = NewArrivalAdapter()
         binding.newArrivalsRv.apply {
-            val layoutManager = StaggeredGridLayoutManager(
+            val layoutManager = GridLayoutManager(
+                requireContext(),
                 2,
-                StaggeredGridLayoutManager.VERTICAL,
+                GridLayoutManager.VERTICAL,
+                false
             )
-            layoutManager.gapStrategy =
-                StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
             binding.newArrivalsRv.layoutManager = layoutManager
             binding.newArrivalsRv.addItemDecoration(ItemSpacingDecoration(10))
             adapter = newArrivalAdapter
-
+//            val layoutManager = GridLayoutManager(
+//                2,
+//                StaggeredGridLayoutManager.VERTICAL,
+//            )
+//            layoutManager.gapStrategy =
+//                StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
+//            binding.newArrivalsRv.layoutManager = layoutManager
+//            binding.newArrivalsRv.addItemDecoration(ItemSpacingDecoration(10))
+//            adapter = newArrivalAdapter
         }
     }
 

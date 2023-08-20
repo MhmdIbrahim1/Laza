@@ -28,7 +28,7 @@ class HomeFragmentViewModel @Inject constructor(
         viewModelScope.launch {
             _newArrival.emit(NetworkResult.Loading())
         }
-        firestore.collection(PRODUCT_COLLECTION).whereEqualTo("brand","New Arrival")
+        firestore.collection(PRODUCT_COLLECTION)
             .get()
             .addOnSuccessListener {result ->
                 val newArrivalList = result.toObjects(Product::class.java)
