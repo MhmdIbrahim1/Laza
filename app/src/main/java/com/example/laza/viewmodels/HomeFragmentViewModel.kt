@@ -20,28 +20,40 @@ class HomeFragmentViewModel @Inject constructor(
     private val _newArrival = MutableStateFlow<NetworkResult<List<Product>>>(NetworkResult.UnSpecified())
     val newArrival = _newArrival.asStateFlow()
 
+    private val newArrivalPagingInfo = NewArrivalPagingInfo()
     init {
         fetchNewArrival()
     }
 
-    private fun fetchNewArrival(){
-        viewModelScope.launch {
-            _newArrival.emit(NetworkResult.Loading())
-        }
-        firestore.collection(PRODUCT_COLLECTION)
-            .get()
-            .addOnSuccessListener {result ->
-                val newArrivalList = result.toObjects(Product::class.java)
-                viewModelScope.launch {
-                    _newArrival.emit(NetworkResult.Success(newArrivalList))
-                }
-
-            }
-            .addOnFailureListener {
-                viewModelScope.launch {
-                    _newArrival.emit(NetworkResult.Error(it.message.toString()))
-                }
-            }
+     fun fetchNewArrival(){
+         if (!newArrivalPagingInfo.isPagingEnd) {
+             viewModelScope.launch {
+                 _newArrival.emit(NetworkResult.Loading())
+             }
+             firestore.collection(PRODUCT_COLLECTION).limit(newArrivalPagingInfo.page * 10)
+                 .get()
+                 .addOnSuccessListener { result ->
+                     val newArrivalList = result.toObjects(Product::class.java)
+                     newArrivalPagingInfo.isPagingEnd =
+                         newArrivalList == newArrivalPagingInfo.oldNewArrivalList
+                     newArrivalPagingInfo.oldNewArrivalList = newArrivalList
+                     viewModelScope.launch {
+                         _newArrival.emit(NetworkResult.Success(newArrivalList))
+                     }
+                     newArrivalPagingInfo.page++
+                 }
+                 .addOnFailureListener {
+                     viewModelScope.launch {
+                         _newArrival.emit(NetworkResult.Error(it.message.toString()))
+                     }
+                 }
+         }
     }
+
+    internal data class NewArrivalPagingInfo(
+        var page: Long = 1,
+        var oldNewArrivalList: List<Product> = emptyList(),
+        var isPagingEnd: Boolean = false
+    )
 
 }

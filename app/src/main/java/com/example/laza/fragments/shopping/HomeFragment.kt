@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -36,6 +37,7 @@ class HomeFragment : Fragment() {
     private lateinit var brandItem: List<BrandRvItemsAdapter.BrandItem>
     private lateinit var newArrivalAdapter: NewArrivalAdapter
     private lateinit var brandAdapter: BrandRvItemsAdapter
+    private lateinit var nestedScrollView: NestedScrollView
     private val viewModel by viewModels<HomeFragmentViewModel>()
 
     // Interface to communicate with the activity
@@ -66,6 +68,16 @@ class HomeFragment : Fragment() {
         setUpBrandRV()
         setUpNewArrivalRV()
         observeNewArrival()
+
+        nestedScrollView = binding.nestedScrollMainCategory
+        nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
+            val reachEnd =
+                scrollY >= (nestedScrollView.getChildAt(0).measuredHeight - nestedScrollView.measuredHeight)
+            if (reachEnd) {
+                viewModel.fetchNewArrival()
+            }
+        })
+
     }
 
 

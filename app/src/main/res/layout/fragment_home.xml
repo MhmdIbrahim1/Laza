@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/g_light_gray"
-    >
+    android:fitsSystemWindows="true">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollMainCategory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:id="@+id/nestedScrollMainCategory">
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -22,10 +21,10 @@
                 android:id="@+id/circleImageMenu"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
+                android:scaleType="centerCrop"
                 android:src="@color/g_circle_back_arrow"
                 app:civ_border_color="@color/g_circle_back_arrow"
                 app:civ_border_width="1dp"
-                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toTopOf="@id/guideline1"
                 app:layout_constraintEnd_toEndOf="@id/guideline2"
                 app:layout_constraintStart_toStartOf="@id/guideline3"
@@ -66,9 +65,9 @@
                 android:id="@+id/cardSearch"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_45sdp"
+                android:layout_marginTop="@dimen/_14sdp"
                 android:elevation="0dp"
                 app:cardCornerRadius="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_14sdp"
                 app:layout_constraintEnd_toEndOf="@id/search_V_2"
                 app:layout_constraintStart_toStartOf="@id/search_V_1"
                 app:layout_constraintTop_toBottomOf="@+id/welcome_to_laza">
@@ -151,10 +150,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:text="@string/new_arrivals"
-                android:visibility="gone"
                 android:textColor="@color/g_black"
                 android:textSize="@dimen/_14ssp"
                 android:textStyle="bold"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@+id/choose_brandTv"
                 app:layout_constraintTop_toBottomOf="@+id/brandRv" />
 
@@ -162,8 +161,8 @@
                 android:id="@+id/newArrivalsRv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginStart="15dp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginEnd="15dp"
                 android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -176,12 +175,11 @@
                 android:layout_height="wrap_content"
                 android:theme="@style/AppTheme.Black"
                 android:visibility="gone"
+                android:layout_marginBottom="@dimen/_5sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.468"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.855" />
+                app:layout_constraintEnd_toEndOf="parent"
+                />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline1"
@@ -216,7 +214,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.30"/>
+                app:layout_constraintGuide_percent="0.30" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/search_H_2"
