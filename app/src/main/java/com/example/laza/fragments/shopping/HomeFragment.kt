@@ -135,7 +135,7 @@ class HomeFragment : Fragment() {
     private fun setUpBrandRV() {
         brandAdapter = BrandRvItemsAdapter(brandItem)
         brandAdapter.onBrandClickListener = BrandRvItemsAdapter.OnBrandClickListener { _, brandItem ->
-            val action = HomeFragmentDirections.actionHomeFragmentToBrandsFragment(brandItem.brandName)
+            val action = HomeFragmentDirections.actionHomeFragmentToBrandsFragment(brandItem.imageResId, brandItem.brandName)
             view?.findNavController()?.navigate(action)
         }
 
@@ -163,15 +163,6 @@ class HomeFragment : Fragment() {
             binding.newArrivalsRv.layoutManager = layoutManager
             binding.newArrivalsRv.addItemDecoration(ItemSpacingDecoration(10))
             adapter = newArrivalAdapter
-//            val layoutManager = GridLayoutManager(
-//                2,
-//                StaggeredGridLayoutManager.VERTICAL,
-//            )
-//            layoutManager.gapStrategy =
-//                StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
-//            binding.newArrivalsRv.layoutManager = layoutManager
-//            binding.newArrivalsRv.addItemDecoration(ItemSpacingDecoration(10))
-//            adapter = newArrivalAdapter
         }
     }
 }

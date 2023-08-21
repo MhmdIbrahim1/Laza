@@ -50,7 +50,7 @@
     <color name="background_intro__mentv_6">@color/button_men</color>
     <color name="splash_color">#3D93F8</color>
     <color name="splash_color_ic">#FEFEFE</color>
-    <color name="background_color_general">@color/white</color>
+    <color name="background_color_general">@color/g_light_gray</color>
 
     <color name="background_buttom_card">@color/g_background_twitter</color>
     <color name="circle_image_back">@color/white</color>

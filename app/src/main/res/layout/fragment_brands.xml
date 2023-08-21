@@ -1,16 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background_color_general"
+    android:fitsSystemWindows="true"
     tools:context=".fragments.brands.BrandsFragment">
 
-    <TextView
-        android:id="@+id/brand_name"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollBrands"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:text="" />
+        android:fillViewport="true">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/backArrow"
+                android:layout_width="@dimen/_45sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="16dp"
+                android:src="@color/circle_image_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/arrow_1"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:src="@drawable/arrow___left"
+                app:layout_constraintBottom_toBottomOf="@id/backArrow"
+                app:layout_constraintEnd_toEndOf="@id/backArrow"
+                app:layout_constraintStart_toStartOf="@id/backArrow"
+                app:layout_constraintTop_toTopOf="@id/backArrow" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cart_background_brands"
+                android:layout_width="@dimen/_45sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:src="@color/circle_image_back"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/cardView3" />
+
+            <ImageView
+                android:id="@+id/cart_from_brands"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:src="@drawable/cart"
+                app:layout_constraintBottom_toBottomOf="@id/cart_background_brands"
+                app:layout_constraintEnd_toEndOf="@id/cart_background_brands"
+                app:layout_constraintStart_toStartOf="@id/cart_background_brands"
+                app:layout_constraintTop_toTopOf="@id/cart_background_brands" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView3"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:backgroundTint="@color/brand_rv_background__card_color"
+                app:cardCornerRadius="@dimen/_8sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/backArrow"
+                app:layout_constraintEnd_toStartOf="@+id/cart_background_brands"
+                app:layout_constraintStart_toEndOf="@+id/backArrow"
+                app:layout_constraintTop_toTopOf="@+id/backArrow">
+
+                <ImageView
+                    android:id="@+id/imageBrand"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/vector" />
+            </androidx.cardview.widget.CardView>
+
+
+            <TextView
+                android:id="@+id/item_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text=""
+                android:textColor="@color/background_intro__mentv_2"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/backArrow"
+                app:layout_constraintTop_toBottomOf="@+id/backArrow" />
+
+            <TextView
+                android:id="@+id/available_on_stock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Available in stock"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/item_count"
+                app:layout_constraintTop_toBottomOf="@+id/item_count" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/brands_rv"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/available_on_stock" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.Black"
+                android:visibility="gone"
+                android:layout_marginBottom="@dimen/_5sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

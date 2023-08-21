@@ -25,7 +25,7 @@
     </style>
 
     <style name="AppTheme.Black">
-        <item name="colorAccent">@color/g_black</item> <!-- Whatever color you want-->
+        <item name="colorAccent">@color/progress_bar_color</item> <!-- Whatever color you want-->
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
