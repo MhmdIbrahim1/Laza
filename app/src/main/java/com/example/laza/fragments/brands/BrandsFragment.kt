@@ -90,7 +90,7 @@ class BrandsFragment : Fragment() {
                 false
             )
             binding.brandsRv.layoutManager = layoutManager
-            binding.brandsRv.addItemDecoration(ItemSpacingDecoration(10))
+            binding.brandsRv.addItemDecoration(ItemSpacingDecoration(20))
             adapter = brandsAdapter
         }
     }

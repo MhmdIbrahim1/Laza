@@ -24,7 +24,7 @@
                 android:layout_width="@dimen/_45sdp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="20dp"
                 android:src="@color/circle_image_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -84,11 +84,12 @@
                 android:id="@+id/item_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="15dp"
                 android:text=""
                 android:textColor="@color/background_intro__mentv_2"
                 android:textStyle="bold"
                 android:visibility="gone"
+                android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="@+id/backArrow"
                 app:layout_constraintTop_toBottomOf="@+id/backArrow" />
 
@@ -104,11 +105,10 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/brands_rv"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
