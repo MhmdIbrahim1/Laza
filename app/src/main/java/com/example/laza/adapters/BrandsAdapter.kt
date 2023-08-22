@@ -61,4 +61,6 @@ class BrandsAdapter : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
         val product = differ.currentList[position]
         holder.bind(product)
     }
+
+
 }

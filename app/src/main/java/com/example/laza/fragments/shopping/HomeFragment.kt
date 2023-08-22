@@ -77,6 +77,13 @@ class HomeFragment : Fragment() {
             }
         })
 
+        nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
+            val reachEnd =
+                scrollY >= (nestedScrollView.getChildAt(0).measuredHeight - nestedScrollView.measuredHeight)
+            if (reachEnd) {
+                viewModel.fetchNewArrival()
+            }
+        })
     }
 
 
@@ -161,7 +168,7 @@ class HomeFragment : Fragment() {
                 false
             )
             binding.newArrivalsRv.layoutManager = layoutManager
-            binding.newArrivalsRv.addItemDecoration(ItemSpacingDecoration(10))
+            binding.newArrivalsRv.addItemDecoration(ItemSpacingDecoration(20))
             adapter = newArrivalAdapter
         }
     }

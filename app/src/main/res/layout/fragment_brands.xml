@@ -21,8 +21,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/backArrow"
-                android:layout_width="@dimen/_45sdp"
-                android:layout_height="@dimen/_45sdp"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginTop="20dp"
                 android:src="@color/circle_image_back"
@@ -41,10 +41,11 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/cart_background_brands"
-                android:layout_width="@dimen/_45sdp"
-                android:layout_height="@dimen/_45sdp"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
                 android:layout_marginEnd="@dimen/_12sdp"
                 android:src="@color/circle_image_back"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/cardView3" />
 
@@ -56,12 +57,12 @@
                 app:layout_constraintBottom_toBottomOf="@id/cart_background_brands"
                 app:layout_constraintEnd_toEndOf="@id/cart_background_brands"
                 app:layout_constraintStart_toStartOf="@id/cart_background_brands"
-                app:layout_constraintTop_toTopOf="@id/cart_background_brands" />
+                app:layout_constraintTop_toTopOf="@+id/cardView3" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView3"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:backgroundTint="@color/brand_rv_background__card_color"
                 app:cardCornerRadius="@dimen/_8sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/backArrow"
@@ -71,8 +72,8 @@
 
                 <ImageView
                     android:id="@+id/imageBrand"
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/_5sdp"
                     android:scaleType="centerInside"
@@ -105,10 +106,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/brands_rv"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
