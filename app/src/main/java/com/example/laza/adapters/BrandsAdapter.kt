@@ -14,7 +14,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 class BrandsAdapter : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
 
-    inner class ViewHolder(private val binding: BrandRvItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: BrandRvItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
             binding.apply {
                 brandImage.load(product.images[0]) {
@@ -25,10 +26,12 @@ class BrandsAdapter : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
 
                 // Check if offerPercentage is not null before using it
                 if (product.offerPercentage != null) {
-                    val discountedPrice = product.price - (product.price * product.offerPercentage / 100)
+                    val discountedPrice =
+                        product.price - (product.price * product.offerPercentage / 100)
                     brandPriceAfterOffer.text = "$$discountedPrice"
                     brandPriceAfterOffer.visibility = View.VISIBLE
-                    brandPriceBeforeOffer.paintFlags = brandPriceBeforeOffer.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                    brandPriceBeforeOffer.paintFlags =
+                        brandPriceBeforeOffer.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 } else {
                     brandPriceAfterOffer.text = "" // Set a default value or empty text
                 }

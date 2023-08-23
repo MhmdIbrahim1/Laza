@@ -88,9 +88,9 @@
                 android:layout_marginTop="15dp"
                 android:text=""
                 android:textColor="@color/background_intro__mentv_2"
+                android:textSize="@dimen/_12ssp"
                 android:textStyle="bold"
                 android:visibility="gone"
-                android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="@+id/backArrow"
                 app:layout_constraintTop_toBottomOf="@+id/backArrow" />
 
@@ -120,13 +120,12 @@
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_5sdp"
                 android:theme="@style/AppTheme.Black"
                 android:visibility="gone"
-                android:layout_marginBottom="@dimen/_5sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                />
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

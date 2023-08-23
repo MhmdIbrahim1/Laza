@@ -76,14 +76,6 @@ class HomeFragment : Fragment() {
                 viewModel.fetchNewArrival()
             }
         })
-
-        nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
-            val reachEnd =
-                scrollY >= (nestedScrollView.getChildAt(0).measuredHeight - nestedScrollView.measuredHeight)
-            if (reachEnd) {
-                viewModel.fetchNewArrival()
-            }
-        })
     }
 
 

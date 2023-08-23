@@ -104,5 +104,9 @@ dependencies {
 
     //Twitter
     implementation 'com.twitter.sdk.android:twitter-core:3.3.0' // Core Twitter SDK
+    
+    // add dependence of pagination to gradel script
+    def paging_version = "2.1.2"
+    implementation "androidx.paging:paging-runtime:$paging_version" // pagination
 
 }

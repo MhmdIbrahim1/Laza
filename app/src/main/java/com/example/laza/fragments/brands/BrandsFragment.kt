@@ -8,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +20,7 @@ import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BrandsFragment : Fragment() {
@@ -58,25 +61,27 @@ class BrandsFragment : Fragment() {
     }
 
     private fun observeBrandData() {
-        lifecycleScope.launchWhenStarted {
-            viewModel.brandsData.collectLatest {
-                when (it) {
-                    is NetworkResult.Success -> {
-                        brandsAdapter.differ.submitList(it.data)
-                        hideLoading()
-                    }
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.brandsData.collectLatest {
+                    when (it) {
+                        is NetworkResult.Success -> {
+                            brandsAdapter.differ.submitList(it.data)
+                            hideLoading()
+                        }
 
-                    is NetworkResult.Error -> {
-                        Log.d("BrandsFragment", "Error: ${it.message}")
-                        hideLoading()
-                    }
+                        is NetworkResult.Error -> {
+                            Log.d("BrandsFragment", "Error: ${it.message}")
+                            hideLoading()
+                        }
 
-                    is NetworkResult.Loading -> {
-                        Log.d("BrandsFragment", "Loading...")
-                        showLoading()
-                    }
+                        is NetworkResult.Loading -> {
+                            Log.d("BrandsFragment", "Loading...")
+                            showLoading()
+                        }
 
-                    else -> {}
+                        else -> {}
+                    }
                 }
             }
         }
@@ -115,7 +120,7 @@ class BrandsFragment : Fragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
-                    val isAtBottomOfList = lastVisibleItemPosition == brandsAdapter.itemCount - 1
+                    val isAtBottomOfList = lastVisibleItemPosition == brandsAdapter.itemCount-1
                     if (isAtBottomOfList) {
                         viewModel.fetchBrandsData(brandName)
                     }

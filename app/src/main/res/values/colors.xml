@@ -53,7 +53,7 @@
     <color name="background_color_general">@color/g_light_gray</color>
 
     <color name="background_buttom_card">@color/g_background_twitter</color>
-    <color name="circle_image_back">@color/white</color>
+    <color name="circle_image_back">@color/g_light_gray</color>
     <color name="arrow_image_back">@color/black</color>
 
     <color name="brand_rv_background_color">@color/white</color>
