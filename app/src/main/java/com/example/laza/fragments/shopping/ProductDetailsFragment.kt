@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.laza.R
-import com.example.laza.activites.ViewPager2Images
+import com.example.laza.adapters.ViewPager2Images
 import com.example.laza.databinding.FragmentProductDetailsBinding
 
 

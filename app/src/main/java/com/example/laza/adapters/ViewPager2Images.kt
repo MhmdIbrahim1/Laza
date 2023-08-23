@@ -1,4 +1,4 @@
-package com.example.laza.activites
+package com.example.laza.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
