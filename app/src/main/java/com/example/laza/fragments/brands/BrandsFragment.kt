@@ -19,6 +19,7 @@ import com.example.laza.adapters.BrandsAdapter
 import com.example.laza.databinding.FragmentBrandsBinding
 import com.example.laza.fragments.shopping.HomeFragmentDirections
 import com.example.laza.helper.getProductPrice
+import com.example.laza.utils.HideBottomNavigation
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
@@ -80,7 +81,6 @@ class BrandsFragment : Fragment() {
         }
     }
 
-
     private fun observeBrandData() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -121,7 +121,7 @@ class BrandsFragment : Fragment() {
             binding.brandsRv.layoutManager = layoutManager
             binding.brandsRv.addItemDecoration(ItemSpacingDecoration(20))
             adapter = brandsAdapter
-
+            // Add the scroll listener here
             addOnScrollListener(createOnScrollListener(layoutManager))
         }
     }
@@ -138,13 +138,17 @@ class BrandsFragment : Fragment() {
 
     private fun createOnScrollListener(layoutManager: GridLayoutManager): RecyclerView.OnScrollListener {
         return object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
-                    val isAtBottomOfList = lastVisibleItemPosition == brandsAdapter.itemCount - 1
-                    if (isAtBottomOfList) {
-                        viewModel.fetchBrandsData(brandName)
-                    }
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val visibleItemCount = layoutManager.childCount
+                val totalItemCount = layoutManager.itemCount
+                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                // If the sum of the visible items and the first visible item's position
+                // is greater than or equal to the total item count, load more data
+                if (visibleItemCount + firstVisibleItemPosition >= totalItemCount) {
+                    viewModel.fetchBrandsData(brandName)
                 }
             }
         }
@@ -168,5 +172,10 @@ class BrandsFragment : Fragment() {
             binding.availableOnStock.visibility = View.VISIBLE
             binding.itemCount.visibility = View.VISIBLE
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        HideBottomNavigation()
     }
 }

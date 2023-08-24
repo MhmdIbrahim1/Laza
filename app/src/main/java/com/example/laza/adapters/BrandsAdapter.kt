@@ -39,6 +39,7 @@ class BrandsAdapter : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
         }
     }
 
+
     private val diffCallBack = object : DiffUtil.ItemCallback<Product>() {
         override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
             return oldItem.id == newItem.id
@@ -48,7 +49,6 @@ class BrandsAdapter : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
             return oldItem == newItem
         }
     }
-
     val differ = AsyncListDiffer(this, diffCallBack)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
