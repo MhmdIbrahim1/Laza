@@ -157,7 +157,6 @@
                 android:paddingStart="@dimen/_60sdp"
                 android:paddingEnd="@dimen/_60sdp"
                 android:layout_marginBottom="@dimen/_6ssp"
-                android:textColor="@color/background_intro__mentv_1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline6" />

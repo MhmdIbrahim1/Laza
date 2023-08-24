@@ -63,7 +63,13 @@ class BrandsAdapter : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val product = differ.currentList[position]
         holder.bind(product)
+
+        // Set up item click listener
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.let { it(product) }
+        }
     }
 
+    var onItemClickListener: ((Product) -> Unit)? = null
 
 }

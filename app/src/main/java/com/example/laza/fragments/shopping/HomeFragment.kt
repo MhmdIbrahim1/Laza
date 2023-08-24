@@ -13,16 +13,20 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.laza.R
 import com.example.laza.activites.LoginRegisterActivity
+import com.example.laza.activites.ShoppingActivity
 import com.example.laza.adapters.BrandRvItemsAdapter
 import com.example.laza.adapters.NewArrivalAdapter
 import com.example.laza.databinding.FragmentHomeBinding
+import com.example.laza.helper.getProductPrice
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
+import com.example.laza.utils.ShowBottomNavigation
 import com.example.laza.viewmodels.HomeFragmentViewModel
 import com.example.storein.utils.HorizontalItemDecoration
 import com.google.firebase.auth.FirebaseAuth
@@ -76,8 +80,22 @@ class HomeFragment : Fragment() {
                 viewModel.fetchNewArrival()
             }
         })
-    }
 
+        newArrivalAdapter.onItemClickListener = {
+            if (isAdded) {
+                // Calculate the price after applying the offer percentage (if available)
+                val priceAfterOffer = it.offerPercentage?.getProductPrice(it.price) ?: it.price
+
+                // Create a new product object with the updated price
+                val updatedProduct = it.copy(price = priceAfterOffer)
+
+                // Navigate to the product details fragment and pass the updated product object
+                val action =
+                    HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(updatedProduct)
+                view.findNavController().navigate(action)
+            }
+        }
+    }
 
     private fun observeNewArrival(){
         lifecycleScope.launch {
@@ -163,6 +181,11 @@ class HomeFragment : Fragment() {
             binding.newArrivalsRv.addItemDecoration(ItemSpacingDecoration(20))
             adapter = newArrivalAdapter
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ShowBottomNavigation()
     }
 }
 

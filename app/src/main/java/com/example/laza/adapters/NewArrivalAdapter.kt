@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.laza.data.Product
 import com.example.laza.databinding.NewArrivalRvItemBinding
+import com.example.laza.helper.getProductPrice
 
 class NewArrivalAdapter : RecyclerView.Adapter<NewArrivalAdapter.ViewHolder>() {
-
 
     inner class ViewHolder(private val binding: NewArrivalRvItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -22,12 +22,12 @@ class NewArrivalAdapter : RecyclerView.Adapter<NewArrivalAdapter.ViewHolder>() {
                     crossfade(1000)
                 }
                 brandName.text = product.name
-                brandPriceBeforeOffer.text = "$${product.price}"
+                brandPriceBeforeOffer.text = "E£ ${product.price}"
 
                 // Check if offerPercentage is not null before using it
                 if (product.offerPercentage != null) {
-                    val discountedPrice = product.price - (product.price * product.offerPercentage / 100)
-                    brandPriceAfterOffer.text = "$$discountedPrice"
+//                    val discountedPrice = product.price - (product.price * product.offerPercentage / 100)
+                    brandPriceAfterOffer.text = product.offerPercentage.getProductPrice(product.price).toString()
                     brandPriceAfterOffer.visibility = View.VISIBLE
                     brandPriceBeforeOffer.paintFlags = brandPriceBeforeOffer.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 } else {
@@ -62,5 +62,10 @@ class NewArrivalAdapter : RecyclerView.Adapter<NewArrivalAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val product = differ.currentList[position]
         holder.bind(product)
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.invoke(product)
+        }
     }
+
+    var onItemClickListener: ((Product) -> Unit)? = null
 }

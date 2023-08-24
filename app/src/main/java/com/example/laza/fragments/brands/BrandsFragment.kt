@@ -11,11 +11,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.laza.adapters.BrandsAdapter
 import com.example.laza.databinding.FragmentBrandsBinding
+import com.example.laza.fragments.shopping.HomeFragmentDirections
+import com.example.laza.helper.getProductPrice
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,7 +61,25 @@ class BrandsFragment : Fragment() {
         observeBrandData()
         setUpRecyclerView()
         observeTotalItemCount()
+
+        brandsAdapter.onItemClickListener = {
+            if (isAdded) {
+                // Calculate the price after applying the offer percentage (if available)
+                val priceAfterOffer = it.offerPercentage?.getProductPrice(it.price) ?: it.price
+
+                // Create a new product object with the updated price
+                val updatedProduct = it.copy(price = priceAfterOffer)
+
+                // Navigate to the product details fragment and pass the updated product object
+                val action =
+                    BrandsFragmentDirections.actionBrandsFragmentToProductDetailsFragment(
+                        updatedProduct
+                    )
+                view.findNavController().navigate(action)
+            }
+        }
     }
+
 
     private fun observeBrandData() {
         lifecycleScope.launch {
@@ -120,7 +141,7 @@ class BrandsFragment : Fragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
-                    val isAtBottomOfList = lastVisibleItemPosition == brandsAdapter.itemCount-1
+                    val isAtBottomOfList = lastVisibleItemPosition == brandsAdapter.itemCount - 1
                     if (isAtBottomOfList) {
                         viewModel.fetchBrandsData(brandName)
                     }

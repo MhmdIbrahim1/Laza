@@ -12,8 +12,8 @@
         android:layout_width="@dimen/_45sdp"
         android:layout_height="@dimen/_45sdp"
         android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_13sdp"
         android:src="@color/circle_image_back"
-        app:layout_constraintBottom_toTopOf="@id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,14 +33,14 @@
         style="@style/h4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="@string/get_started"
         android:textColor="@color/background_intro__mentv_2"
         android:textSize="@dimen/_20ssp"
         android:textStyle="bold"
+        android:layout_marginTop="@dimen/_22sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline2" />
+        app:layout_constraintTop_toBottomOf="@+id/backArrow" />
 
 
     <LinearLayout
@@ -141,13 +141,6 @@
 
         </androidx.cardview.widget.CardView>
     </LinearLayout>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="619dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineGroup1"

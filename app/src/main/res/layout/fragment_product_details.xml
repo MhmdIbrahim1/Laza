@@ -19,6 +19,7 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_8sdp"
+            android:background="@color/background_color_general"
             app:cardCornerRadius="@dimen/_15sdp"
             app:cardElevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +29,26 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPagerProductImages"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:background="@color/background_color_general" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayoutImageIndicator"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_6sdp"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="@dimen/_130sdp"
+                android:background="@color/background_color_general"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/viewPagerProductImages"
+                app:tabBackground="@drawable/tab_selector"
+                app:tabGravity="center"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorHeight="0dp"
+                app:tabMaxWidth="16dp"
+
+                app:tabPaddingEnd="8dp"
+                app:tabPaddingStart="8dp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/backArrow"
@@ -78,19 +98,38 @@
             <TextView
                 android:id="@+id/productName"
                 style="@style/h3"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/product_name"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/productPrice"
-                style="@style/h3"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/product_price" />
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/productPriceLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/price_label"
+                    app:layout_constraintStart_toStartOf="@+id/productPrice"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/productPrice"
+                    style="@style/h3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/product_price"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/productPriceLabel" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
+
 
         <View
             android:id="@+id/line"
@@ -120,7 +159,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/color"
-                android:textColor="@color/g_gray700"
+                android:textColor="@color/background_intro__mentv_2"
                 android:textSize="@dimen/_14ssp"
                 android:textStyle="bold" />
 
@@ -128,55 +167,71 @@
                 android:id="@+id/rvColors"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="@dimen/_5sdp"
-                />
+                android:orientation="horizontal" />
 
 
             <TextView
                 android:id="@+id/tvProductSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:text="@string/size"
-                android:textColor="@color/g_gray700"
+                android:textColor="@color/background_intro__mentv_2"
                 android:textSize="@dimen/_14ssp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvSizes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/_5sdp"/>
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tvProductDescription"
+            android:id="@+id/tvProductDescriptionTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/product_description"
-            android:textColor="@color/g_gray700"
-            android:textSize="@dimen/_11ssp"
-            android:textStyle="bold"
             android:layout_marginTop="@dimen/_24sdp"
+            android:text="@string/description"
+            android:textColor="@color/background_intro__mentv_2"
+            android:textSize="@dimen/_14ssp"
             app:layout_constraintEnd_toEndOf="@id/llProductPreferences"
             app:layout_constraintStart_toStartOf="@id/llProductPreferences"
             app:layout_constraintTop_toBottomOf="@id/llProductPreferences" />
 
+        <com.borjabravo.readmoretextview.ReadMoreTextView
+            android:id="@+id/tvProductDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:text="@string/product_description"
+            android:textColor="@color/background_intro__mentv_2"
+            android:textSize="@dimen/_11ssp"
+            android:textStyle="bold"
+            app:colorClickableText="@color/status_bar"
+            app:layout_constraintEnd_toEndOf="@id/tvProductDescriptionTitle"
+            app:layout_constraintStart_toStartOf="@id/tvProductDescriptionTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvProductDescriptionTitle"
+            app:trimCollapsedText="@string/read_more"
+            app:trimExpandedText="@string/read_less"
+            app:trimLength="25" />
 
         <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             android:id="@+id/btnAddToCart"
+            style="@style/blueButtonStyleDetails"
             android:layout_width="0dp"
             android:layout_height="@dimen/mediumButtonHeight"
-            style="@style/blueButtonStyleDetails"
             android:layout_marginTop="45dp"
             android:layout_marginBottom="@dimen/_20sdp"
             android:text="@string/add_to_cart"
-            app:spinning_bar_color="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/tvProductDescription"
-            app:layout_constraintStart_toStartOf="@id/tvProductDescription"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/tvProductDescription"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintStart_toStartOf="@id/tvProductDescription"
+            app:layout_constraintTop_toBottomOf="@id/tvProductDescription"
+            app:spinning_bar_color="@color/white" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

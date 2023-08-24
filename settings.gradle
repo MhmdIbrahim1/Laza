@@ -12,6 +12,7 @@ dependencyResolutionManagement {
         mavenCentral()
         //noinspection JcenterRepositoryObsolete
         jcenter()
+        maven {url ("https://jcenter.bintray.com")}
     }
 }
 rootProject.name = "Laza"

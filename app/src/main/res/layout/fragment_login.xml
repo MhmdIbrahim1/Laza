@@ -13,7 +13,7 @@
         android:layout_height="@dimen/_45sdp"
         android:layout_marginStart="@dimen/_12sdp"
         android:src="@color/circle_image_back"
-        app:layout_constraintBottom_toTopOf="@id/guideline_h1"
+        android:layout_marginTop="@dimen/_12sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,27 +27,20 @@
         app:layout_constraintStart_toStartOf="@id/backArrow"
         app:layout_constraintTop_toTopOf="@id/backArrow" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_h1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="115dp" />
 
     <TextView
         android:id="@+id/welcome_tv"
         style="@style/h4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_12sdp"
         android:text="@string/welcome"
         android:textColor="@color/background_intro__mentv_2"
         android:textSize="@dimen/_20ssp"
         android:textStyle="bold"
+        android:layout_marginTop="@dimen/_16sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline_h1" />
-
+        app:layout_constraintTop_toBottomOf="@+id/backArrow" />
     <TextView
         android:id="@+id/plsEnterYourData"
         android:layout_width="wrap_content"
