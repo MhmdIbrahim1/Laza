@@ -4,6 +4,7 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +19,7 @@ import com.example.laza.utils.WishlistIconManager
 class NewArrivalAdapter(private val wishlistIconManager: WishlistIconManager) :
     RecyclerView.Adapter<NewArrivalAdapter.ViewHolder>() {
 
-    var onWishListClickListener: onWishlistClickListener? = null
+    var onWishListClickListener: OnWishlistClickListener? = null
 
     inner class ViewHolder(val binding: NewArrivalRvItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -71,23 +72,18 @@ class NewArrivalAdapter(private val wishlistIconManager: WishlistIconManager) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val product = differ.currentList[position]
         holder.bind(product)
-        holder.itemView.setOnClickListener {
-            onItemClickListener?.invoke(product)
-        }
-        // Get the saved state from SharedPreferences
+
         val isFavorite = wishlistIconManager.getIconState(product.id)
+        holder.binding.addToWishlist.tag = isFavorite
 
-        // Set the tag to the initial isFavorite state
-        holder.binding.addToWishlist.tag = isFavorite // Or true, based on your data
-
-        // Set the wishlist icon to be filled or empty based on the isFavorite state
         if (isFavorite) {
             holder.binding.addToWishlist.setImageResource(R.drawable.ic_wishlist_filled)
         } else {
             holder.binding.addToWishlist.setImageResource(R.drawable.wishlist)
         }
 
-        holder.itemView.setOnClickListener {
+        // Attach click listener to the wishlist icon
+        holder.binding.addToWishlist.setOnClickListener {
             onWishListClickListener?.onWishListClick(
                 WishlistProduct(
                     product,
@@ -110,10 +106,13 @@ class NewArrivalAdapter(private val wishlistIconManager: WishlistIconManager) :
                     }
                 })
         }
-
+        // Attach click listener to the entire item view
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.invoke(product)
+        }
     }
 
-    interface onWishlistClickListener {
+    interface OnWishlistClickListener {
         fun onWishListClick(
             wishlistProduct: WishlistProduct,
             onResult: (WishlistProduct?, Exception?) -> Unit

@@ -13,13 +13,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.laza.R
-import com.example.laza.activites.LoginRegisterActivity
-import com.example.laza.activites.ShoppingActivity
 import com.example.laza.adapters.BrandRvItemsAdapter
 import com.example.laza.adapters.NewArrivalAdapter
 import com.example.laza.data.WishlistProduct
@@ -31,7 +27,6 @@ import com.example.laza.utils.ShowBottomNavigation
 import com.example.laza.utils.WishlistIconManager
 import com.example.laza.viewmodels.HomeFragmentViewModel
 import com.example.storein.utils.HorizontalItemDecoration
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -104,7 +99,7 @@ class HomeFragment : Fragment() {
         }
 
         newArrivalAdapter.onWishListClickListener =
-            object : NewArrivalAdapter.onWishlistClickListener {
+            object : NewArrivalAdapter.OnWishlistClickListener {
                 override fun onWishListClick(
                     wishlistProduct: WishlistProduct,
                     onResult: (WishlistProduct?, Exception?) -> Unit
