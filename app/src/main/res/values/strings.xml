@@ -64,4 +64,6 @@
     <string name="PleaseSelectColor">Select Color</string>
     <string name="PleaseSelectColorAndSize">Select Color And Size</string>
     <string name="AddedToCart">Added To Cart</string>
+    <string name="AddedToWishlist">Added to wichlist</string>
+    <string name="RemovedFromWishlist">Removed from wishlist</string>
 </resources>

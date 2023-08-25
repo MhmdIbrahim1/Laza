@@ -22,11 +22,13 @@ import com.example.laza.activites.LoginRegisterActivity
 import com.example.laza.activites.ShoppingActivity
 import com.example.laza.adapters.BrandRvItemsAdapter
 import com.example.laza.adapters.NewArrivalAdapter
+import com.example.laza.data.WishlistProduct
 import com.example.laza.databinding.FragmentHomeBinding
 import com.example.laza.helper.getProductPrice
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import com.example.laza.utils.ShowBottomNavigation
+import com.example.laza.utils.WishlistIconManager
 import com.example.laza.viewmodels.HomeFragmentViewModel
 import com.example.storein.utils.HorizontalItemDecoration
 import com.google.firebase.auth.FirebaseAuth
@@ -43,6 +45,7 @@ class HomeFragment : Fragment() {
     private lateinit var brandAdapter: BrandRvItemsAdapter
     private lateinit var nestedScrollView: NestedScrollView
     private val viewModel by viewModels<HomeFragmentViewModel>()
+    private lateinit var wishlistIconManager: WishlistIconManager
 
     // Interface to communicate with the activity
     interface DrawerOpener {
@@ -68,9 +71,13 @@ class HomeFragment : Fragment() {
             BrandRvItemsAdapter.BrandItem(R.drawable.fila, "Fila")
             // Add more BrandItems for other brands as needed
         )
+        wishlistIconManager = WishlistIconManager(requireContext().applicationContext)
+
         setUpBrandRV()
-        setUpNewArrivalRV()
+        setUpNewArrivalRV(wishlistIconManager)
         observeNewArrival()
+        observeAddWishlist()
+        observeRemoveWishlist()
 
         nestedScrollView = binding.nestedScrollMainCategory
         nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
@@ -95,13 +102,44 @@ class HomeFragment : Fragment() {
                 view.findNavController().navigate(action)
             }
         }
+
+        newArrivalAdapter.onWishListClickListener =
+            object : NewArrivalAdapter.onWishlistClickListener {
+                override fun onWishListClick(
+                    wishlistProduct: WishlistProduct,
+                    onResult: (WishlistProduct?, Exception?) -> Unit
+                ) {
+                    if (!wishlistProduct.isFavorite) {
+                        wishlistProduct.isFavorite = true
+                        viewModel.addProductToWishlist(wishlistProduct, onResult)
+                        // Show success message
+                        Toast.makeText(
+                            requireContext(),
+                            (R.string.AddedToWishlist),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        wishlistIconManager.saveIconState(wishlistProduct.product.id, true)
+                    } else {
+                        wishlistProduct.isFavorite = false
+                        viewModel.removeProductFromWishlist(wishlistProduct, onResult)
+                        // Show success message
+                        Toast.makeText(
+                            requireContext(),
+                            (R.string.RemovedFromWishlist),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        wishlistIconManager.saveIconState(wishlistProduct.product.id, false)
+                    }
+                }
+            }
     }
 
-    private fun observeNewArrival(){
+
+    private fun observeNewArrival() {
         lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.newArrival.collectLatest {
-                    when(it){
+                    when (it) {
                         is NetworkResult.Loading -> {
                             showLoading()
                         }
@@ -114,8 +152,60 @@ class HomeFragment : Fragment() {
 
                         is NetworkResult.Error -> {
                             Log.d("HomeFragment", "observeNewArrival: ${it.message}")
-                           hideLoading()
+                            hideLoading()
                             Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        }
+
+                        else -> Unit
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observeAddWishlist() {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.wishlist.collectLatest {
+                    when (it) {
+                        is NetworkResult.Loading -> {
+                        }
+
+                        is NetworkResult.Success -> {
+                            Toast.makeText(
+                                requireContext(),
+                                (R.string.AddedToWishlist),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                        is NetworkResult.Error -> {
+                        }
+
+                        else -> Unit
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observeRemoveWishlist() {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.wishlist.collectLatest {
+                    when (it) {
+                        is NetworkResult.Loading -> {
+                        }
+
+                        is NetworkResult.Success -> {
+                            Toast.makeText(
+                                requireContext(),
+                                (R.string.RemovedFromWishlist),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                        is NetworkResult.Error -> {
                         }
 
                         else -> Unit
@@ -132,10 +222,10 @@ class HomeFragment : Fragment() {
 
     private fun showLoading() {
         binding.newArrivalsTv.visibility = View.GONE
-       binding.progressBar.visibility = View.VISIBLE
+        binding.progressBar.visibility = View.VISIBLE
     }
 
-    private fun setDrawer(){
+    private fun setDrawer() {
         // Check if the host activity implements the DrawerOpener interface
         if (activity is DrawerOpener) {
             drawerOpener = activity as DrawerOpener
@@ -151,10 +241,14 @@ class HomeFragment : Fragment() {
 
     private fun setUpBrandRV() {
         brandAdapter = BrandRvItemsAdapter(brandItem)
-        brandAdapter.onBrandClickListener = BrandRvItemsAdapter.OnBrandClickListener { _, brandItem ->
-            val action = HomeFragmentDirections.actionHomeFragmentToBrandsFragment(brandItem.imageResId, brandItem.brandName)
-            view?.findNavController()?.navigate(action)
-        }
+        brandAdapter.onBrandClickListener =
+            BrandRvItemsAdapter.OnBrandClickListener { _, brandItem ->
+                val action = HomeFragmentDirections.actionHomeFragmentToBrandsFragment(
+                    brandItem.imageResId,
+                    brandItem.brandName
+                )
+                view?.findNavController()?.navigate(action)
+            }
 
         binding.brandRv.apply {
             layoutManager = LinearLayoutManager(
@@ -168,8 +262,8 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun setUpNewArrivalRV(){
-        newArrivalAdapter = NewArrivalAdapter()
+    private fun setUpNewArrivalRV(wishlistIconManager: WishlistIconManager) {
+        newArrivalAdapter = NewArrivalAdapter(wishlistIconManager)
         binding.newArrivalsRv.apply {
             val layoutManager = GridLayoutManager(
                 requireContext(),

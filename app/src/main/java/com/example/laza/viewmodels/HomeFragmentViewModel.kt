@@ -3,8 +3,12 @@ package com.example.laza.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.laza.data.Product
+import com.example.laza.data.WishlistProduct
+import com.example.laza.utils.Constants
 import com.example.laza.utils.Constants.PRODUCT_COLLECTION
+import com.example.laza.utils.Constants.USER_COLLECTION
 import com.example.laza.utils.NetworkResult
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,12 +19,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeFragmentViewModel @Inject constructor(
-    private val firestore: FirebaseFirestore
+    private val firestore: FirebaseFirestore,
+    private val auth: FirebaseAuth
 ) : ViewModel() {
 
     // Mutable state flow to hold new arrival data
     private val _newArrival = MutableStateFlow<NetworkResult<List<Product>>>(NetworkResult.UnSpecified())
     val newArrival = _newArrival.asStateFlow()
+
+    // Mutable state flow for wishlist
+    private val _wishlist = MutableStateFlow<NetworkResult<List<WishlistProduct>>>(NetworkResult.UnSpecified())
+    val wishlist = _wishlist.asStateFlow()
+
 
     // Paging information
     private val newArrivalPagingInfo = NewArrivalPagingInfo()
@@ -59,6 +69,34 @@ class HomeFragmentViewModel @Inject constructor(
             }
         }
     }
+    private val wishlistCollection = firestore.collection(USER_COLLECTION)
+        .document(auth.uid!!)
+        .collection("wishlist")
+
+    // Function to add product to wishlist
+    fun addProductToWishlist(wishlistProduct: WishlistProduct, onResult: (WishlistProduct?, Exception?) -> Unit) {
+        wishlistCollection.document(wishlistProduct.product.id)
+            .set(wishlistProduct)
+            .addOnSuccessListener {
+                onResult(wishlistProduct, null)
+            }
+            .addOnFailureListener {
+                onResult(null, it)
+            }
+    }
+    // Function to remove product from wishlist
+    fun removeProductFromWishlist(wishlistProduct: WishlistProduct, onResult: (WishlistProduct?, Exception?) -> Unit) {
+        wishlistCollection.document(wishlistProduct.product.id)
+            .delete()
+            .addOnSuccessListener {
+                // Update local state to reflect removal
+                onResult(wishlistProduct, null)
+            }
+            .addOnFailureListener {
+                onResult(null, it)
+            }
+    }
+
 
     // Common error handling function
     private suspend fun emitError(exception: Exception) {

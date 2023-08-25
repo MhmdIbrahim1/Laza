@@ -26,15 +26,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <ImageView
-            android:id="@+id/add_to_wishlist"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_5sdp"
-            android:src="@drawable/wishlist"
+        <LinearLayout
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_23sdp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/brand_image" />
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:id="@+id/add_to_wishlist"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:src="@drawable/wishlist" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/brand_name"
