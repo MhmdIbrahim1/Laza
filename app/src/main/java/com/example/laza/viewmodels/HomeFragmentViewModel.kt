@@ -69,33 +69,43 @@ class HomeFragmentViewModel @Inject constructor(
             }
         }
     }
-    private val wishlistCollection = firestore.collection(USER_COLLECTION)
-        .document(auth.uid!!)
-        .collection("wishlist")
+//    private val wishlistCollection = firestore.collection(USER_COLLECTION)
+//        .document(auth.uid!!)
+//        .collection("wishlist")
+//
+//    // Function to fetch wishlist state for a specific product
+//    suspend fun getProductWishlistState(productId: String): Boolean {
+//        return wishlistCollection.document(productId)
+//            .get()
+//            .await()
+//            .exists()
+//    }
+
+
 
     // Function to add product to wishlist
-    fun addProductToWishlist(wishlistProduct: WishlistProduct, onResult: (WishlistProduct?, Exception?) -> Unit) {
-        wishlistCollection.document(wishlistProduct.product.id)
-            .set(wishlistProduct)
-            .addOnSuccessListener {
-                onResult(wishlistProduct, null)
-            }
-            .addOnFailureListener {
-                onResult(null, it)
-            }
-    }
-    // Function to remove product from wishlist
-    fun removeProductFromWishlist(wishlistProduct: WishlistProduct, onResult: (WishlistProduct?, Exception?) -> Unit) {
-        wishlistCollection.document(wishlistProduct.product.id)
-            .delete()
-            .addOnSuccessListener {
-                // Update local state to reflect removal
-                onResult(wishlistProduct, null)
-            }
-            .addOnFailureListener {
-                onResult(null, it)
-            }
-    }
+//    fun addProductToWishlist(wishlistProduct: WishlistProduct, onResult: (WishlistProduct?, Exception?) -> Unit) {
+//        wishlistCollection.document(wishlistProduct.product.id)
+//            .set(wishlistProduct)
+//            .addOnSuccessListener {
+//                onResult(wishlistProduct, null)
+//            }
+//            .addOnFailureListener {
+//                onResult(null, it)
+//            }
+//    }
+//    // Function to remove product from wishlist
+//    fun removeProductFromWishlist(wishlistProduct: WishlistProduct, onResult: (WishlistProduct?, Exception?) -> Unit) {
+//        wishlistCollection.document(wishlistProduct.product.id)
+//            .delete()
+//            .addOnSuccessListener {
+//                // Update local state to reflect removal
+//                onResult(wishlistProduct, null)
+//            }
+//            .addOnFailureListener {
+//                onResult(null, it)
+//            }
+//    }
 
 
     // Common error handling function

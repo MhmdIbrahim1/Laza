@@ -82,16 +82,51 @@ class LoginViewModel @Inject constructor(
 
     // Function for signing in with Google
     fun signInWithGoogle(idToken: String) {
-        // Obtain Google credential
         val credential = GoogleAuthProvider.getCredential(idToken, null)
-
-        // Sign in with Google credential
         firebaseAuth.signInWithCredential(credential)
             .addOnSuccessListener { authResult ->
                 viewModelScope.launch {
                     authResult.user?.let { user ->
-                        // Handle user data in Firestore
-                        handleUserFirestoreData(user)
+                        val userDocumentRef = firestore.collection(USER_COLLECTION).document(user.uid)
+
+                        userDocumentRef.get().addOnSuccessListener { documentSnapshot ->
+                            if (documentSnapshot.exists()) {
+                                // User document already exists, update display name and photo URL
+                                userDocumentRef.update(
+                                    "displayName", user.displayName,
+                                    "photoUrl", user.photoUrl.toString()
+                                ).addOnSuccessListener {
+                                    viewModelScope.launch { _login.emit(NetworkResult.Success("Login Success")) }
+                                }.addOnFailureListener { error ->
+                                    viewModelScope.launch {
+                                        _login.emit(NetworkResult.Error("Failed to update user document: ${error.message}"))
+                                    }
+                                }
+                            } else {
+                                // User document doesn't exist, create a new one
+                                val userData = hashMapOf(
+                                    "uid" to user.uid,
+                                    "email" to user.email,
+                                    "displayName" to user.displayName,
+                                    "photoUrl" to user.photoUrl.toString()
+                                )
+
+                                userDocumentRef.set(userData)
+                                    .addOnSuccessListener {
+                                        viewModelScope.launch { _login.emit(NetworkResult.Success("Login Success")) }
+
+                                    }
+                                    .addOnFailureListener { error ->
+                                        viewModelScope.launch {
+                                            _login.emit(NetworkResult.Error("Failed to create user document: ${error.message}"))
+                                        }
+                                    }
+                            }
+                        }.addOnFailureListener { error ->
+                            viewModelScope.launch {
+                                _login.emit(NetworkResult.Error("Failed to check user document: ${error.message}"))
+                            }
+                        }
                     }
                 }
             }
@@ -101,6 +136,8 @@ class LoginViewModel @Inject constructor(
                 }
             }
     }
+
+
 
     // Function for signing in with Twitter
     fun signInWithTwitter(authResultTask: AuthResult?) {

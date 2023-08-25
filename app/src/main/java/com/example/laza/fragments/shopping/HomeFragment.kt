@@ -18,13 +18,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.laza.R
 import com.example.laza.adapters.BrandRvItemsAdapter
 import com.example.laza.adapters.NewArrivalAdapter
-import com.example.laza.data.WishlistProduct
 import com.example.laza.databinding.FragmentHomeBinding
 import com.example.laza.helper.getProductPrice
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import com.example.laza.utils.ShowBottomNavigation
-import com.example.laza.utils.WishlistIconManager
 import com.example.laza.viewmodels.HomeFragmentViewModel
 import com.example.storein.utils.HorizontalItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,7 +38,6 @@ class HomeFragment : Fragment() {
     private lateinit var brandAdapter: BrandRvItemsAdapter
     private lateinit var nestedScrollView: NestedScrollView
     private val viewModel by viewModels<HomeFragmentViewModel>()
-    private lateinit var wishlistIconManager: WishlistIconManager
 
     // Interface to communicate with the activity
     interface DrawerOpener {
@@ -66,10 +63,9 @@ class HomeFragment : Fragment() {
             BrandRvItemsAdapter.BrandItem(R.drawable.fila, "Fila")
             // Add more BrandItems for other brands as needed
         )
-        wishlistIconManager = WishlistIconManager(requireContext().applicationContext)
 
         setUpBrandRV()
-        setUpNewArrivalRV(wishlistIconManager)
+        setUpNewArrivalRV()
         observeNewArrival()
         observeAddWishlist()
         observeRemoveWishlist()
@@ -98,35 +94,35 @@ class HomeFragment : Fragment() {
             }
         }
 
-        newArrivalAdapter.onWishListClickListener =
-            object : NewArrivalAdapter.OnWishlistClickListener {
-                override fun onWishListClick(
-                    wishlistProduct: WishlistProduct,
-                    onResult: (WishlistProduct?, Exception?) -> Unit
-                ) {
-                    if (!wishlistProduct.isFavorite) {
-                        wishlistProduct.isFavorite = true
-                        viewModel.addProductToWishlist(wishlistProduct, onResult)
-                        // Show success message
-                        Toast.makeText(
-                            requireContext(),
-                            (R.string.AddedToWishlist),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        wishlistIconManager.saveIconState(wishlistProduct.product.id, true)
-                    } else {
-                        wishlistProduct.isFavorite = false
-                        viewModel.removeProductFromWishlist(wishlistProduct, onResult)
-                        // Show success message
-                        Toast.makeText(
-                            requireContext(),
-                            (R.string.RemovedFromWishlist),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        wishlistIconManager.saveIconState(wishlistProduct.product.id, false)
-                    }
-                }
-            }
+//        newArrivalAdapter.onWishListClickListener =
+//            object : NewArrivalAdapter.OnWishlistClickListener {
+//                override fun onWishListClick(
+//                    wishlistProduct: WishlistProduct,
+//                    onResult: (WishlistProduct?, Exception?) -> Unit
+//                ) {
+//                    if (!wishlistProduct.isFavorite) {
+//                        wishlistProduct.isFavorite = true
+//                        viewModel.addProductToWishlist(wishlistProduct, onResult)
+//                        // Show success message
+//                        Toast.makeText(
+//                            requireContext(),
+//                            (R.string.AddedToWishlist),
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                        wishlistIconManager.saveIconState(wishlistProduct.product.id, true)
+//                    } else {
+//                        wishlistProduct.isFavorite = false
+//                        viewModel.removeProductFromWishlist(wishlistProduct, onResult)
+//                        // Show success message
+//                        Toast.makeText(
+//                            requireContext(),
+//                            (R.string.RemovedFromWishlist),
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                        wishlistIconManager.saveIconState(wishlistProduct.product.id, false)
+//                    }
+//                }
+//            }
     }
 
 
@@ -257,8 +253,8 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun setUpNewArrivalRV(wishlistIconManager: WishlistIconManager) {
-        newArrivalAdapter = NewArrivalAdapter(wishlistIconManager)
+    private fun setUpNewArrivalRV() {
+        newArrivalAdapter = NewArrivalAdapter()
         binding.newArrivalsRv.apply {
             val layoutManager = GridLayoutManager(
                 requireContext(),
@@ -277,4 +273,3 @@ class HomeFragment : Fragment() {
         ShowBottomNavigation()
     }
 }
-
