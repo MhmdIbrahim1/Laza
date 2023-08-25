@@ -13,16 +13,19 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.laza.R
 import com.example.laza.adapters.BrandRvItemsAdapter
 import com.example.laza.adapters.NewArrivalAdapter
+import com.example.laza.data.Product
 import com.example.laza.databinding.FragmentHomeBinding
 import com.example.laza.helper.getProductPrice
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import com.example.laza.utils.ShowBottomNavigation
+import com.example.laza.viewmodels.DetailsViewModel
 import com.example.laza.viewmodels.HomeFragmentViewModel
 import com.example.storein.utils.HorizontalItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +34,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
+    private val args by navArgs<ProductDetailsFragmentArgs>()
     private lateinit var binding: FragmentHomeBinding
     private lateinit var drawerOpener: DrawerOpener
     private lateinit var brandItem: List<BrandRvItemsAdapter.BrandItem>
@@ -38,7 +42,6 @@ class HomeFragment : Fragment() {
     private lateinit var brandAdapter: BrandRvItemsAdapter
     private lateinit var nestedScrollView: NestedScrollView
     private val viewModel by viewModels<HomeFragmentViewModel>()
-
     // Interface to communicate with the activity
     interface DrawerOpener {
         fun openDrawer()
@@ -63,12 +66,14 @@ class HomeFragment : Fragment() {
             BrandRvItemsAdapter.BrandItem(R.drawable.fila, "Fila")
             // Add more BrandItems for other brands as needed
         )
-
         setUpBrandRV()
         setUpNewArrivalRV()
         observeNewArrival()
         observeAddWishlist()
         observeRemoveWishlist()
+
+
+
 
         nestedScrollView = binding.nestedScrollMainCategory
         nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->

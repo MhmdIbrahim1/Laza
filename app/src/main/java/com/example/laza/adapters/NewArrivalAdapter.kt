@@ -41,6 +41,7 @@ class NewArrivalAdapter() :
 
             }
         }
+
     }
 
     private val diffCallBack = object : DiffUtil.ItemCallback<Product>() {
@@ -72,13 +73,10 @@ class NewArrivalAdapter() :
         holder.itemView.setOnClickListener {
             onItemClickListener?.invoke(product)
         }
-//        holder.binding.addToWishlist.setOnClickListener {
-//            onWishListClickListener?.invoke(WishlistProduct())
-//        }
     }
 
 
-    var onWishListClickListener: ((WishlistProduct) -> Unit)? = null
     var onItemClickListener: ((Product) -> Unit)? = null
+
 
 }
