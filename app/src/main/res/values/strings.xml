@@ -59,4 +59,9 @@
     <string name="description">Description</string>
     <string name="see_less">read less</string>
     <string name="price_label">Price</string>
+    <string name="OutOfStock">Out Of Stock</string>
+    <string name="PleaseSelectSize">Select Size</string>
+    <string name="PleaseSelectColor">Select Color</string>
+    <string name="PleaseSelectColorAndSize">Select Color And Size</string>
+    <string name="AddedToCart">Added To Cart</string>
 </resources>

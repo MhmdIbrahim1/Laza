@@ -145,9 +145,11 @@ class BrandsFragment : Fragment() {
                 val totalItemCount = layoutManager.itemCount
                 val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                // If the sum of the visible items and the first visible item's position
-                // is greater than or equal to the total item count, load more data
-                if (visibleItemCount + firstVisibleItemPosition >= totalItemCount) {
+                // Check if the user has scrolled to the end of pagination and fetch more data
+                if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                    && firstVisibleItemPosition >= 0
+                    && totalItemCount >= 20
+                ) {
                     viewModel.fetchBrandsData(brandName)
                 }
             }

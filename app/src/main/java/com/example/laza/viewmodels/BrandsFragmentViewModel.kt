@@ -34,7 +34,7 @@ class BrandsFragmentViewModel @Inject constructor(
         try {
             val result = firestore.collection(PRODUCT_COLLECTION)
                 .whereEqualTo("brand", brandName)
-                .limit(brandsPagingInfo.page * 10)
+                .limit(brandsPagingInfo.page * 20)
                 .get()
                 .await()
 

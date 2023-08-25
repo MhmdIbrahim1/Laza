@@ -35,7 +35,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/_5sdp"
                 android:scaleType="centerInside"
-                android:src="@drawable/nike" />
+                android:src="@drawable/adidas" />
         </androidx.cardview.widget.CardView>
 
         <TextView
