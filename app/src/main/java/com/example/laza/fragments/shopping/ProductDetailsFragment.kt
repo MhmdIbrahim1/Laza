@@ -26,62 +26,71 @@ import com.example.laza.utils.HideBottomNavigation
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.DetailsViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-
 @AndroidEntryPoint
 class ProductDetailsFragment : Fragment() {
+    // Fragment arguments
     private val args by navArgs<ProductDetailsFragmentArgs>()
+
+    // View binding
     private lateinit var binding: FragmentProductDetailsBinding
+
+    // Adapters
     private val viePagerAdapter by lazy { ViewPager2Images() }
     private val sizeAdapter by lazy { SizeAdapter() }
     private val colorAdapter by lazy { ColorAdapter() }
+
+    // ViewModel
     private val viewModel by viewModels<DetailsViewModel>()
 
     // Selected color and size variables to store user choices
     private var selectedColor: Double? = null
     private var selectedSize: String? = null
+
+    // Product instance
     private lateinit var product: Product
+
+    // Fragment lifecycle methods
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProductDetailsBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Get product from arguments
         product = args.product
 
+        // Set up RecyclerViews and ViewPager
         setUpColorRv()
         setUpSizeRv()
         setUpViewPager()
-        // Handle "Add to Cart" button click
+
+        // Set up button click listeners
         onAddToCart()
         observeAddToCart()
         observeAddToWishlist()
+
         // Fetch the initial wishlist status for the product
         viewModel.fetchInitialWishlistStatus(product.id)
         observeWishlistStatus()
 
         // Set up item click listeners for sizes and colors
         sizeAdapter.onItemClick = { size ->
-            // Update the selected size when the user selects one from the Sizes RecyclerView
             selectedSize = size
         }
 
         colorAdapter.onItemClick = { color ->
-            // Update the selected color when the user selects one from the Colors RecyclerView
             selectedColor = color
         }
-
 
         // Populate the UI with product details
         binding.apply {
@@ -103,38 +112,36 @@ class ProductDetailsFragment : Fragment() {
         product.colors?.let { colorAdapter.differ.submitList(it) }
         product.sizes?.let { sizeAdapter.differ.submitList(it) }
 
+        // Navigate back when arrow button is clicked
         binding.arrow1.setOnClickListener {
             findNavController().navigateUp()
         }
-        // Set up the button listener
+
+        // Set up the "Add to Wishlist" button listener
         binding.addToWishlist.setOnClickListener {
             if (viewModel.wishlistStatus.value == false) {
                 // Product is not in the wishlist, add it
                 viewModel.addToWishList(WishlistProduct(product, true))
             }
         }
-
     }
 
+    // Observe the "Add to Cart" action
     private fun observeAddToCart() {
-        // Observe the "addToCart"  for changes and react accordingly
         lifecycleScope.launchWhenStarted {
             viewModel.addToCart.collect { result ->
                 when (result) {
                     is NetworkResult.Loading -> {
-                        // Show loading animation when adding to cart
                         binding.btnAddToCart.startAnimation()
                     }
 
                     is NetworkResult.Success -> {
-                        // Show success animation and a toast message when the product is added to cart successfully
                         binding.btnAddToCart.revertAnimation()
                         Toast.makeText(requireContext(), (R.string.AddedToCart), Toast.LENGTH_SHORT)
                             .show()
                     }
 
                     is NetworkResult.Error -> {
-                        // Show error message in a toast if there's an issue adding the product to cart
                         binding.btnAddToCart.revertAnimation()
                         Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
                     }
@@ -149,44 +156,36 @@ class ProductDetailsFragment : Fragment() {
     private fun observeWishlistStatus() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.wishlistStatus.collect {
-                    if (it == true) {
-                        // Product is in the wishlist, change the button text
+                viewModel.wishlistStatus.collect { status ->
+                    if (status == true) {
                         binding.addToWishlist.text = "In Wishlist"
                         binding.addToWishlist.isEnabled = false
                     } else {
-                        // Product is not in the wishlist, change the button text
                         binding.addToWishlist.text = "Add To Wishlist"
                         binding.addToWishlist.isEnabled = true
                     }
-
                 }
             }
         }
     }
 
+    // Observe the "Add to Wishlist" action
     private fun observeAddToWishlist() {
-
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.addToWishList.collect { result ->
                     when (result) {
-                        is NetworkResult.Loading -> {
-                        }
-
                         is NetworkResult.Success -> {
                             binding.addToWishlist.revertAnimation()
                             Toast.makeText(
                                 requireContext(),
                                 ("Added To WishList"),
                                 Toast.LENGTH_SHORT
-                            )
-                                .show()
+                            ).show()
                             binding.addToWishlist.isEnabled = false
                         }
 
                         is NetworkResult.Error -> {
-                            // Show error message in a toast if there's an issue adding the product to cart
                             binding.addToWishlist.revertAnimation()
                             Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT)
                                 .show()
@@ -195,23 +194,20 @@ class ProductDetailsFragment : Fragment() {
                         else -> Unit
                     }
                 }
-
             }
         }
     }
 
+    // Handle "Add to Cart" button click
     private fun onAddToCart() {
         binding.btnAddToCart.setOnClickListener {
             // Check if there are available colors and sizes for the product
             val availableColors = product.colors
             val availableSizes = product.sizes
 
-            // Ask the user to select a color and size before adding to cart
             if (availableColors.isNullOrEmpty() && availableSizes.isNullOrEmpty()) {
-                // If both colors and sizes are empty or null, the product is out of stock
                 Toast.makeText(requireContext(), (R.string.OutOfStock), Toast.LENGTH_SHORT).show()
             } else if (availableColors.isNullOrEmpty()) {
-                // If only colors are empty or null, prompt the user to select a size
                 if (selectedSize == null) {
                     Toast.makeText(
                         requireContext(),
@@ -220,10 +216,8 @@ class ProductDetailsFragment : Fragment() {
                     ).show()
                     return@setOnClickListener
                 }
-                // Add the product to the cart with the selected size
                 viewModel.addUpdateProductInCart(CartProduct(product, 1, null, selectedSize))
             } else if (availableSizes.isNullOrEmpty()) {
-                // If only sizes are empty or null, prompt the user to select a color
                 if (selectedColor == null) {
                     Toast.makeText(
                         requireContext(),
@@ -232,10 +226,8 @@ class ProductDetailsFragment : Fragment() {
                     ).show()
                     return@setOnClickListener
                 }
-                // Add the product to the cart with the selected color
                 viewModel.addUpdateProductInCart(CartProduct(product, 1, selectedColor, null))
             } else {
-                // Both colors and sizes are available, ask the user to select one
                 if (selectedColor == null || selectedSize == null) {
                     Toast.makeText(
                         requireContext(),
@@ -244,7 +236,6 @@ class ProductDetailsFragment : Fragment() {
                     ).show()
                     return@setOnClickListener
                 }
-                // Add the product to the cart with the selected color and size
                 viewModel.addUpdateProductInCart(
                     CartProduct(
                         product,
@@ -257,40 +248,40 @@ class ProductDetailsFragment : Fragment() {
         }
     }
 
+    // Set up ViewPager
     private fun setUpViewPager() {
-        binding.apply {
-            viewPagerProductImages.adapter = viePagerAdapter
-            TabLayoutMediator(tabLayoutImageIndicator, viewPagerProductImages) { _, _ -> }.attach()
-        }
+        binding.viewPagerProductImages.adapter = viePagerAdapter
+        TabLayoutMediator(
+            binding.tabLayoutImageIndicator,
+            binding.viewPagerProductImages
+        ) { _, _ -> }.attach()
     }
 
+    // Set up Size RecyclerView
     private fun setUpSizeRv() {
         binding.rvSizes.apply {
             adapter = sizeAdapter
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
-            // add item decoration to add space between items
             val itemSpacingDecoration = ItemSpacingDecoration(5)
             addItemDecoration(itemSpacingDecoration)
         }
     }
 
+    // Set up Color RecyclerView
     private fun setUpColorRv() {
         binding.rvColors.apply {
             adapter = colorAdapter
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
-            // add item decoration to add space between items
             val itemSpacingDecoration = ItemSpacingDecoration(5)
             addItemDecoration(itemSpacingDecoration)
         }
     }
 
+    // Hide bottom navigation on resume
     override fun onResume() {
         super.onResume()
         HideBottomNavigation()
-
     }
 }
