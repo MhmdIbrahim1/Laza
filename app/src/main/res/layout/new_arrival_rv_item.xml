@@ -24,15 +24,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <ImageView
-            android:id="@+id/add_to_wishlist"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:src="@drawable/wishlist"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
         <TextView
             android:id="@+id/brand_name"
             android:layout_width="0dp"

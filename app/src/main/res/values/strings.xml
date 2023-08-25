@@ -56,6 +56,7 @@
     <string name="size">Size</string>
     <string name="product_description">Description...</string>
     <string name="add_to_cart">Add to Cart</string>
+    <string name="add_to_wishlist">Add to Wishlist</string>
     <string name="description">Description</string>
     <string name="see_less">read less</string>
     <string name="price_label">Price</string>

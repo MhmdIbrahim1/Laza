@@ -64,36 +64,31 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:src="@drawable/arrow___left" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/cart_background_brands"
-                android:layout_width="@dimen/_28sdp"
-                android:layout_height="@dimen/_28sdp"
-                android:layout_gravity="end"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:layout_marginEnd="@dimen/_4sdp"
-                android:src="@color/circle_image_back" />
-
-            <ImageView
-                android:id="@+id/cart_from_brands"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
-                android:layout_gravity="end"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:src="@drawable/cart" />
         </androidx.cardview.widget.CardView>
+
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+            android:id="@+id/add_to_wishlist"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_20ssp"
+            android:background="@drawable/add_to_wishlist_shape"
+            android:layout_gravity="end"
+            android:text="@string/add_to_wishlist"
+            android:textColor="@color/background_intro__mentv_2"
+            app:spinning_bar_color="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardImageProductDetails" />
 
         <LinearLayout
             android:id="@+id/linearLayout_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardImageProductDetails">
+            app:layout_constraintTop_toBottomOf="@+id/add_to_wishlist">
 
             <TextView
                 android:id="@+id/productName"

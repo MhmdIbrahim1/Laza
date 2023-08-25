@@ -93,36 +93,6 @@ class HomeFragment : Fragment() {
                 view.findNavController().navigate(action)
             }
         }
-
-//        newArrivalAdapter.onWishListClickListener =
-//            object : NewArrivalAdapter.OnWishlistClickListener {
-//                override fun onWishListClick(
-//                    wishlistProduct: WishlistProduct,
-//                    onResult: (WishlistProduct?, Exception?) -> Unit
-//                ) {
-//                    if (!wishlistProduct.isFavorite) {
-//                        wishlistProduct.isFavorite = true
-//                        viewModel.addProductToWishlist(wishlistProduct, onResult)
-//                        // Show success message
-//                        Toast.makeText(
-//                            requireContext(),
-//                            (R.string.AddedToWishlist),
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                        wishlistIconManager.saveIconState(wishlistProduct.product.id, true)
-//                    } else {
-//                        wishlistProduct.isFavorite = false
-//                        viewModel.removeProductFromWishlist(wishlistProduct, onResult)
-//                        // Show success message
-//                        Toast.makeText(
-//                            requireContext(),
-//                            (R.string.RemovedFromWishlist),
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                        wishlistIconManager.saveIconState(wishlistProduct.product.id, false)
-//                    }
-//                }
-//            }
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.laza.firebase
 
 import com.example.laza.data.CartProduct
+import com.example.laza.data.WishlistProduct
 import com.example.laza.utils.Constants.CART_COLLECTION
 import com.example.laza.utils.Constants.USER_COLLECTION
 import com.google.firebase.auth.FirebaseAuth
@@ -16,11 +17,37 @@ class FirebaseCommon(
         .document(firebaseAuth.uid!!)
         .collection(CART_COLLECTION)
 
+    private val wishlistCollection = firestore.collection(USER_COLLECTION)
+        .document(firebaseAuth.uid!!)
+        .collection("wishlist")
+
     fun addProductToCart(cartProduct: CartProduct, onResult: (CartProduct?, Exception?) -> Unit) {
         cartCollection.document()
             .set(cartProduct)
             .addOnSuccessListener {
                 onResult(cartProduct, null)
+            }
+            .addOnFailureListener {
+                onResult(null, it)
+            }
+    }
+
+    fun addProductToWishList(wishlistProduct: WishlistProduct, onResult: (WishlistProduct?, Exception?) -> Unit) {
+        wishlistCollection.document(wishlistProduct.product.id)
+            .set(wishlistProduct)
+            .addOnSuccessListener {
+                onResult(wishlistProduct, null)
+            }
+            .addOnFailureListener {
+                onResult(null, it)
+            }
+    }
+
+    fun removeProductFromWishList(wishlistProduct: WishlistProduct, onResult: (WishlistProduct?, Exception?) -> Unit) {
+        wishlistCollection.document(wishlistProduct.product.id)
+            .delete()
+            .addOnSuccessListener {
+                onResult(wishlistProduct, null)
             }
             .addOnFailureListener {
                 onResult(null, it)
@@ -43,4 +70,6 @@ class FirebaseCommon(
             onResult(null, it)
         }
     }
+
+
 }
