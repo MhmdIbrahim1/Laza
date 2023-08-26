@@ -28,7 +28,6 @@ import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.DetailsViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -78,6 +77,8 @@ class ProductDetailsFragment : Fragment() {
         onAddToCart()
         observeAddToCart()
         observeAddToWishlist()
+        observeRemoveFromWishlist()
+
 
         // Fetch the initial wishlist status for the product
         viewModel.fetchInitialWishlistStatus(product.id)
@@ -122,35 +123,14 @@ class ProductDetailsFragment : Fragment() {
             if (viewModel.wishlistStatus.value == false) {
                 // Product is not in the wishlist, add it
                 viewModel.addToWishList(WishlistProduct(product, true))
+            }else{
+                // Product is in the wishlist, remove it
+                viewModel.removeFromWishList(WishlistProduct(product, false))
             }
         }
     }
 
-    // Observe the "Add to Cart" action
-    private fun observeAddToCart() {
-        lifecycleScope.launchWhenStarted {
-            viewModel.addToCart.collect { result ->
-                when (result) {
-                    is NetworkResult.Loading -> {
-                        binding.btnAddToCart.startAnimation()
-                    }
 
-                    is NetworkResult.Success -> {
-                        binding.btnAddToCart.revertAnimation()
-                        Toast.makeText(requireContext(), (R.string.AddedToCart), Toast.LENGTH_SHORT)
-                            .show()
-                    }
-
-                    is NetworkResult.Error -> {
-                        binding.btnAddToCart.revertAnimation()
-                        Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
-                    }
-
-                    else -> Unit
-                }
-            }
-        }
-    }
 
     // Observe the wishlist status
     private fun observeWishlistStatus() {
@@ -159,10 +139,10 @@ class ProductDetailsFragment : Fragment() {
                 viewModel.wishlistStatus.collect { status ->
                     if (status == true) {
                         binding.addToWishlist.text = "In Wishlist"
-                        binding.addToWishlist.isEnabled = false
+                       // binding.addToWishlist.isEnabled = false
                     } else {
                         binding.addToWishlist.text = "Add To Wishlist"
-                        binding.addToWishlist.isEnabled = true
+                       // binding.addToWishlist.isEnabled = true
                     }
                 }
             }
@@ -182,7 +162,7 @@ class ProductDetailsFragment : Fragment() {
                                 ("Added To WishList"),
                                 Toast.LENGTH_SHORT
                             ).show()
-                            binding.addToWishlist.isEnabled = false
+                            //binding.addToWishlist.isEnabled = false
                         }
 
                         is NetworkResult.Error -> {
@@ -198,6 +178,66 @@ class ProductDetailsFragment : Fragment() {
         }
     }
 
+    private fun observeRemoveFromWishlist() {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.removeFromWishList.collect { result ->
+                    when (result) {
+                        is NetworkResult.Success -> {
+                            binding.addToWishlist.revertAnimation()
+                            Toast.makeText(
+                                requireContext(),
+                                ("Removed From WishList"),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            //binding.addToWishlist.isEnabled = true
+                        }
+
+                        is NetworkResult.Error -> {
+                            binding.addToWishlist.revertAnimation()
+                            Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+
+                        else -> Unit
+                    }
+                }
+            }
+        }
+    }
+
+    // Observe the "Add to Cart" action
+    private fun observeAddToCart() {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.addToCart.collect { result ->
+                    when (result) {
+                        is NetworkResult.Loading -> {
+                            binding.btnAddToCart.startAnimation()
+                        }
+
+                        is NetworkResult.Success -> {
+                            binding.btnAddToCart.revertAnimation()
+                            Toast.makeText(
+                                requireContext(),
+                                (R.string.AddedToCart),
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        }
+
+                        is NetworkResult.Error -> {
+                            binding.btnAddToCart.revertAnimation()
+                            Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+
+                        else -> Unit
+                    }
+                }
+            }
+        }
+    }
     // Handle "Add to Cart" button click
     private fun onAddToCart() {
         binding.btnAddToCart.setOnClickListener {
