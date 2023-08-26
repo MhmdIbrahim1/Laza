@@ -49,7 +49,7 @@ class HomeFragmentViewModel @Inject constructor(
                 try {
                     val result = firestore.collection(PRODUCT_COLLECTION)
                         .whereIn("brand", listOf("Adidas", "New Arrival"))
-                        .limit(newArrivalPagingInfo.page * 15)
+                        .limit(newArrivalPagingInfo.page * 10)
                         .get()
                         .await()
 

@@ -9,22 +9,21 @@
                 android:title="@string/account_information" />
         </menu>
     </item>
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_orders"
-            android:icon="@drawable/ic_all_orders"
-            android:title="@string/orders" />
 
-        <item
-            android:id="@+id/nav_cart"
-            android:icon="@drawable/cart"
-            android:title="@string/cart" />
+    <item
+        android:id="@+id/nav_orders"
+        android:icon="@drawable/ic_all_orders"
+        android:title="@string/orders" />
 
-        <item
-            android:id="@+id/nav_wishlist"
-            android:icon="@drawable/wishlist"
-            android:title="@string/wishlist" />
-    </group>
+    <item
+        android:id="@+id/nav_cart"
+        android:icon="@drawable/cart"
+        android:title="@string/cart" />
+
+    <item
+        android:id="@+id/nav_wishlist"
+        android:icon="@drawable/wishlist"
+        android:title="@string/wishlist" />
 
     <item android:title="@string/settings">
         <menu>

@@ -51,7 +51,15 @@
         android:name="com.example.laza.fragments.shopping.WishlistFragment"
         android:label="WishlistFragment"
         tools:layout="@layout/fragment_wishlist"
-        />
+        >
+        <action
+            android:id="@+id/action_wishlistFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_wishlistFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+
+    </fragment>
     <fragment
         android:id="@+id/brandsFragment"
         android:name="com.example.laza.fragments.brands.BrandsFragment"

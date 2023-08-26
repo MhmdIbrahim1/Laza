@@ -157,9 +157,11 @@ class BrandsFragment : Fragment() {
     }
 
     private fun observeTotalItemCount() {
-        lifecycleScope.launchWhenStarted {
-            viewModel.totalItemCount.collect { itemCount ->
-                updateItemCount(itemCount)
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.totalItemCount.collect { itemCount ->
+                    updateItemCount(itemCount)
+                }
             }
         }
     }

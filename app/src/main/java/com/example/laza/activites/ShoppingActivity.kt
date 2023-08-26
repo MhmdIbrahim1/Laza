@@ -31,6 +31,52 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
         // set up the navigation controller
         val navController = findNavController(R.id.shoppingHostFragment)
         binding.bottomNavigation.setupWithNavController(navController)
+
+        binding.bottomNavigation.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.homeFragment -> {
+                    navController.navigate(R.id.homeFragment)
+                }
+                R.id.brandsFragment -> {
+                    navController.navigate(R.id.brandsFragment)
+                }
+                R.id.wishlistFragment -> {
+                    navController.navigate(R.id.wishlistFragment)
+                }
+                R.id.cartFragment -> {
+                    navController.navigate(R.id.cartFragment)
+                }
+            }
+            true
+        }
+
+        binding.navView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_wishlist -> {
+                    navController.navigate(R.id.wishlistFragment)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                }
+
+                R.id.nav_cart -> {
+                    navController.navigate(R.id.cartFragment)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                }
+
+                R.id.nav_orders -> {
+                    Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show()
+                }
+
+                R.id.nav_settings -> {
+                    Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show()
+                }
+
+                R.id.nav_info -> {
+                    Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show()
+                }
+            }
+            true
+        }
+
     }
 
     // Implementation of the DrawerOpener interface
@@ -40,7 +86,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
         drawerLayout.openDrawer(GravityCompat.START)
     }
 
-    private fun onLogout(){
+    private fun onLogout() {
         binding.navView.findViewById<TextView>(R.id.logout).setOnClickListener {
             showLogoutConfirmationDialog()
         }
@@ -48,10 +94,12 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
 
 
     private fun showLogoutConfirmationDialog() {
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.logout_confirmation_dialog, null)
-        val dialog = AlertDialog.Builder(this, R.style.AlertDialogCustom) // Use the custom style here
-            .setView(dialogView)
-            .create()
+        val dialogView =
+            LayoutInflater.from(this).inflate(R.layout.logout_confirmation_dialog, null)
+        val dialog =
+            AlertDialog.Builder(this, R.style.AlertDialogCustom) // Use the custom style here
+                .setView(dialogView)
+                .create()
 
         val btnCancel = dialogView.findViewById<Button>(R.id.confirm_no_logout_button)
         val btnConfirm = dialogView.findViewById<Button>(R.id.confirm_yes_logout_button)
@@ -77,7 +125,8 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
         Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
     }
 
-    private fun changeStatusBarColor(){
+    private fun changeStatusBarColor() {
         window.statusBarColor = resources.getColor(R.color.status_bar, null)
     }
+
 }

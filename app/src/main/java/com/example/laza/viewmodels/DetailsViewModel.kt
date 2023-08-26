@@ -111,7 +111,7 @@ class DetailsViewModel @Inject constructor(
             .collection("wishlist")
             .whereEqualTo("product.id", wishlistProduct.product.id)
             .get()
-            .addOnSuccessListener {
+            .addOnSuccessListener { it ->
                 it.documents.let {
                     if (it.isEmpty()) {
                         firebaseCommon.addProductToWishList(wishlistProduct) { addedProduct, e ->

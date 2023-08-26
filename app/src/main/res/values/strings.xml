@@ -67,4 +67,5 @@
     <string name="AddedToCart">Added To Cart</string>
     <string name="AddedToWishlist">Added to wichlist</string>
     <string name="RemovedFromWishlist">Removed from wishlist</string>
+    <string name="in_wishlist">In Wishlist</string>
 </resources>
