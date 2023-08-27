@@ -66,4 +66,7 @@
     <color name="status_bar">@color/g_background_twitter</color>
 
     <color name="progress_bar_color">@color/g_background_twitter</color>
+
+    <color name="background_card_cart">@color/white</color>
+    <color name="background_box_cart">#ACAAAA</color>
 </resources>

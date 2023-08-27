@@ -64,4 +64,7 @@
     <color name="g_background_twitter_l">#1DA1F2</color>
     <color name="progress_bar_color">@color/white</color>
 
+    <color name="background_card_cart">#29363D</color>
+
+    <color name="background_box_cart">@color/g_white</color>
 </resources>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@color/background_card_cart"
+    app:cardElevation="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        <ImageView
+            android:id="@+id/imageCartProduct"
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/line"
+            app:layout_constraintStart_toStartOf="parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_test"/>
+
+        <TextView
+            android:id="@+id/tvProductCartName"
+            android:layout_width="@dimen/_165sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:fontFamily="@font/poppins_light"
+            android:maxLines="2"
+            android:text="Chair"
+            android:textColor="@color/background_intro__mentv_2"
+            android:textSize="@dimen/_13ssp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/imageCartProduct"
+            app:layout_constraintTop_toTopOf="@id/imageCartProduct" />
+
+
+        <TextView
+            android:id="@+id/tvProductCartPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_light"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="$50"
+            android:textColor="@color/background_intro__mentv_2"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tvProductCartName"
+            app:layout_constraintTop_toBottomOf="@id/tvProductCartName"/>
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageCartProductColor"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:src="@color/g_blue"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintStart_toStartOf="@id/tvProductCartPrice"
+            app:layout_constraintTop_toBottomOf="@+id/tvProductCartPrice" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageCartProductSize"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:src="@color/g_blue_gray200"
+            app:layout_constraintBottom_toBottomOf="@+id/imageCartProductColor"
+            app:layout_constraintStart_toEndOf="@id/imageCartProductColor"
+            app:layout_constraintTop_toTopOf="@id/imageCartProductColor"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/tvCartProductSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XL"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            android:gravity="center"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@id/imageCartProductSize"
+            app:layout_constraintStart_toStartOf="@id/imageCartProductSize"
+            app:layout_constraintTop_toTopOf="@id/imageCartProductSize"
+            app:layout_constraintBottom_toBottomOf="@id/imageCartProductSize" />
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageCirclePlus"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:src="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="1dp"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ImageView
+            android:id="@+id/imagePlus"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:src="@drawable/up_count_cart"
+            app:layout_constraintTop_toTopOf="@id/imageCirclePlus"
+            app:layout_constraintEnd_toEndOf="@id/imageCirclePlus"
+            app:layout_constraintBottom_toBottomOf="@id/imageCirclePlus"
+            app:layout_constraintStart_toStartOf="@id/imageCirclePlus"/>
+
+
+        <TextView
+            android:id="@+id/tvCartProductQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="@color/background_intro__mentv_2"
+            android:textSize="@dimen/_12ssp"
+            android:gravity="center"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@id/imageCirclePlus"
+            app:layout_constraintEnd_toEndOf="@id/imageCirclePlus"
+            app:layout_constraintBottom_toTopOf="@id/imageCircleMinus"
+            app:layout_constraintStart_toStartOf="@id/imageCirclePlus"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageCircleMinus"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:src="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ImageView
+            android:id="@+id/imageMinus"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:src="@drawable/down_count_cart"
+            app:layout_constraintTop_toTopOf="@id/imageCircleMinus"
+            app:layout_constraintEnd_toEndOf="@id/imageCircleMinus"
+            app:layout_constraintBottom_toBottomOf="@id/imageCircleMinus"
+            app:layout_constraintStart_toStartOf="@id/imageCircleMinus"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
