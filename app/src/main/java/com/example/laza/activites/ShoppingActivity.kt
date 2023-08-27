@@ -8,20 +8,30 @@ import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.laza.R
 import com.example.laza.databinding.ActivityShoppingBinding
 import com.example.laza.fragments.shopping.HomeFragment
+import com.example.laza.utils.NetworkResult
+import com.example.laza.viewmodels.CartViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
     private val binding by lazy { ActivityShoppingBinding.inflate(layoutInflater) }
+
+    val viewModel  by viewModels<CartViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +85,26 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
                 }
             }
             true
+        }
+
+        // observe the cart products
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.cartProduct.collectLatest {
+                    when (it) {
+                        is NetworkResult.Success -> {
+                            val count = it.data?.size ?: 0
+                            val bottomNavigation = binding.bottomNavigation
+                            bottomNavigation.getOrCreateBadge(R.id.cartFragment).apply {
+                                number = count
+                                backgroundColor = resources.getColor(R.color.g_blue, null)
+                                badgeTextColor = resources.getColor(R.color.background_intro__mentv_2, null)
+                            }
+                        }
+                        else -> Unit
+                    }
+                }
+            }
         }
 
     }
