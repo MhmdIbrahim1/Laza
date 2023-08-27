@@ -14,6 +14,7 @@ import androidx.core.view.GravityCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.laza.R
@@ -30,82 +31,23 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
     private val binding by lazy { ActivityShoppingBinding.inflate(layoutInflater) }
-
+    private lateinit var navController: NavController
     val viewModel  by viewModels<CartViewModel>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         onLogout()
         changeStatusBarColor()
+        bottomNavigationListener()
+        setNavigationItemSelectedListener()
+
+        // observe the cart products numbers
+        observeCartProductNumbers()
+
         // set up the navigation controller
-        val navController = findNavController(R.id.shoppingHostFragment)
+        navController = findNavController(R.id.shoppingHostFragment)
         binding.bottomNavigation.setupWithNavController(navController)
 
-        binding.bottomNavigation.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.homeFragment -> {
-                    navController.navigate(R.id.homeFragment)
-                }
-                R.id.brandsFragment -> {
-                    navController.navigate(R.id.brandsFragment)
-                }
-                R.id.wishlistFragment -> {
-                    navController.navigate(R.id.wishlistFragment)
-                }
-                R.id.cartFragment -> {
-                    navController.navigate(R.id.cartFragment)
-                }
-            }
-            true
-        }
-
-        binding.navView.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.nav_wishlist -> {
-                    navController.navigate(R.id.wishlistFragment)
-                    binding.drawerLayout.closeDrawer(GravityCompat.START)
-                }
-
-                R.id.nav_cart -> {
-                    navController.navigate(R.id.cartFragment)
-                    binding.drawerLayout.closeDrawer(GravityCompat.START)
-                }
-
-                R.id.nav_orders -> {
-                    Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show()
-                }
-
-                R.id.nav_settings -> {
-                    Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show()
-                }
-
-                R.id.nav_info -> {
-                    Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show()
-                }
-            }
-            true
-        }
-
-        // observe the cart products
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.cartProduct.collectLatest {
-                    when (it) {
-                        is NetworkResult.Success -> {
-                            val count = it.data?.size ?: 0
-                            val bottomNavigation = binding.bottomNavigation
-                            bottomNavigation.getOrCreateBadge(R.id.cartFragment).apply {
-                                number = count
-                                backgroundColor = resources.getColor(R.color.g_blue, null)
-                                badgeTextColor = resources.getColor(R.color.background_intro__mentv_2, null)
-                            }
-                        }
-                        else -> Unit
-                    }
-                }
-            }
-        }
 
     }
 
@@ -159,4 +101,74 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
         window.statusBarColor = resources.getColor(R.color.status_bar, null)
     }
 
+    private fun observeCartProductNumbers(){
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.cartProduct.collectLatest {
+                    when (it) {
+                        is NetworkResult.Success -> {
+                            val count = it.data?.size ?: 0
+                            val bottomNavigation = binding.bottomNavigation
+                            bottomNavigation.getOrCreateBadge(R.id.cartFragment).apply {
+                                number = count
+                                backgroundColor = resources.getColor(R.color.g_blue, null)
+                                badgeTextColor = resources.getColor(R.color.white, null)
+                            }
+                        }
+                        else -> Unit
+                    }
+                }
+            }
+        }
+    }
+
+    private fun bottomNavigationListener(){
+        binding.bottomNavigation.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.homeFragment -> {
+                    navController.navigate(R.id.homeFragment)
+                }
+                R.id.brandsFragment -> {
+                    navController.navigate(R.id.brandsFragment)
+                }
+                R.id.wishlistFragment -> {
+                    navController.navigate(R.id.wishlistFragment)
+                }
+                R.id.cartFragment -> {
+                    navController.navigate(R.id.cartFragment)
+                }
+            }
+            true
+        }
+    }
+
+    private fun setNavigationItemSelectedListener(){
+        binding.navView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_wishlist -> {
+                    navController.navigate(R.id.wishlistFragment)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                }
+
+                R.id.nav_cart -> {
+                    navController.navigate(R.id.cartFragment)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                }
+
+                R.id.nav_orders -> {
+                    Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show()
+                }
+
+                R.id.nav_settings -> {
+                    Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show()
+                }
+
+                R.id.nav_info -> {
+                    Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show()
+                }
+            }
+            true
+        }
+
+    }
 }

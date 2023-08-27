@@ -14,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -31,6 +32,7 @@ class CartViewModel @Inject constructor(
 
     private val _deleteDialog = Channel <CartProduct>(Channel.CONFLATED)
     val deleteDialog = _deleteDialog.receiveAsFlow()
+
 
     private var cartProductDocumented = emptyList<DocumentSnapshot>()
 
@@ -59,6 +61,15 @@ class CartViewModel @Inject constructor(
             }
     }
 
+    fun deleteCartProduct(cartProduct: CartProduct) {
+        val index = _cartProducts.value.data?.indexOf(cartProduct)
+        if (index != null && index != -1) {
+
+            val documentId = cartProductDocumented[index].id
+            firestore.collection(USER_COLLECTION).document(auth.uid!!).collection("cart")
+                .document(documentId).delete()
+        }
+    }
 
     fun changeQuantity(
         cartProduct: CartProduct,
@@ -77,6 +88,7 @@ class CartViewModel @Inject constructor(
 
             when(quantityChanging){
                 FirebaseCommon.QuantityChanging.INCREASE -> {
+                    viewModelScope.launch { _cartProducts.emit(NetworkResult.Loading()) }
                     increaseQuantity(documentId)
                 }
 
@@ -110,5 +122,18 @@ class CartViewModel @Inject constructor(
                     _cartProducts.emit(NetworkResult.Error(e.message.toString()))
                 }
         }
+    }
+
+    val productsPrice = cartProduct.map {
+        when (it) {
+            is NetworkResult.Success -> calculateProductsPrice(it.data!!)
+            else -> null
+        }
+    }
+
+    private fun calculateProductsPrice(data: List<CartProduct>): Float {
+        return data.sumOf { cartProduct ->
+            (cartProduct.product.price * cartProduct.quantity).toDouble()
+        }.toFloat()
     }
 }

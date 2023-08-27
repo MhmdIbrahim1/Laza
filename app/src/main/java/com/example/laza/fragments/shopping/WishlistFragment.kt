@@ -16,8 +16,10 @@ import com.example.laza.R
 import com.example.laza.adapters.WishListAdapter
 import com.example.laza.databinding.FragmentWishlistBinding
 import com.example.laza.helper.getProductPrice
+import com.example.laza.utils.HideBottomNavigation
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
+import com.example.laza.utils.ShowBottomNavigation
 import com.example.laza.viewmodels.WishListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -126,5 +128,10 @@ class WishlistFragment : Fragment() {
             binding.availableOnStock.visibility = View.VISIBLE
             binding.itemCount.visibility = View.VISIBLE
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ShowBottomNavigation()
     }
 }
