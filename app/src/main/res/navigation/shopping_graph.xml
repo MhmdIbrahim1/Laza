@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shopping_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/addressesFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_homeFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_addressesFragment"
+            app:destination="@id/addressesFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -77,5 +80,12 @@
         <argument
             android:name="product"
             app:argType="com.example.laza.data.Product" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addressesFragment"
+        android:name="com.example.laza.fragments.shopping.AddressesFragment"
+        android:label="fragment_addresses"
+        tools:layout="@layout/fragment_addresses" >
     </fragment>
 </navigation>

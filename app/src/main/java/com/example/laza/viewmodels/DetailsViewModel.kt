@@ -111,25 +111,25 @@ class DetailsViewModel @Inject constructor(
             .collection("wishlist")
             .whereEqualTo("product.id", wishlistProduct.product.id)
             .get()
-            .addOnSuccessListener { it ->
-                it.documents.let {
-                    if (it.isEmpty()) {
-                        firebaseCommon.addProductToWishList(wishlistProduct) { addedProduct, e ->
-                            viewModelScope.launch {
-                                if (e == null) {
-                                    _addToWishList.emit(NetworkResult.Success(addedProduct!!))
-                                } else {
-                                    _addToWishList.emit(NetworkResult.Error(e.message.toString()))
+                .addOnSuccessListener { it ->
+                    it.documents.let {
+                        if (it.isEmpty()) {
+                            firebaseCommon.addProductToWishList(wishlistProduct) { addedProduct, e ->
+                                viewModelScope.launch {
+                                    if (e == null) {
+                                        _addToWishList.emit(NetworkResult.Success(addedProduct!!))
+                                    } else {
+                                        _addToWishList.emit(NetworkResult.Error(e.message.toString()))
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
-            .addOnFailureListener {
-                _addToWishList.value = NetworkResult.Error(it.message.toString())
-            }
-    }
+                .addOnFailureListener {
+                    _addToWishList.value = NetworkResult.Error(it.message.toString())
+                }
+        }
 
     fun removeFromWishList(wishlistProduct: WishlistProduct) {
         viewModelScope.launch {

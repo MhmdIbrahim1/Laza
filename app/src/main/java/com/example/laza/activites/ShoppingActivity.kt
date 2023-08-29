@@ -111,7 +111,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
                             val bottomNavigation = binding.bottomNavigation
                             bottomNavigation.getOrCreateBadge(R.id.cartFragment).apply {
                                 number = count
-                                backgroundColor = resources.getColor(R.color.g_blue, null)
+                                backgroundColor = resources.getColor(R.color.status_bar, null)
                                 badgeTextColor = resources.getColor(R.color.white, null)
                             }
                         }

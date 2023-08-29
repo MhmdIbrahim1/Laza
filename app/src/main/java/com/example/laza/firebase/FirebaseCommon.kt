@@ -5,13 +5,11 @@ import com.example.laza.data.WishlistProduct
 import com.example.laza.utils.Constants.CART_COLLECTION
 import com.example.laza.utils.Constants.USER_COLLECTION
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
 
 class FirebaseCommon(
     private val firestore: FirebaseFirestore,
-    private val firebaseAuth: FirebaseAuth
+    firebaseAuth: FirebaseAuth
 ) {
     private val cartCollection = firestore.collection(USER_COLLECTION)
         .document(firebaseAuth.uid!!)
@@ -20,7 +18,6 @@ class FirebaseCommon(
     private val wishlistCollection = firestore.collection(USER_COLLECTION)
         .document(firebaseAuth.uid!!)
         .collection("wishlist")
-
     fun addProductToCart(cartProduct: CartProduct, onResult: (CartProduct?, Exception?) -> Unit) {
         cartCollection.document()
             .set(cartProduct)
