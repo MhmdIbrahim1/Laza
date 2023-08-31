@@ -32,7 +32,6 @@ class AddressesFragment : Fragment() {
         super.onCreate(savedInstanceState)
         observeAddAddress()
         observeError()
-        observeAddAddress()
     }
 
     override fun onCreateView(

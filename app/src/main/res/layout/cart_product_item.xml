@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:backgroundTint="@color/background_card_cart"
-    app:cardElevation="0dp">
+    app:cardElevation="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -24,12 +24,12 @@
 
         <ImageView
             android:id="@+id/imageCartProduct"
-            android:layout_width="@dimen/_110sdp"
+            android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_100sdp"
             android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toTopOf="@+id/line"
             app:layout_constraintStart_toStartOf="parent"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:src="@drawable/img_test"/>
 
         <TextView
@@ -78,7 +78,7 @@
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
             android:layout_marginStart="@dimen/_5sdp"
-            android:src="@color/g_blue_gray200"
+            android:src="@color/color_size_background"
             app:layout_constraintBottom_toBottomOf="@+id/imageCartProductColor"
             app:layout_constraintStart_toEndOf="@id/imageCartProductColor"
             app:layout_constraintTop_toTopOf="@id/imageCartProductColor"

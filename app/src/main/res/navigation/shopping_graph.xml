@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shopping_graph"
-    app:startDestination="@id/addressesFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -48,6 +48,9 @@
         <action
             android:id="@+id/action_cartFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_billingFragment"
+            app:destination="@id/billingFragment" />
     </fragment>
     <fragment
         android:id="@+id/wishlistFragment"
@@ -87,5 +90,28 @@
         android:name="com.example.laza.fragments.shopping.AddressesFragment"
         android:label="fragment_addresses"
         tools:layout="@layout/fragment_addresses" >
+        <argument
+            android:name="address"
+            app:argType="com.example.laza.data.Address"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/billingFragment"
+        android:name="com.example.laza.fragments.shopping.BillingFragment"
+        android:label="fragment_billing"
+        tools:layout="@layout/fragment_billing" >
+        <action
+            android:id="@+id/action_billingFragment_to_addressesFragment"
+            app:destination="@id/addressesFragment" />
+        <argument
+            android:name="totalPrice"
+            app:argType="float" />
+        <argument
+            android:name="products"
+            app:argType="com.example.laza.data.CartProduct[]" />
+        <argument
+            android:name="payment"
+            app:argType="boolean" />
     </fragment>
 </navigation>

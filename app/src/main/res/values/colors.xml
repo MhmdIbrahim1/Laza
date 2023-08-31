@@ -40,10 +40,12 @@
     <color name="card_background">#F5F6FA</color>
     <color name="background_intro_1">#3D93F8</color>
     <color name="background_intro__card_1">#F5F6FA</color>
+    <color name="background_color_general_card">#F5F6FA</color>
     <color name="background_intro__men_1">#3D93F8</color>
     <color name="background_intro__mentv_1">#FEFEFE</color>
     <color name="background_intro__mentv_2">@color/g_black</color>
     <color name="background_intro__women_1">#B4FEFEFE</color>
+
 
     <color name="background_intro_2">#9873AC</color>
     <color name="background_intro__mentv_5">@color/g_black</color>
@@ -51,6 +53,7 @@
     <color name="splash_color">#3D93F8</color>
     <color name="splash_color_ic">#FEFEFE</color>
     <color name="background_color_general">@color/g_light_gray</color>
+    <color name="background_color_general_Card">@color/background_color_general_card</color>
 
     <color name="background_buttom_card">@color/g_background_twitter</color>
     <color name="circle_image_back">@color/g_light_gray</color>
@@ -67,6 +70,16 @@
 
     <color name="progress_bar_color">@color/g_background_twitter</color>
 
-    <color name="background_card_cart">@color/white</color>
+    <color name="background_card_cart">@color/g_light_gray</color>
     <color name="background_box_cart">#ACAAAA</color>
+
+
+    <color name="color_size_background">#97AABD</color>
+
+
+    <color name="color_button_address">#97AABD</color>
+
+
+
+
 </resources>

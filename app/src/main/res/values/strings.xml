@@ -84,5 +84,11 @@
     <string name="state">State</string>
     <string name="addresses">Addresses</string>
     <string name="save">Save</string>
+    <string name="payment_methods">Payment Method</string>
+    <string name="virtual_payments_not_avaliable_yet_coming_soon">virtual payments not available yet, Coming soon, only cash on delivery available</string>
+    <string name="shipping_address">Shopping Addresses</string>
+    <string name="home_address">Home</string>
+    <string name="_150">150</string>
+    <string name="place_order">Place Order</string>
 
 </resources>

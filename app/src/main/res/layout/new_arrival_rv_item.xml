@@ -16,7 +16,7 @@
             android:id="@+id/brand_image"
             android:layout_width="@dimen/_122sdp"
             android:layout_height="@dimen/_160sdp"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:src="@drawable/testimg"
             app:layout_constraintDimensionRatio="H,16:9"
             app:layout_constraintEnd_toEndOf="parent"
