@@ -20,6 +20,7 @@ import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.AddressViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 
@@ -27,11 +28,14 @@ import kotlinx.coroutines.launch
 class AddressesFragment : Fragment() {
     private lateinit var binding: FragmentAddressesBinding
     private val viewModel by viewModels<AddressViewModel>()
+    private val args by navArgs<AddressesFragmentArgs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         observeAddAddress()
         observeError()
+        observeDeleteAddress()
+        observeUpdateAddress()
     }
 
     override fun onCreateView(
@@ -45,23 +49,57 @@ class AddressesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.apply {
-            buttonSave.setOnClickListener {
-                val addressTitle = binding.edAddressTitle.text.toString()
-                val fullName = binding.edFullName.text.toString()
-                val street = binding.edStreet.text.toString()
-                val city = binding.edCity.text.toString()
-                val phone = binding.edPhone.text.toString()
-                val state = binding.edState.text.toString()
+        val addressArgs = args.address
 
-                val address = Address(addressTitle,fullName,street,city,phone,state)
-                viewModel.addAddress(address)
+        if (addressArgs == null) {
+            binding.buttonDelelte.visibility = View.GONE
+        } else {
+            binding.apply {
+                edAddressTitle.setText(addressArgs.addressTitle)
+                edFullName.setText(addressArgs.fullName)
+                edStreet.setText(addressArgs.street)
+                edPhone.setText(addressArgs.phone)
+                edCity.setText(addressArgs.city)
+                edState.setText(addressArgs.state)
             }
         }
+
+        binding.apply {
+            buttonSave.setOnClickListener {
+                val addressTitle = edAddressTitle.text.toString()
+                val fullName = edFullName.text.toString()
+                val street = edStreet.text.toString()
+                val phone = edPhone.text.toString()
+                val city = edCity.text.toString()
+                val state = edState.text.toString()
+
+                val address = Address(
+                    addressTitle = addressTitle,
+                    fullName = fullName,
+                    street = street,
+                    phone = phone,
+                    city = city,
+                    state = state
+                )
+
+                if (addressArgs == null) {
+                    viewModel.addAddress(address)
+                } else {
+                    viewModel.updateAddress(address.copy(documentId = addressArgs.documentId))
+                    Toast.makeText(requireContext(), "Address Updated", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
         binding.arrow1.setOnClickListener {
             findNavController().navigateUp()
         }
 
+        binding.buttonDelelte.setOnClickListener {
+            if (addressArgs != null) {
+                viewModel.deleteAddress(addressArgs)
+            }
+        }
 
     }
 
@@ -91,6 +129,56 @@ class AddressesFragment : Fragment() {
         }
     }
 
+    private fun observeDeleteAddress() {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.deleteAddress.collectLatest {
+                    when (it) {
+                        is NetworkResult.Loading -> {
+                            binding.progressBar.visibility = View.VISIBLE
+                        }
+
+                        is NetworkResult.Success -> {
+                            binding.progressBar.visibility = View.INVISIBLE
+                            findNavController().navigateUp()
+
+                        }
+
+                        is NetworkResult.Error -> {
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        }
+
+                        else -> Unit
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observeUpdateAddress(){
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.addNewAddress.collectLatest{
+                    when(it){
+                        is NetworkResult.Loading -> {
+                            binding.progressBar.visibility = View.VISIBLE
+                        }
+
+                        is NetworkResult.Success -> {
+                            binding.progressBar.visibility = View.INVISIBLE
+                            findNavController().navigateUp()
+                        }
+
+                        is NetworkResult.Error -> {
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        }
+
+                        else ->{}
+                    }
+                }
+            }
+        }
+    }
     private fun observeError(){
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
@@ -100,6 +188,7 @@ class AddressesFragment : Fragment() {
             }
         }
     }
+
 
     override fun onResume() {
         super.onResume()

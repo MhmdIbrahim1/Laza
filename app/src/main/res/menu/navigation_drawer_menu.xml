@@ -25,6 +25,12 @@
         android:icon="@drawable/wishlist"
         android:title="@string/wishlist" />
 
+    <item
+        android:id="@+id/nav_billing"
+        android:icon="@drawable/ic_billing"
+        android:background="#FF9800"
+        android:title="@string/billing" />
+
     <item android:title="@string/settings">
         <menu>
             <item

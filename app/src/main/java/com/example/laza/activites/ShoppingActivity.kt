@@ -19,7 +19,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.laza.R
 import com.example.laza.databinding.ActivityShoppingBinding
+import com.example.laza.fragments.shopping.BillingFragmentDirections
 import com.example.laza.fragments.shopping.HomeFragment
+import com.example.laza.fragments.shopping.HomeFragmentDirections
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.CartViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -166,7 +168,19 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
                 R.id.nav_info -> {
                     Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show()
                 }
+
+                R.id.nav_billing -> {
+                    val action = HomeFragmentDirections.actionHomeFragmentToBillingFragment(
+                        totalPrice = 0.0f, // Replace with the actual total price value
+                        products = emptyArray(), // Replace with the actual products array
+                        payment = false // Replace with the actual payment value
+                    )
+                    findNavController(R.id.shoppingHostFragment).navigate(action)
+                }
+
             }
+            // Close the drawer after navigating
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
 

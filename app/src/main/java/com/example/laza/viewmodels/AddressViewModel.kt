@@ -33,14 +33,12 @@ class AddressViewModel @Inject constructor(
     private val _error = MutableSharedFlow<String>()
     val error = _error.asSharedFlow()
     fun addAddress(address: Address) {
-        val validate = validateAddress(address)
-        if (validate) {
-            viewModelScope.launch {
-                _addNewAddress.emit(NetworkResult.Loading())
-            }
-            firestore.collection(USER_COLLECTION).document(auth.uid!!)
-                .collection(ADDRESS_COLLECTION)
-                .document().set(address)
+        val validateInputs = validateAddress(address)
+        if (validateInputs) {
+            viewModelScope.launch { _addNewAddress.emit(NetworkResult.Loading()) }
+            val newDocRef = firestore.collection(USER_COLLECTION).document(auth.uid!!).collection(
+                ADDRESS_COLLECTION).document()
+            newDocRef.set(address.copy(documentId = newDocRef.id))
                 .addOnSuccessListener {
                     viewModelScope.launch {
                         _addNewAddress.emit(NetworkResult.Success(address))
@@ -51,9 +49,10 @@ class AddressViewModel @Inject constructor(
                         _addNewAddress.emit(NetworkResult.Error(it.message.toString()))
                     }
                 }
+
         } else {
             viewModelScope.launch {
-                _error.emit("All Fields Are Required")
+                _error.emit("Please fill all the fields")
             }
         }
     }

@@ -90,5 +90,6 @@
     <string name="home_address">Home</string>
     <string name="_150">150</string>
     <string name="place_order">Place Order</string>
+    <string name="billing">Billing</string>
 
 </resources>

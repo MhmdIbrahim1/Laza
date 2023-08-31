@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_homeFragment_to_addressesFragment"
             app:destination="@id/addressesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_billingFragment"
+            app:destination="@id/billingFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -95,6 +98,9 @@
             app:argType="com.example.laza.data.Address"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_addressesFragment_to_billingFragment2"
+            app:destination="@id/billingFragment" />
     </fragment>
     <fragment
         android:id="@+id/billingFragment"
