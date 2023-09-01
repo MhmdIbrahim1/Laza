@@ -6,10 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.laza.data.CartProduct
 import com.example.laza.data.Product
+import com.example.laza.data.Reviews
 import com.example.laza.data.WishlistProduct
 import com.example.laza.firebase.FirebaseCommon
 import com.example.laza.utils.Constants
 import com.example.laza.utils.Constants.CART_COLLECTION
+import com.example.laza.utils.Constants.REVIEWS_COLLECTION
 import com.example.laza.utils.Constants.USER_COLLECTION
 import com.example.laza.utils.NetworkResult
 import com.google.firebase.auth.FirebaseAuth
@@ -43,6 +45,9 @@ class DetailsViewModel @Inject constructor(
     private val _wishlistStatus = MutableStateFlow<Boolean?>(null)
     val wishlistStatus = _wishlistStatus.asStateFlow()
 
+    private val _fetchReviews =
+        MutableStateFlow<NetworkResult<List<Reviews>>>(NetworkResult.UnSpecified())
+    val fetchReviews = _fetchReviews.asStateFlow()
 
     fun fetchInitialWishlistStatus(productId: String) {
         // Query Firestore to check if the product is in the user's wishlist
@@ -111,25 +116,25 @@ class DetailsViewModel @Inject constructor(
             .collection("wishlist")
             .whereEqualTo("product.id", wishlistProduct.product.id)
             .get()
-                .addOnSuccessListener { it ->
-                    it.documents.let {
-                        if (it.isEmpty()) {
-                            firebaseCommon.addProductToWishList(wishlistProduct) { addedProduct, e ->
-                                viewModelScope.launch {
-                                    if (e == null) {
-                                        _addToWishList.emit(NetworkResult.Success(addedProduct!!))
-                                    } else {
-                                        _addToWishList.emit(NetworkResult.Error(e.message.toString()))
-                                    }
+            .addOnSuccessListener { it ->
+                it.documents.let {
+                    if (it.isEmpty()) {
+                        firebaseCommon.addProductToWishList(wishlistProduct) { addedProduct, e ->
+                            viewModelScope.launch {
+                                if (e == null) {
+                                    _addToWishList.emit(NetworkResult.Success(addedProduct!!))
+                                } else {
+                                    _addToWishList.emit(NetworkResult.Error(e.message.toString()))
                                 }
                             }
                         }
                     }
                 }
-                .addOnFailureListener {
-                    _addToWishList.value = NetworkResult.Error(it.message.toString())
-                }
-        }
+            }
+            .addOnFailureListener {
+                _addToWishList.value = NetworkResult.Error(it.message.toString())
+            }
+    }
 
     fun removeFromWishList(wishlistProduct: WishlistProduct) {
         viewModelScope.launch {
@@ -157,4 +162,27 @@ class DetailsViewModel @Inject constructor(
             }
         }
     }
+
+    fun fetchReviews(productId: String) {
+        viewModelScope.launch {
+            _fetchReviews.emit(NetworkResult.Loading())
+        }
+        firestore.collection(Constants.PRODUCT_COLLECTION)
+            .document(productId)
+            .collection(REVIEWS_COLLECTION)
+            .limit(7)
+            .get()
+            .addOnSuccessListener {
+                val reviews = it.toObjects(Reviews::class.java)
+                viewModelScope.launch {
+                    _fetchReviews.emit(NetworkResult.Success(reviews))
+                }
+            }
+            .addOnFailureListener {
+                viewModelScope.launch {
+                    _fetchReviews.emit(NetworkResult.Error(it.message.toString()))
+                }
+            }
+    }
+
 }

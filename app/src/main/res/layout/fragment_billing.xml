@@ -13,7 +13,7 @@
         android:background="@color/background_color_general">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarBilling"
+            android:id="@+id/toolbarAddReview"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +97,7 @@
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/leftGuideLine"
-            app:layout_constraintTop_toBottomOf="@id/toolbarBilling" />
+            app:layout_constraintTop_toBottomOf="@id/toolbarAddReview" />
 
         <TextView
             android:id="@+id/tvPaymentExplanation"

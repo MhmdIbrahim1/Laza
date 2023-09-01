@@ -12,13 +12,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.laza.R
 import com.example.laza.adapters.ColorAdapter
+import com.example.laza.adapters.ReviewsProductsDetailsAdapter
 import com.example.laza.adapters.SizeAdapter
 import com.example.laza.adapters.ViewPager2Images
 import com.example.laza.data.CartProduct
 import com.example.laza.data.Product
+import com.example.laza.data.Reviews
 import com.example.laza.data.WishlistProduct
 import com.example.laza.databinding.FragmentProductDetailsBinding
 import com.example.laza.helper.formatPrice
@@ -42,6 +45,9 @@ class ProductDetailsFragment : Fragment() {
     private val viePagerAdapter by lazy { ViewPager2Images() }
     private val sizeAdapter by lazy { SizeAdapter() }
     private val colorAdapter by lazy { ColorAdapter() }
+
+    // private val reviewsAdapter by lazy { ReviewsProductsDetailsAdapter() }
+    private lateinit var reviewsAdapter: ReviewsProductsDetailsAdapter
 
     // ViewModel
     private val viewModel by viewModels<DetailsViewModel>()
@@ -72,12 +78,14 @@ class ProductDetailsFragment : Fragment() {
         setUpColorRv()
         setUpSizeRv()
         setUpViewPager()
+        setUpReviewsRv()
 
         // Set up button click listeners
         onAddToCart()
         observeAddToCart()
         observeAddToWishlist()
         observeRemoveFromWishlist()
+        observeFetchReviews()
 
 
         // Fetch the initial wishlist status for the product
@@ -123,13 +131,25 @@ class ProductDetailsFragment : Fragment() {
             if (viewModel.wishlistStatus.value == false) {
                 // Product is not in the wishlist, add it
                 viewModel.addToWishList(WishlistProduct(product, true))
-            }else{
+            } else {
                 // Product is in the wishlist, remove it
                 viewModel.removeFromWishList(WishlistProduct(product, false))
             }
         }
-    }
 
+        binding.viewAll.setOnClickListener {
+            val action = ProductDetailsFragmentDirections.actionProductDetailsFragmentToAddReviewsFragment(
+                reviews = Reviews(
+                    name = "",
+                    review = "",
+                    ratingStars = 0.0,
+                    image = "",
+                    documentId = product.id
+                )
+            )
+            findNavController().navigate(action)
+        }
+    }
 
 
     // Observe the wishlist status
@@ -139,10 +159,10 @@ class ProductDetailsFragment : Fragment() {
                 viewModel.wishlistStatus.collect { status ->
                     if (status == true) {
                         binding.addToWishlist.text = "In Wishlist"
-                       // binding.addToWishlist.isEnabled = false
+                        // binding.addToWishlist.isEnabled = false
                     } else {
                         binding.addToWishlist.text = "Add To Wishlist"
-                       // binding.addToWishlist.isEnabled = true
+                        // binding.addToWishlist.isEnabled = true
                     }
                 }
             }
@@ -238,6 +258,31 @@ class ProductDetailsFragment : Fragment() {
             }
         }
     }
+
+    private fun observeFetchReviews() {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.fetchReviews.collect { result ->
+                    when (result) {
+                        is NetworkResult.Loading -> {}
+
+                        is NetworkResult.Success -> {
+                            reviewsAdapter.differ.submitList(result.data)
+                        }
+
+                        is NetworkResult.Error -> {
+                            Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+
+                        else -> Unit
+                    }
+                }
+            }
+        }
+    }
+
+
     // Handle "Add to Cart" button click
     private fun onAddToCart() {
         binding.btnAddToCart.setOnClickListener {
@@ -316,6 +361,20 @@ class ProductDetailsFragment : Fragment() {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             val itemSpacingDecoration = ItemSpacingDecoration(5)
             addItemDecoration(itemSpacingDecoration)
+        }
+    }
+
+    private fun setUpReviewsRv() {
+        reviewsAdapter = ReviewsProductsDetailsAdapter()
+        binding.rvReviews.apply {
+            adapter = reviewsAdapter
+            layoutManager =
+                GridLayoutManager(requireContext(), 1, GridLayoutManager.HORIZONTAL, false)
+
+            val itemSpacingDecoration = ItemSpacingDecoration(10)
+            addItemDecoration(itemSpacingDecoration)
+
+            viewModel.fetchReviews(product.id)
         }
     }
 

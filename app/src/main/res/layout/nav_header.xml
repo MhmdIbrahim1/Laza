@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profileNavDrawerImageUser"
+        android:id="@+id/profileUserImageReview"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"
         android:src="@drawable/profile"
@@ -27,8 +27,8 @@
         android:textSize="@dimen/_15ssp"
         android:textStyle="bold"
         android:layout_marginStart="@dimen/_8sdp"
-        app:layout_constraintStart_toEndOf="@id/profileNavDrawerImageUser"
-        app:layout_constraintTop_toTopOf="@id/profileNavDrawerImageUser" />
+        app:layout_constraintStart_toEndOf="@id/profileUserImageReview"
+        app:layout_constraintTop_toTopOf="@id/profileUserImageReview" />
 
     <TextView
         android:id="@+id/verifiedUser"

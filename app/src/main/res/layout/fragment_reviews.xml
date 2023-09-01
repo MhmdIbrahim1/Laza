@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color_general"
+    >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarAddReview"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/backArrow"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginTop="20dp"
+                    android:src="@color/circle_image_back"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/arrow_1"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:src="@drawable/arrow___left"
+                    app:layout_constraintBottom_toBottomOf="@id/backArrow"
+                    app:layout_constraintEnd_toEndOf="@id/backArrow"
+                    app:layout_constraintStart_toStartOf="@id/backArrow"
+                    app:layout_constraintTop_toTopOf="@id/backArrow" />
+
+
+                <TextView
+                    android:id="@+id/tvAddReview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_25sdp"
+                    android:fontFamily="@font/poppins_light"
+                    android:text="@string/add_review"
+                    android:textColor="@color/background_intro__mentv_2"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/backArrow"
+                    app:layout_constraintTop_toTopOf="@+id/backArrow" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/rightGuideLine"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.96" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/leftGuideLine"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.04" />
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputLayoutEdNameReview"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        app:boxStrokeColor="@color/bottom_nav_item_shadow_color"
+        app:counterTextColor="@color/bottom_nav_item_shadow_color"
+        app:prefixTextColor="@color/bottom_nav_item_shadow_color"
+        app:hintTextColor="@color/bottom_nav_item_shadow_color"
+        app:layout_constraintStart_toStartOf="@id/leftGuideLine"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideLine"
+        app:layout_constraintTop_toBottomOf="@id/toolbarAddReview">
+
+        <EditText
+            android:id="@+id/edName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHighlight="@color/bottom_nav_item_shadow_color"
+            android:ems="10"
+            android:autofillHints="name"
+            android:hint="@string/hint_name"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
+        android:id="@+id/tvHowWasYourExperience"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:fontFamily="@font/poppins_light"
+        android:text="@string/how_was_your_experience"
+        android:textColor="@color/background_intro__mentv_2"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/leftGuideLine"
+        app:layout_constraintTop_toBottomOf="@id/inputLayoutEdNameReview" />
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputLayoutEdReviewDescription"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_150sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        app:boxStrokeColor="@color/bottom_nav_item_shadow_color"
+        app:counterTextColor="@color/bottom_nav_item_shadow_color"
+        app:prefixTextColor="@color/bottom_nav_item_shadow_color"
+        app:hintTextColor="@color/bottom_nav_item_shadow_color"
+        app:layout_constraintStart_toStartOf="@id/leftGuideLine"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideLine"
+        app:layout_constraintTop_toBottomOf="@id/tvHowWasYourExperience">
+
+        <EditText
+            android:id="@+id/edReviewDescription"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColorHighlight="@color/bottom_nav_item_shadow_color"
+            android:textColorHint="@color/background_intro__mentv_2"
+            android:gravity="top|start"
+            android:hint="@string/describe_your_experience"
+            android:inputType="textMultiLine" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:progressTint="@color/bottom_nav_item_shadow_color"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideLine"
+        app:layout_constraintStart_toStartOf="@id/leftGuideLine"
+        app:layout_constraintTop_toBottomOf="@id/inputLayoutEdReviewDescription" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSubmitReview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:fontFamily="@font/poppins_light"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:text="@string/submit_review"
+        android:textColor="@color/background_intro__mentv_2"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideLine"
+        app:layout_constraintStart_toStartOf="@id/leftGuideLine"
+        app:layout_constraintTop_toBottomOf="@id/ratingBar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

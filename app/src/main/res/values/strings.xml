@@ -91,5 +91,12 @@
     <string name="_150">150</string>
     <string name="place_order">Place Order</string>
     <string name="billing">Billing</string>
+    <string name="add_review">Add Review</string>
+    <string name="how_was_your_experience">How was your experience ?</string>
+    <string name="hint_name">Name</string>
+    <string name="describe_your_experience">Describe your experience?</string>
+    <string name="submit_review">Submit Review</string>
+    <string name="reviews">Reviews</string>
+    <string name="view_all">View All</string>
 
 </resources>

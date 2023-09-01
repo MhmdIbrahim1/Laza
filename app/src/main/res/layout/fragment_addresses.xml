@@ -8,7 +8,7 @@
     tools:context=".fragments.shopping.AddressesFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarBilling"
+        android:id="@+id/toolbarAddReview"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +69,7 @@
         android:background="@color/g_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarBilling" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarAddReview" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftGuideLine"
@@ -105,7 +105,7 @@
         app:hintTextColor="@color/bottom_nav_item_shadow_color"
         app:layout_constraintEnd_toEndOf="@id/rightGuideLine"
         app:layout_constraintStart_toStartOf="@id/leftGuideLine"
-        app:layout_constraintTop_toBottomOf="@id/toolbarBilling"
+        app:layout_constraintTop_toBottomOf="@id/toolbarAddReview"
         app:prefixTextColor="@color/bottom_nav_item_shadow_color">
 
         <EditText

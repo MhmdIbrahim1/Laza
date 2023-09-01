@@ -86,6 +86,9 @@
         <argument
             android:name="product"
             app:argType="com.example.laza.data.Product" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_addReviewsFragment"
+            app:destination="@id/addReviewsFragment" />
     </fragment>
 
     <fragment
@@ -119,5 +122,14 @@
         <argument
             android:name="payment"
             app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/addReviewsFragment"
+        android:name="com.example.laza.fragments.shopping.AddReviewsFragment"
+        android:label="fragment_reviews"
+        tools:layout="@layout/fragment_reviews" >
+        <argument
+            android:name="reviews"
+            app:argType="com.example.laza.data.Reviews" />
     </fragment>
 </navigation>
