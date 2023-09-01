@@ -29,14 +29,18 @@ import kotlinx.coroutines.launch
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private val viewModel by viewModels<LoginViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        login()
+        observeLogin()
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View{
         binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-        login()
-        observeLogin()
 
         binding.forgotPassword.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_resetPasswordFragment)

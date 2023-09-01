@@ -45,20 +45,28 @@ class CartViewModel @Inject constructor(
         viewModelScope.launch {
             _cartProducts.emit(NetworkResult.Loading())
         }
-        firestore.collection(USER_COLLECTION).document(auth.uid!!).collection(CART_COLLECTION)
-            .addSnapshotListener { value, error ->
-                if (error != null || value == null) {
-                    viewModelScope.launch {
-                        _cartProducts.emit(NetworkResult.Error(error?.message.toString()))
-                    }
-                } else {
-                    cartProductDocumented = value.documents
-                    val cartProducts = value.toObjects(CartProduct::class.java)
-                    viewModelScope.launch {
-                        _cartProducts.emit(NetworkResult.Success(cartProducts))
+        val uid = auth.uid
+        if (uid != null) {
+            firestore.collection(USER_COLLECTION).document(uid).collection(CART_COLLECTION)
+                .addSnapshotListener { value, error ->
+                    if (error != null || value == null) {
+                        viewModelScope.launch {
+                            _cartProducts.emit(NetworkResult.Error(error?.message.toString()))
+                        }
+                    } else {
+                        cartProductDocumented = value.documents
+                        val cartProducts = value.toObjects(CartProduct::class.java)
+                        viewModelScope.launch {
+                            _cartProducts.emit(NetworkResult.Success(cartProducts))
+                        }
                     }
                 }
+        } else {
+            // Handle the case when auth.uid is null
+            viewModelScope.launch {
+                _cartProducts.emit(NetworkResult.Error("User is not authenticated"))
             }
+        }
     }
 
     fun deleteCartProduct(cartProduct: CartProduct) {

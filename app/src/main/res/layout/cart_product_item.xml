@@ -5,7 +5,10 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:backgroundTint="@color/background_card_cart"
-    app:cardElevation="1dp">
+    app:cardElevation="@dimen/_5sdp"
+    app:contentPadding="@dimen/_5sdp"
+    app:cardCornerRadius="@dimen/_10sdp"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:background="@color/white"
+            android:background="@color/transparent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -66,8 +69,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageCartProductColor"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
             android:src="@color/g_blue"
             android:layout_marginTop="@dimen/_8sdp"
             app:layout_constraintStart_toStartOf="@id/tvProductCartPrice"
@@ -75,8 +78,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageCartProductSize"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
             android:layout_marginStart="@dimen/_5sdp"
             android:src="@color/color_size_background"
             app:layout_constraintBottom_toBottomOf="@+id/imageCartProductColor"
@@ -90,7 +93,7 @@
             android:layout_height="wrap_content"
             android:text="XL"
             android:textColor="@color/white"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_10ssp"
             android:gravity="center"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="@id/imageCartProductSize"
@@ -101,9 +104,9 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageCirclePlus"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:src="@color/white"
+            android:layout_width="@dimen/_23sdp"
+            android:layout_height="@dimen/_23sdp"
+            android:src="@color/transparent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="1dp"
@@ -111,8 +114,8 @@
 
         <ImageView
             android:id="@+id/imagePlus"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_23sdp"
+            android:layout_height="@dimen/_23sdp"
             android:src="@drawable/up_count_cart"
             app:layout_constraintTop_toTopOf="@id/imageCirclePlus"
             app:layout_constraintEnd_toEndOf="@id/imageCirclePlus"
@@ -136,17 +139,18 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageCircleMinus"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:src="@color/white"
+            android:layout_width="@dimen/_23sdp"
+            android:layout_height="@dimen/_23sdp"
+            android:src="@color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <ImageView
             android:id="@+id/imageMinus"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_23sdp"
+            android:layout_height="@dimen/_23sdp"
             android:src="@drawable/down_count_cart"
+            android:layout_marginBottom="@dimen/_3sdp"
             app:layout_constraintTop_toTopOf="@id/imageCircleMinus"
             app:layout_constraintEnd_toEndOf="@id/imageCircleMinus"
             app:layout_constraintBottom_toBottomOf="@id/imageCircleMinus"

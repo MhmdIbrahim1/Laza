@@ -16,16 +16,6 @@
         android:title="@string/orders" />
 
     <item
-        android:id="@+id/nav_cart"
-        android:icon="@drawable/cart"
-        android:title="@string/cart" />
-
-    <item
-        android:id="@+id/nav_wishlist"
-        android:icon="@drawable/wishlist"
-        android:title="@string/wishlist" />
-
-    <item
         android:id="@+id/nav_billing"
         android:icon="@drawable/ic_billing"
         android:background="#FF9800"

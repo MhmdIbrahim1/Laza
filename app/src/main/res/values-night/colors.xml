@@ -15,7 +15,7 @@
     <color name="g_hint">#666666</color>
     <color name="g_gray700">#666666</color>
     <color name="g_black">#171717</color>
-    <color name="g_blue">#000DAE</color>
+    <color name="g_blue">#63c1da</color>
     <color name="g_white">#F5F8FA</color>
     <color name="g_dark_blue">#000759</color>
     <color name="g_blue_gray200">@color/white</color>
@@ -42,7 +42,7 @@
     <color name="splash_color">#1B262C</color>
     <color name="splash_color_ic">#9775FA</color>
     <color name="background_intro_1">#1B262C</color>
-    <color name="background_intro__card_1">#29363D</color>
+    <color name="background_intro__card_1">#23262b</color>
     <color name="background_intro__men_1">#222E34</color>
     <color name="background_intro__mentv_1">#8F959E</color>
     <color name="background_intro__mentv_2">#F5F8FB</color>
@@ -52,21 +52,21 @@
     <color name="background_intro__mentv_5">#8F959E</color>
     <color name="background_intro__mentv_6">@color/g_background_twitter</color>
 
-    <color name="background_color_general">#1B262C</color>
-    <color name="background_buttom_card">#29363D</color>
-    <color name="circle_image_back">#222E34</color>
+    <color name="background_color_general">#1c1e20</color>
+    <color name="background_buttom_card">#23262b</color>
+    <color name="circle_image_back">#23262b</color>
     <color name="arrow_image_back">@color/white</color>
 
     <color name="brand_rv_background_color">#222E34</color>
-    <color name="brand_rv_background__card_color">#29363D</color>
+    <color name="brand_rv_background__card_color">#23262b</color>
 
-    <color name="status_bar">@color/bottom_nav_item_shadow_color</color>
-    <color name="bottom_nav_item_shadow_color">#6e9bd2</color>
+    <color name="status_bar">#1c1e20</color>
+    <color name="bottom_nav_item_shadow_color">#63c1da</color>
     <color name="g_background_twitter_l">#1DA1F2</color>
     <color name="progress_bar_color">@color/white</color>
 
-    <color name="background_card_cart">#29363D</color>
-    <color name="background_color_general_card">@color/background_color_general</color>
+    <color name="background_card_cart">#23262b</color>
+    <color name="background_color_general_card">#23262b</color>
 
 
     <color name="background_box_cart">@color/g_white</color>

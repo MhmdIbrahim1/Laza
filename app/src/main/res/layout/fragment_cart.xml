@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_color_general_Card"
+        android:background="@color/background_color_general"
         >
 
 
@@ -104,6 +104,7 @@
             android:layout_height="wrap_content"
             android:indeterminate="true"
             android:visibility="invisible"
+            app:indicatorColor="@color/g_blue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbarAddReview" />

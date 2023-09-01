@@ -60,6 +60,12 @@ class AddReviewsFragment : Fragment() {
                 }
             }
         }
+
+        binding.apply {
+            arrow1.setOnClickListener {
+                findNavController().navigateUp()
+            }
+        }
     }
 
     private fun observeAddReviews(){

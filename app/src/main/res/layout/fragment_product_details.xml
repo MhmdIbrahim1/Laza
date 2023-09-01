@@ -38,7 +38,7 @@
                 android:layout_width="@dimen/_28sdp"
                 android:layout_height="@dimen/_28sdp"
                 android:layout_marginTop="@dimen/_4sdp"
-                android:src="@color/circle_image_back" />
+                android:src="@color/g_light_gray" />
 
             <ImageView
                 android:id="@+id/arrow_1"
@@ -66,14 +66,18 @@
             app:tabPaddingStart="8dp"
             tools:layout_editor_absoluteX="0dp" />
 
-        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/add_to_wishlist"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_20ssp"
             android:layout_gravity="end"
             android:background="@drawable/add_to_wishlist_shape"
             android:text="@string/add_to_wishlist"
+            android:elevation="@dimen/_12sdp"
+            android:drawableStart="@drawable/wishlist"
+            android:drawablePadding="@dimen/_6sdp"
             android:textColor="@color/background_intro__mentv_2"
+            android:layout_marginEnd="@dimen/_5sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tabLayoutImageIndicator"
             app:spinning_bar_color="@color/white" />
@@ -205,7 +209,7 @@
             android:textColor="@color/background_intro__mentv_2"
             android:textSize="@dimen/_11ssp"
             android:textStyle="bold"
-            app:colorClickableText="@color/status_bar"
+            app:colorClickableText="#63c1da"
             app:layout_constraintEnd_toEndOf="@id/tvProductDescriptionTitle"
             app:layout_constraintStart_toStartOf="@id/tvProductDescriptionTitle"
             app:layout_constraintTop_toBottomOf="@id/tvProductDescriptionTitle"

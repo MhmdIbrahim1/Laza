@@ -12,7 +12,7 @@
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/brand_rv_background_color"
+        android:background="@color/background_color_general_Card"
         >
 
         <androidx.cardview.widget.CardView

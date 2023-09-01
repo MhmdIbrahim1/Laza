@@ -21,6 +21,7 @@ import com.example.laza.firebase.FirebaseCommon
 import com.example.laza.helper.formatPrice
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
+import com.example.laza.utils.ShowBottomNavigation
 import com.example.laza.viewmodels.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -192,6 +193,11 @@ class CartFragment : Fragment() {
         binding.apply {
             layoutCartEmpty.visibility = View.GONE
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ShowBottomNavigation()
     }
 
 }

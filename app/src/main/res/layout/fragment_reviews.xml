@@ -151,7 +151,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_15sdp"
-        android:progressTint="@color/bottom_nav_item_shadow_color"
+        android:progressTint="#ffd203"
         app:layout_constraintEnd_toEndOf="@id/rightGuideLine"
         app:layout_constraintStart_toStartOf="@id/leftGuideLine"
         app:layout_constraintTop_toBottomOf="@id/inputLayoutEdReviewDescription" />
@@ -159,16 +159,16 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSubmitReview"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_40sdp"
         android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginEnd="@dimen/_12sdp"
-        android:fontFamily="@font/poppins_light"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:fontFamily="@font/sf_pro_display"
         android:text="@string/submit_review"
         android:textColor="@color/background_intro__mentv_2"
         android:textSize="@dimen/_12ssp"
         android:textStyle="bold"
+        android:elevation="@dimen/_6sdp"
         app:layout_constraintEnd_toEndOf="@id/rightGuideLine"
         app:layout_constraintStart_toStartOf="@id/leftGuideLine"
         app:layout_constraintTop_toBottomOf="@id/ratingBar" />

@@ -113,7 +113,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
                             val bottomNavigation = binding.bottomNavigation
                             bottomNavigation.getOrCreateBadge(R.id.cartFragment).apply {
                                 number = count
-                                backgroundColor = resources.getColor(R.color.status_bar, null)
+                                backgroundColor = resources.getColor(R.color.badge_coloe, null)
                                 badgeTextColor = resources.getColor(R.color.white, null)
                             }
                         }
@@ -147,16 +147,6 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
     private fun setNavigationItemSelectedListener(){
         binding.navView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.nav_wishlist -> {
-                    navController.navigate(R.id.wishlistFragment)
-                    binding.drawerLayout.closeDrawer(GravityCompat.START)
-                }
-
-                R.id.nav_cart -> {
-                    navController.navigate(R.id.cartFragment)
-                    binding.drawerLayout.closeDrawer(GravityCompat.START)
-                }
-
                 R.id.nav_orders -> {
                     Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show()
                 }

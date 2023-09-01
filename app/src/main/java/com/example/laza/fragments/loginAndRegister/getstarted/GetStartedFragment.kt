@@ -34,6 +34,11 @@ class GetStartedFragment : Fragment() {
     private val doublePressHandler = Handler(Looper.myLooper()!!)
     private var shouldHandleBackPress = true
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

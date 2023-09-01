@@ -159,10 +159,10 @@ class ProductDetailsFragment : Fragment() {
                 viewModel.wishlistStatus.collect { status ->
                     if (status == true) {
                         binding.addToWishlist.text = "In Wishlist"
-                        // binding.addToWishlist.isEnabled = false
+                        binding.addToWishlist.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_wishlist_filled, 0, 0, 0)
                     } else {
                         binding.addToWishlist.text = "Add To Wishlist"
-                        // binding.addToWishlist.isEnabled = true
+                        binding.addToWishlist.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_wishlist_unfilled, 0, 0, 0)
                     }
                 }
             }
@@ -176,7 +176,6 @@ class ProductDetailsFragment : Fragment() {
                 viewModel.addToWishList.collect { result ->
                     when (result) {
                         is NetworkResult.Success -> {
-                            binding.addToWishlist.revertAnimation()
                             Toast.makeText(
                                 requireContext(),
                                 ("Added To WishList"),
@@ -186,7 +185,6 @@ class ProductDetailsFragment : Fragment() {
                         }
 
                         is NetworkResult.Error -> {
-                            binding.addToWishlist.revertAnimation()
                             Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT)
                                 .show()
                         }
@@ -204,7 +202,6 @@ class ProductDetailsFragment : Fragment() {
                 viewModel.removeFromWishList.collect { result ->
                     when (result) {
                         is NetworkResult.Success -> {
-                            binding.addToWishlist.revertAnimation()
                             Toast.makeText(
                                 requireContext(),
                                 ("Removed From WishList"),
@@ -214,7 +211,6 @@ class ProductDetailsFragment : Fragment() {
                         }
 
                         is NetworkResult.Error -> {
-                            binding.addToWishlist.revertAnimation()
                             Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT)
                                 .show()
                         }

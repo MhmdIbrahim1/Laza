@@ -31,7 +31,7 @@
             android:layout_height="70dp"
             app:menu="@menu/bottom_navigation_menu"
             app:labelVisibilityMode="unlabeled"
-            android:background="@color/brand_rv_background__card_color"
+            android:background="@color/background_color_general_Card"
             app:itemPaddingTop="@dimen/_10sdp"
             app:itemPaddingBottom="@dimen/_10sdp"
             app:itemRippleColor="@color/g_white"
