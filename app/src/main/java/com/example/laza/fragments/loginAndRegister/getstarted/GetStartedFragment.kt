@@ -13,17 +13,22 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.laza.R
 import com.example.laza.activites.ShoppingActivity
 import com.example.laza.activites.TwitterActivity
 import com.example.laza.databinding.FragmentGetStartedBinding
+import com.example.laza.utils.NetworkResult
 import com.example.laza.utils.getGoogleSignInClient
 import com.example.laza.viewmodels.LoginViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class GetStartedFragment : Fragment() {
@@ -50,6 +55,7 @@ class GetStartedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeLogin()
         binding.createAccountGetStarted.setOnClickListener {
             findNavController().navigate(R.id.action_getStartedFragment_to_registerFragment)
         }
@@ -110,28 +116,39 @@ class GetStartedFragment : Fragment() {
                 val account = task.getResult(ApiException::class.java)
                 account?.let {
                     viewModel.signInWithGoogle(it.idToken!!)
-                    // Navigate to ShoppingActivity
-                    val shoppingActivityIntent =
-                        Intent(requireActivity(), ShoppingActivity::class.java)
-                    shoppingActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(shoppingActivityIntent)
-                } ?: run {
-                    Toast.makeText(
-                        requireContext(),
-                        "Google sign-in failed: No account",
-                        Toast.LENGTH_LONG
-                    ).show()
                 }
             } catch (e: ApiException) {
-                Toast.makeText(
-                    requireContext(),
-                    "Google sign-in failed: ${e.statusCode}",
-                    Toast.LENGTH_LONG
-                ).show()
+                Toast.makeText(requireContext(), "Google sign-in failed", Toast.LENGTH_LONG).show()
             }
         }
 
+    private fun observeLogin() {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.login.collect {
+                    when (it) {
+                        is NetworkResult.Loading -> {
+                        }
 
+                        is NetworkResult.Success -> {
+                            Intent(requireActivity(), ShoppingActivity::class.java).also { intent ->
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                                startActivity(intent)
+                            }
+                            Toast.makeText(requireContext(), "Login Success", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+
+                        is NetworkResult.Error -> {
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                        }
+
+                        else -> Unit
+                    }
+                }
+            }
+        }
+    }
     private fun showExitSnackBar() {
         Snackbar.make(binding.root, "Press again to exit the app", Snackbar.LENGTH_SHORT)
             .show()

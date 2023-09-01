@@ -47,19 +47,24 @@ class FirebaseCommon(
                 }
         } else {
             // Handle the case where wishlistCollection is null (e.g., user not authenticated)
-            onResult(null, Exception("Wishlist collection is not available"))
+            onResult(null, Exception("Check Network Connection"))
         }
     }
 
     fun removeProductFromWishList(wishlistProduct: WishlistProduct, onResult: (WishlistProduct?, Exception?) -> Unit) {
-        wishlistCollection!!.document(wishlistProduct.product.id)
-            .delete()
-            .addOnSuccessListener {
-                onResult(wishlistProduct, null)
-            }
-            .addOnFailureListener {
-                onResult(null, it)
-            }
+        if (wishlistCollection != null) {
+            wishlistCollection.document(wishlistProduct.product.id)
+                .delete()
+                .addOnSuccessListener {
+                    onResult(wishlistProduct, null)
+                }
+                .addOnFailureListener {
+                    onResult(null, it)
+                }
+        } else {
+            // Handle the case where wishlistCollection is null (e.g., user not authenticated)
+            onResult(null, Exception("Check Network Connection"))
+        }
     }
 
     fun increaseQuantity(documentId: String, onResult: (String?, Exception?) -> Unit) {
