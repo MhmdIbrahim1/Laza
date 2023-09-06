@@ -14,8 +14,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileUserImageReview"
@@ -45,9 +44,9 @@
             android:id="@+id/tvRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4.5 rating"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_6sdp"
+            android:text="4.5 rating"
             android:textColor="@color/background_intro__mentv_2"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,9 +57,9 @@
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
             android:isIndicator="true"
             android:numStars="5"
-            android:layout_marginTop="@dimen/_4sdp"
             android:progressTint="#ffd203"
             app:layout_constraintEnd_toEndOf="@+id/tvRating"
             app:layout_constraintTop_toBottomOf="@+id/tvRating" />
@@ -71,18 +70,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_15sdp"
             android:ellipsize="end"
-            android:maxLines="4"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitgg "
             android:textColor="@color/background_intro__mentv_2"
             android:textSize="@dimen/_12ssp"
-            app:colorClickableText="@color/g_blue"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/ratingBar"
+            app:layout_constraintEnd_toEndOf="@id/ratingBar"
             app:layout_constraintStart_toStartOf="@+id/profileUserImageReview"
             app:layout_constraintTop_toBottomOf="@+id/profileUserImageReview"
+            app:showTrimExpandedText="true"
             app:trimCollapsedText="@string/read_more"
             app:trimExpandedText="@string/read_less"
-            app:trimLength="100" />
+            app:colorClickableText="#63c1da"
+            app:trimLength="25"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

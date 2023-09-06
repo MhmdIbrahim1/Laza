@@ -29,6 +29,7 @@ import com.example.laza.utils.HideBottomNavigation
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.DetailsViewModel
+import com.example.laza.viewmodels.ReviewsViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -51,6 +52,7 @@ class ProductDetailsFragment : Fragment() {
 
     // ViewModel
     private val viewModel by viewModels<DetailsViewModel>()
+    private val reviewsViewModel by viewModels<ReviewsViewModel>()
 
     // Selected color and size variables to store user choices
     private var selectedColor: Long? = null
@@ -80,12 +82,14 @@ class ProductDetailsFragment : Fragment() {
         setUpViewPager()
         setUpReviewsRv()
 
-        // Set up button click listeners
+        // Set up button click listeners and observers
         onAddToCart()
         observeAddToCart()
         observeAddToWishlist()
         observeRemoveFromWishlist()
         observeFetchReviews()
+        observeTotalReviewsCount()
+        observeTotalRating()
 
 
         // Fetch the initial wishlist status for the product
@@ -333,6 +337,51 @@ class ProductDetailsFragment : Fragment() {
             }
         }
     }
+
+    private fun observeTotalRating() {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                reviewsViewModel.totalRating.collect {
+                    reviewsViewModel.fetchTotalRating(product.id)
+                    updateTotalRating(it)
+                }
+            }
+        }
+    }
+
+    private fun observeTotalReviewsCount() {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                reviewsViewModel.totalReviewsCount.collect{
+                    reviewsViewModel.fetchTotalReviewsCount(product.id)
+                    updateTotalReviewsCount(it)
+                }
+            }
+        }
+    }
+
+    private fun updateTotalRating(it: Float) {
+        if (it == 0f){
+            binding.tvRating.text = "0.0"
+            binding.ratingBar.rating = 0.0F
+        }else{
+            // round to 1 decimal place
+            binding.tvRating.text = String.format("%.1f", it)
+            binding.ratingBar.rating = it
+        }
+    }
+
+
+    private fun updateTotalReviewsCount(itemCount: Int) {
+        if (itemCount == 0){
+            binding.itemCount.text = "No Reviews "
+            binding.tvRating.text = "0.0"
+            binding.ratingBar.rating = 0.0F
+        }else{
+            binding.itemCount.text = "$itemCount"
+        }
+    }
+
 
     // Set up ViewPager
     private fun setUpViewPager() {

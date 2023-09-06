@@ -50,15 +50,6 @@ class ReviewsViewModel @Inject constructor(
                 }
             }
     }
-
-    fun activateListeners(productId: String) {
-        if (!reviewsListenerActive) {
-            fetchTotalReviewsCount(productId)
-            fetchTotalRating(productId)
-            reviewsListenerActive = true
-        }
-    }
-
     fun fetchTotalReviewsCount(productId: String) {
         val reviewsRef = firestore.collection(Constants.PRODUCT_COLLECTION)
             .document(productId)

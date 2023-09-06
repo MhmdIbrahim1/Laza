@@ -131,7 +131,7 @@ class ReviewFragment : Fragment() {
             binding.tvRating.text = "0.0"
             binding.ratingBar.rating = 0.0F
         }else{
-            binding.tvRating.text = it.toString()
+            binding.tvRating.text = String.format("%.1f", it)
             binding.ratingBar.rating = it
         }
     }
