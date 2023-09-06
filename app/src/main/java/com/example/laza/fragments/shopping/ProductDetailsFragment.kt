@@ -138,15 +138,20 @@ class ProductDetailsFragment : Fragment() {
         }
 
         binding.viewAll.setOnClickListener {
-            val action = ProductDetailsFragmentDirections.actionProductDetailsFragmentToAddReviewsFragment(
-                reviews = Reviews(
+            val action = ProductDetailsFragmentDirections.actionProductDetailsFragmentToReviewFragment(
+                product = Product(
+                    id  = product.id,
                     name = "",
-                    review = "",
-                    ratingStars = 0.0,
-                    image = "",
-                    documentId = product.id
+                    brand = "",
+                    price = 0f,
+                    offerPercentage = null,
+                    description = null,
+                    colors = null,
+                    sizes = null,
+                    images = emptyList()
                 )
             )
+
             findNavController().navigate(action)
         }
     }

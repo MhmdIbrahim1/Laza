@@ -10,7 +10,7 @@
     tools:context=".fragments.brands.BrandsFragment">
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollBrands"
+        android:id="@+id/nestedScrollReviews"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">

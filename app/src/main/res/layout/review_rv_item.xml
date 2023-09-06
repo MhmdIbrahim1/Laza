@@ -75,7 +75,7 @@
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitgg "
             android:textColor="@color/background_intro__mentv_2"
             android:textSize="@dimen/_12ssp"
-            app:colorClickableText="@color/status_bar"
+            app:colorClickableText="@color/g_blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/ratingBar"
             app:layout_constraintStart_toStartOf="@+id/profileUserImageReview"
