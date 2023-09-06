@@ -17,7 +17,7 @@ class ColorAdapter : RecyclerView.Adapter<ColorAdapter.ColorViewHolder>() {
 
     inner class ColorViewHolder(private val binding: ColorRvItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(color: Double, position: Int) {
+        fun bind(color: Long, position: Int) {
             val imageDrawable = ColorDrawable(color.toInt())
             binding.imageColor.setImageDrawable(imageDrawable)
             if (position == selectedPosition) { // color is  selected
@@ -37,12 +37,12 @@ class ColorAdapter : RecyclerView.Adapter<ColorAdapter.ColorViewHolder>() {
     }
 
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Double>() {
-        override fun areItemsTheSame(oldItem: Double, newItem: Double): Boolean {
+    private val diffCallback = object : DiffUtil.ItemCallback<Long>() {
+        override fun areItemsTheSame(oldItem: Long, newItem: Long): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Double, newItem: Double): Boolean {
+        override fun areContentsTheSame(oldItem: Long, newItem: Long): Boolean {
             return oldItem == newItem
         }
     }
@@ -77,5 +77,5 @@ class ColorAdapter : RecyclerView.Adapter<ColorAdapter.ColorViewHolder>() {
         }
     }
 
-    var onItemClick : ((Double) -> Unit)? = null
+    var onItemClick : ((Long) -> Unit)? = null
 }

@@ -53,7 +53,7 @@ class ProductDetailsFragment : Fragment() {
     private val viewModel by viewModels<DetailsViewModel>()
 
     // Selected color and size variables to store user choices
-    private var selectedColor: Double? = null
+    private var selectedColor: Long? = null
     private var selectedSize: String? = null
 
     // Product instance

@@ -103,6 +103,7 @@ dependencies {
     implementation "androidx.core:core-splashscreen:1.0.0"
 
     //Twitter
+
     implementation 'com.twitter.sdk.android:twitter-core:3.3.0' // Core Twitter SDK
     
     // add dependence of pagination to gradel script
