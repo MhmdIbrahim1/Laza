@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class AddReviewsFragment : Fragment() {
     private lateinit var binding: FragmentReviewsBinding
-    private  val viewModel by viewModels<AddReviewsViewModel>()
+    private val viewModel by viewModels<AddReviewsViewModel>()
     private val homeViewModel by viewModels<HomeFragmentViewModel>()
     private val args by navArgs<AddReviewsFragmentArgs>()
     override fun onCreateView(
@@ -55,11 +55,20 @@ class AddReviewsFragment : Fragment() {
                 val image = R.drawable.profile
 
                 if (name.isNotEmpty() && reviewText.isNotEmpty()) {
-                    val review = Reviews(name = name, review = reviewText, ratingStars = rating.toDouble(), image = image.toString())
+                    val review = Reviews(
+                        name = name,
+                        review = reviewText,
+                        ratingStars = rating.toDouble(),
+                        image = image.toString()
+                    )
                     viewModel.addReview(productId, review)
 
                 } else {
-                    Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Please fill out all fields.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
@@ -71,25 +80,33 @@ class AddReviewsFragment : Fragment() {
         }
     }
 
-    private fun observeAddReviews(){
+    private fun observeAddReviews() {
         lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.addNewReview.collectLatest {
-                    when(it){
-                        is NetworkResult.Loading -> {}
+                    when (it) {
+                        is NetworkResult.Loading -> {
+                            binding.progressBar.visibility = View.VISIBLE
+                        }
 
                         is NetworkResult.Success -> {
                             val productId = args.reviews.documentId
                             homeViewModel.setTotalReviewsCount(productId)
-                            Toast.makeText(requireContext(), "Review submitted successfully.", Toast.LENGTH_SHORT).show()
+                            binding.progressBar.visibility = View.GONE
+                            Toast.makeText(
+                                requireContext(),
+                                "Review submitted successfully.",
+                                Toast.LENGTH_SHORT
+                            ).show()
                             findNavController().navigateUp()
                         }
 
                         is NetworkResult.Error -> {
                             Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                            binding.progressBar.visibility = View.GONE
                         }
 
-                        else ->{}
+                        else -> {}
                     }
                 }
             }

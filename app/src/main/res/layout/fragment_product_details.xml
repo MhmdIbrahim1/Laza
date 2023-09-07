@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:text="4.5"
                 android:textColor="@color/background_intro__mentv_2"
-                android:textSize="@dimen/_12ssp"
+                android:textSize="@dimen/_11ssp"
                 android:textStyle="bold" />
 
             <RatingBar
@@ -109,6 +109,7 @@
                 android:isIndicator="true"
                 android:numStars="5"
                 android:progressTint="#ffd203"
+                android:paddingTop="@dimen/_2sdp"
                 android:rating="4.5"
                 app:layout_constraintStart_toEndOf="@+id/tvRating" />
 
@@ -119,7 +120,7 @@
                 android:layout_marginStart="@dimen/_5sdp"
                 android:text="45"
                 android:textColor="@color/g_blue"
-                android:textSize="@dimen/_12ssp"
+                android:textSize="@dimen/_11ssp"
                 android:textStyle="bold"
                 android:visibility="visible" />
         </LinearLayout>

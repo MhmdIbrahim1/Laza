@@ -72,8 +72,8 @@ class BrandsAdapter : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
             holder.binding.reviewsItemCount.visibility = View.GONE
         } else {
             holder.binding.ratingBar.rating = product.ratings.average().toFloat()
-            holder.binding.tvRating.text = product.ratings.average().toString()
-            holder.binding.reviewsItemCount.text = product.reviewCount.toString()
+            holder.binding.tvRating.text = String.format("%.1f", product.ratings.average())
+            holder.binding.reviewsItemCount.text = "(${product.ratings.size})"
 
         }
 

@@ -141,26 +141,10 @@ class ProductDetailsFragment : Fragment() {
             }
         }
 
+
+     // if no reviews, navigate to add review fragment else navigate to reviews fragment
         binding.viewAll.setOnClickListener {
-            val action = ProductDetailsFragmentDirections.actionProductDetailsFragmentToReviewFragment(
-                product = Product(
-                    id  = product.id,
-                    name = "",
-                    brand = "",
-                    price = 0f,
-                    offerPercentage = null,
-                    description = null,
-                    colors = null,
-                    sizes = null,
-                    images = emptyList()
-                )
-            )
-
-            findNavController().navigate(action)
-        }
-
-        if (product.ratings.isEmpty()) {
-            binding.viewAll.setOnClickListener {
+            if (reviewsAdapter.differ.currentList.isEmpty()){
                 val action = ProductDetailsFragmentDirections.actionProductDetailsFragmentToAddReviewsFragment(
                     reviews = Reviews(
                         name = "",
@@ -168,6 +152,21 @@ class ProductDetailsFragment : Fragment() {
                         ratingStars = 0.0,
                         image = "",
                         documentId = product.id
+                    )
+                )
+                findNavController().navigate(action)
+            }else{
+                val action = ProductDetailsFragmentDirections.actionProductDetailsFragmentToReviewFragment(
+                    product = Product(
+                        id  = product.id,
+                        name = "",
+                        brand = "",
+                        price = 0f,
+                        offerPercentage = null,
+                        description = null,
+                        colors = null,
+                        sizes = null,
+                        images = emptyList()
                     )
                 )
                 findNavController().navigate(action)
@@ -398,7 +397,7 @@ class ProductDetailsFragment : Fragment() {
             binding.tvRating.text = "0.0"
             binding.ratingBar.rating = 0.0F
         }else{
-            binding.reviewsItemCount.text = "$itemCount"
+            binding.reviewsItemCount.text = "($itemCount)"
         }
     }
 

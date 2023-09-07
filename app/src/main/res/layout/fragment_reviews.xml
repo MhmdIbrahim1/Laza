@@ -173,4 +173,16 @@
         app:layout_constraintStart_toStartOf="@id/leftGuideLine"
         app:layout_constraintTop_toBottomOf="@id/ratingBar" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.Black"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rightGuideLine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSubmitReview" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
