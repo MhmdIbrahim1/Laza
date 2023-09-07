@@ -82,7 +82,7 @@
 
 
             <TextView
-                android:id="@+id/item_count"
+                android:id="@+id/reviews_item_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -100,8 +100,8 @@
                 android:layout_height="wrap_content"
                 android:text="Available in stock"
                 android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/item_count"
-                app:layout_constraintTop_toBottomOf="@+id/item_count" />
+                app:layout_constraintStart_toStartOf="@+id/reviews_item_count"
+                app:layout_constraintTop_toBottomOf="@+id/reviews_item_count" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/brands_rv"

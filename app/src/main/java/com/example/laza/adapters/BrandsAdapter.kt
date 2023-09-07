@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.laza.data.Product
 import com.example.laza.databinding.BrandRvItemBinding
+import com.example.laza.helper.getProductPrice
 import dagger.hilt.android.AndroidEntryPoint
 
 class BrandsAdapter : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
 
-    inner class ViewHolder(private val binding: BrandRvItemBinding) :
+    inner class ViewHolder( val binding: BrandRvItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
             binding.apply {
@@ -22,13 +23,13 @@ class BrandsAdapter : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
                     crossfade(1000)
                 }
                 brandName.text = product.name
-                brandPriceBeforeOffer.text = "$${product.price}"
+                brandPriceBeforeOffer.text = "E£ ${product.price}"
 
                 // Check if offerPercentage is not null before using it
                 if (product.offerPercentage != null) {
-                    val discountedPrice =
-                        product.price - (product.price * product.offerPercentage / 100)
-                    brandPriceAfterOffer.text = "$$discountedPrice"
+                    val discountedPrice = product.offerPercentage.getProductPrice(product.price)
+                    val newPrice = product.offerPercentage.getProductPrice(product.price)
+                    brandPriceAfterOffer.text = "E£ $newPrice"
                     brandPriceAfterOffer.visibility = View.VISIBLE
                     brandPriceBeforeOffer.paintFlags =
                         brandPriceBeforeOffer.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
@@ -63,6 +64,18 @@ class BrandsAdapter : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val product = differ.currentList[position]
         holder.bind(product)
+
+        // check if the rating is null or not
+        if (product.ratings.isEmpty()) {
+            holder.binding.ratingBar.visibility = View.GONE
+            holder.binding.tvRating.visibility = View.GONE
+            holder.binding.reviewsItemCount.visibility = View.GONE
+        } else {
+            holder.binding.ratingBar.rating = product.ratings.average().toFloat()
+            holder.binding.tvRating.text = product.ratings.average().toString()
+            holder.binding.reviewsItemCount.text = product.reviewCount.toString()
+
+        }
 
         // Set up item click listener
         holder.itemView.setOnClickListener {

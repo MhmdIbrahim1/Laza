@@ -27,6 +27,7 @@ import com.example.laza.utils.NetworkResult
 import com.example.laza.utils.ShowBottomNavigation
 import com.example.laza.viewmodels.DetailsViewModel
 import com.example.laza.viewmodels.HomeFragmentViewModel
+import com.example.laza.viewmodels.ReviewsViewModel
 import com.example.storein.utils.HorizontalItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -71,9 +72,6 @@ class HomeFragment : Fragment() {
         observeNewArrival()
         observeAddWishlist()
         observeRemoveWishlist()
-
-
-
 
         nestedScrollView = binding.nestedScrollMainCategory
         nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->

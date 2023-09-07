@@ -158,6 +158,21 @@ class ProductDetailsFragment : Fragment() {
 
             findNavController().navigate(action)
         }
+
+        if (product.ratings.isEmpty()) {
+            binding.viewAll.setOnClickListener {
+                val action = ProductDetailsFragmentDirections.actionProductDetailsFragmentToAddReviewsFragment(
+                    reviews = Reviews(
+                        name = "",
+                        review = "",
+                        ratingStars = 0.0,
+                        image = "",
+                        documentId = product.id
+                    )
+                )
+                findNavController().navigate(action)
+            }
+        }
     }
 
 
@@ -272,7 +287,12 @@ class ProductDetailsFragment : Fragment() {
                         is NetworkResult.Loading -> {}
 
                         is NetworkResult.Success -> {
-                            reviewsAdapter.differ.submitList(result.data)
+                            if (result.data.isNullOrEmpty()){
+                                binding.tvProductReviewsTitle.visibility = View.INVISIBLE
+                                binding.viewAll.text = getString(R.string.add_review)
+                            }else{
+                                reviewsAdapter.differ.submitList(result.data)
+                            }
                         }
 
                         is NetworkResult.Error -> {
@@ -374,13 +394,14 @@ class ProductDetailsFragment : Fragment() {
 
     private fun updateTotalReviewsCount(itemCount: Int) {
         if (itemCount == 0){
-            binding.itemCount.text = "No Reviews "
+            binding.reviewsItemCount.text = "No Reviews "
             binding.tvRating.text = "0.0"
             binding.ratingBar.rating = 0.0F
         }else{
-            binding.itemCount.text = "$itemCount"
+            binding.reviewsItemCount.text = "$itemCount"
         }
     }
+
 
 
     // Set up ViewPager

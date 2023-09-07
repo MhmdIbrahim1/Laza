@@ -13,7 +13,9 @@ data class Product(
     val description: String? = null,
     val colors: List<Long>? = null,
     val sizes: List<String>? = null,
-    val images: List<String>
+    val images: List<String>,
+    val ratings: List<Float> = emptyList(),
+    val reviewCount : Int? = null
 ):Parcelable{
     constructor(): this("", "", "", 0f, null, null, null, null, emptyList())
 }

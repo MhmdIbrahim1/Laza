@@ -1,6 +1,7 @@
 package com.example.laza.adapters
 
 import android.graphics.Paint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,14 +32,14 @@ class NewArrivalAdapter() :
                 if (product.offerPercentage != null) {
                     brandPriceAfterOffer.text =
                         product.offerPercentage.getProductPrice(product.price).toString()
+                    val newPrice = product.offerPercentage.getProductPrice(product.price)
+                    brandPriceAfterOffer.text = "E£ $newPrice"
                     brandPriceAfterOffer.visibility = View.VISIBLE
                     brandPriceBeforeOffer.paintFlags =
                         brandPriceBeforeOffer.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 } else {
                     brandPriceAfterOffer.text = "" // Set a default value or empty text
                 }
-
-
             }
         }
 
@@ -69,6 +70,19 @@ class NewArrivalAdapter() :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val product = differ.currentList[position]
         holder.bind(product)
+
+        // check if the rating is null or not
+        if (product.ratings.isEmpty()) {
+            holder.binding.ratingBar.visibility = View.GONE
+            holder.binding.tvRating.visibility = View.GONE
+            holder.binding.reviewsItemCount.visibility = View.GONE
+        } else {
+            holder.binding.ratingBar.rating = product.ratings.average().toFloat()
+            holder.binding.tvRating.text = product.ratings.average().toString()
+            holder.binding.reviewsItemCount.text = product.reviewCount.toString()
+
+        }
+
         // Attach click listener to the entire item view
         holder.itemView.setOnClickListener {
             onItemClickListener?.invoke(product)

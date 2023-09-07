@@ -113,7 +113,7 @@
                 app:layout_constraintStart_toEndOf="@+id/tvRating" />
 
             <TextView
-                android:id="@+id/item_count"
+                android:id="@+id/reviews_item_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"

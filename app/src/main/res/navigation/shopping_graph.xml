@@ -54,6 +54,9 @@
         <action
             android:id="@+id/action_cartFragment_to_billingFragment"
             app:destination="@id/billingFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_billingFragment2"
+            app:destination="@id/billingFragment" />
     </fragment>
     <fragment
         android:id="@+id/wishlistFragment"
@@ -67,6 +70,9 @@
         <action
             android:id="@+id/action_wishlistFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_wishlistFragment_to_billingFragment"
+            app:destination="@id/billingFragment" />
 
     </fragment>
     <fragment
@@ -77,6 +83,9 @@
         <action
             android:id="@+id/action_brandsFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_brandsFragment_to_billingFragment"
+            app:destination="@id/billingFragment" />
     </fragment>
     <fragment
         android:id="@+id/productDetailsFragment"
@@ -92,6 +101,9 @@
         <action
             android:id="@+id/action_productDetailsFragment_to_reviewFragment"
             app:destination="@id/reviewFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_billingFragment"
+            app:destination="@id/billingFragment" />
     </fragment>
 
     <fragment

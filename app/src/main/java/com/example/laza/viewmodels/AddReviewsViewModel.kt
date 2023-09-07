@@ -3,6 +3,7 @@ package com.example.laza.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.laza.data.Address
+import com.example.laza.data.Product
 import com.example.laza.data.Reviews
 import com.example.laza.utils.Constants.PRODUCT_COLLECTION
 import com.example.laza.utils.Constants.REVIEWS_COLLECTION
@@ -38,6 +39,8 @@ class AddReviewsViewModel @Inject constructor(
                 .addOnSuccessListener {
                     viewModelScope.launch {
                         _addNewReview.emit(NetworkResult.Success(review))
+                        updateProductRatings(productId, review.ratingStars.toFloat())
+
                     }
                 }
                 .addOnFailureListener {
@@ -45,6 +48,32 @@ class AddReviewsViewModel @Inject constructor(
                         _addNewReview.emit(NetworkResult.Error(it.message.toString()))
                     }
                 }
+        }
+    }
+
+    private suspend fun updateProductRatings(productId: String, newRating: Float) {
+        val productRef = firestore.collection(PRODUCT_COLLECTION).document(productId)
+
+        firestore.runTransaction { transaction ->
+            val product = transaction.get(productRef).toObject(Product::class.java)
+
+            if (product != null) {
+                val updatedRatings = product.ratings.toMutableList()
+                updatedRatings.add(newRating)
+
+                // Update the product with the new ratings and total reviews count
+                val updatedProduct = product.copy(
+                    ratings = updatedRatings,
+                    reviewCount = updatedRatings.size
+                )
+
+                transaction.set(productRef, updatedProduct)
+            }
+        }.addOnFailureListener { e ->
+            // Handle the error here
+            viewModelScope.launch {
+                _addNewReview.emit(NetworkResult.Error(e.message.toString()))
+            }
         }
     }
 }

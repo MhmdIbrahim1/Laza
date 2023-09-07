@@ -168,13 +168,13 @@ class BrandsFragment : Fragment() {
 
     private fun updateItemCount(itemCount: Int) {
         if (itemCount == 0) {
-            binding.itemCount.text = "No items found"
+            binding.reviewsItemCount.text = "No items found"
             binding.availableOnStock.visibility = View.GONE
-            binding.itemCount.visibility = View.VISIBLE
+            binding.reviewsItemCount.visibility = View.VISIBLE
         } else {
-            binding.itemCount.text = "$itemCount items"
+            binding.reviewsItemCount.text = "$itemCount items"
             binding.availableOnStock.visibility = View.VISIBLE
-            binding.itemCount.visibility = View.VISIBLE
+            binding.reviewsItemCount.visibility = View.VISIBLE
         }
     }
 

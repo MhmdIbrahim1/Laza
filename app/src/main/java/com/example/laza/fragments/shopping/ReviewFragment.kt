@@ -139,11 +139,11 @@ class ReviewFragment : Fragment() {
 
     private fun updateTotalReviewsCount(itemCount: Int) {
         if (itemCount == 0){
-            binding.itemCount.text = "No Reviews "
+            binding.reviewsItemCount.text = "No Reviews "
             binding.tvRating.text = "0.0"
             binding.ratingBar.rating = 0.0F
         }else{
-            binding.itemCount.text = "$itemCount Reviews"
+            binding.reviewsItemCount.text = "$itemCount Reviews"
         }
     }
 

@@ -17,6 +17,16 @@ class ReviewsProductsDetailsAdapter: RecyclerView.Adapter<ReviewsProductsDetails
             binding.apply {
                 tvName.text = reviews.name
                 tvReviewDescription.text = reviews.review
+                tvReviewDescription.maxLines = 1
+                tvReviewDescription.ellipsize = null
+
+                //reduce the length of the review
+                if (reviews.review.length > 45) {
+                    tvReviewDescription.text = reviews.review.substring(0, 45) + "..."
+                }else{
+                    tvReviewDescription.text = reviews.review
+                }
+
                 tvRating.text = "${reviews.ratingStars} rating"
                 ratingBar.rating = reviews.ratingStars.toFloat()
                 profileUserImageReview.setImageResource(R.drawable.profile)

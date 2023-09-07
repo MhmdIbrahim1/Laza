@@ -17,6 +17,7 @@ import com.example.laza.data.Reviews
 import com.example.laza.databinding.FragmentReviewsBinding
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.AddReviewsViewModel
+import com.example.laza.viewmodels.HomeFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -25,6 +26,7 @@ import kotlinx.coroutines.launch
 class AddReviewsFragment : Fragment() {
     private lateinit var binding: FragmentReviewsBinding
     private  val viewModel by viewModels<AddReviewsViewModel>()
+    private val homeViewModel by viewModels<HomeFragmentViewModel>()
     private val args by navArgs<AddReviewsFragmentArgs>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,6 +57,7 @@ class AddReviewsFragment : Fragment() {
                 if (name.isNotEmpty() && reviewText.isNotEmpty()) {
                     val review = Reviews(name = name, review = reviewText, ratingStars = rating.toDouble(), image = image.toString())
                     viewModel.addReview(productId, review)
+
                 } else {
                     Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_SHORT).show()
                 }
@@ -76,6 +79,8 @@ class AddReviewsFragment : Fragment() {
                         is NetworkResult.Loading -> {}
 
                         is NetworkResult.Success -> {
+                            val productId = args.reviews.documentId
+                            homeViewModel.setTotalReviewsCount(productId)
                             Toast.makeText(requireContext(), "Review submitted successfully.", Toast.LENGTH_SHORT).show()
                             findNavController().navigateUp()
                         }
@@ -90,4 +95,6 @@ class AddReviewsFragment : Fragment() {
             }
         }
     }
+
+
 }

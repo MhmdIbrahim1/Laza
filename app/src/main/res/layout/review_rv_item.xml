@@ -80,7 +80,7 @@
             app:trimCollapsedText="@string/read_more"
             app:trimExpandedText="@string/read_less"
             app:colorClickableText="#63c1da"
-            app:trimLength="25"
+            app:trimLength="100"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
