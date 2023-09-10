@@ -100,5 +100,6 @@
     <string name="view_all">View All</string>
     <string name="back_arrow">back_arrow</string>
     <string name="no_reviews_yet">No reviews yet</string>
+    <string name="dark_mode">Dark Mode</string>
 
 </resources>

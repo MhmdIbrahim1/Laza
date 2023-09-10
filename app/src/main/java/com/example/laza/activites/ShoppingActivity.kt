@@ -1,14 +1,18 @@
 package com.example.laza.activites
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Button
+import android.widget.CompoundButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -31,14 +35,34 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+
 @AndroidEntryPoint
 class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
     private val binding by lazy { ActivityShoppingBinding.inflate(layoutInflater) }
     private lateinit var navController: NavController
+
     val viewModel  by viewModels<CartViewModel>()
+
+    private lateinit var sharedPreferences: SharedPreferences
+    private val isDark = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // set up the theme of the app based on the user's choice (light or dark)
+        sharedPreferences = getSharedPreferences("isDark", MODE_PRIVATE)
+        val isDarkMode = sharedPreferences.getBoolean("isDark", isDark)
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            delegate.applyDayNight()
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            delegate.applyDayNight()
+        }
+
         setContentView(binding.root)
+
+
         onLogout()
         changeStatusBarColor()
         bottomNavigationListener()
@@ -51,6 +75,29 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
         navController = findNavController(R.id.shoppingHostFragment)
         binding.bottomNavigation.setupWithNavController(navController)
 
+        // Initialize the switch state based on the saved value
+        val switchTheme = binding.navView.findViewById<SwitchCompat>(R.id.switch_theme)
+        switchTheme.isChecked = isDarkMode
+
+        // Set up the switch listener
+        switchTheme.setOnCheckedChangeListener { _: CompoundButton, isChecked: Boolean ->
+            // Save the switch state when it changes
+            val editor = sharedPreferences.edit()
+            editor.putBoolean("isDark", isChecked)
+            editor.apply()
+
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                delegate.applyDayNight()
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                delegate.applyDayNight()
+            }
+
+            val intent = Intent(this, ShoppingActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(intent)
+        }
 
     }
 

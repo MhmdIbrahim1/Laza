@@ -37,6 +37,8 @@ class NewArrivalAdapter() :
                     brandPriceAfterOffer.visibility = View.VISIBLE
                     brandPriceBeforeOffer.paintFlags =
                         brandPriceBeforeOffer.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                    llLinearOffer.visibility = View.VISIBLE
+                    offerText.text = "${product.offerPercentage}% OFF"
                 } else {
                     brandPriceAfterOffer.text = "" // Set a default value or empty text
                 }

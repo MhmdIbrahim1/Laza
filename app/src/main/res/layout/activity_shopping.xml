@@ -2,9 +2,9 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/drawer_layout"
     tools:context=".activites.ShoppingActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,16 +29,16 @@
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            app:menu="@menu/bottom_navigation_menu"
-            app:labelVisibilityMode="unlabeled"
             android:background="@color/background_color_general_Card"
-            app:itemPaddingTop="@dimen/_10sdp"
-            app:itemPaddingBottom="@dimen/_10sdp"
-            app:itemRippleColor="@color/g_white"
             app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
-            app:layout_constraintStart_toStartOf="parent"
+            app:itemPaddingBottom="@dimen/_10sdp"
+            app:itemPaddingTop="@dimen/_10sdp"
+            app:itemRippleColor="@color/g_white"
+            app:labelVisibilityMode="unlabeled"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_navigation_menu" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -47,10 +47,11 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:menu="@menu/navigation_drawer_menu"
-        app:headerLayout="@layout/nav_header"
         android:background="@color/brand_rv_background__card_color"
-        >
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/navigation_drawer_menu">
+
+
         <LinearLayout
             android:id="@+id/logout_layout"
             android:layout_width="match_parent"
@@ -59,14 +60,28 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_theme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/dark_mode"
+                android:textColor="@color/background_intro__mentv_2"
+                android:textSize="@dimen/_14ssp"
+                android:drawableStart="@drawable/sun"
+                android:layout_marginBottom="@dimen/_16sdp"
+                android:drawablePadding="@dimen/_5sdp"
+                android:textStyle="bold" />
+
+
             <TextView
                 android:id="@+id/logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/_8sdp"
                 android:gravity="start"
                 android:text="@string/sign_out"
                 android:textStyle="bold"
-                android:drawablePadding="@dimen/_8sdp"
                 app:drawableStartCompat="@drawable/logout" />
         </LinearLayout>
     </com.google.android.material.navigation.NavigationView>

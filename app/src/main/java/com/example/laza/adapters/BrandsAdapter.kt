@@ -27,12 +27,13 @@ class BrandsAdapter : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
 
                 // Check if offerPercentage is not null before using it
                 if (product.offerPercentage != null) {
-                    val discountedPrice = product.offerPercentage.getProductPrice(product.price)
                     val newPrice = product.offerPercentage.getProductPrice(product.price)
                     brandPriceAfterOffer.text = "E£ $newPrice"
                     brandPriceAfterOffer.visibility = View.VISIBLE
                     brandPriceBeforeOffer.paintFlags =
                         brandPriceBeforeOffer.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                    llLinearOffer.visibility = View.VISIBLE
+                    offerText.text = "${product.offerPercentage}% OFF"
                 } else {
                     brandPriceAfterOffer.text = "" // Set a default value or empty text
                 }

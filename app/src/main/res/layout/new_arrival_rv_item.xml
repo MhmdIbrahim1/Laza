@@ -29,8 +29,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="1"
             android:text="Brand Name"
+            android:layout_marginStart="@dimen/_4sdp"
             android:layout_marginEnd="@dimen/_2sdp"
             android:textColor="@color/background_intro__mentv_2"
             android:textSize="@dimen/_11ssp"
@@ -40,7 +41,7 @@
 
         <LinearLayout
             android:id="@+id/ll_linear_rating"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4sdp"
             android:orientation="horizontal"
@@ -82,6 +83,55 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_linear_offer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/brand_name"
+            app:layout_constraintTop_toBottomOf="@+id/ll_linear_rating">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/offer_card"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_18sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:backgroundTint="@color/discount_"
+                app:cardCornerRadius="@dimen/_2sdp"
+                app:cardElevation="0dp">
+
+                <TextView
+                    android:id="@+id/offer_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:paddingStart="@dimen/_4sdp"
+                    android:paddingBottom="@dimen/_2sdp"
+                    android:text="50% OFF"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_9ssp"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/deal_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:text="Deal"
+                android:textColor="@color/discount_"
+                android:textSize="@dimen/_10ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/price_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -89,9 +139,10 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingBottom="@dimen/_2sdp"
+            android:layout_marginStart="@dimen/_2sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ll_linear_rating">
+            app:layout_constraintTop_toBottomOf="@+id/ll_linear_offer">
 
             <TextView
                 android:id="@+id/brand_price_before_offer"
@@ -106,12 +157,11 @@
                 android:id="@+id/brand_price_after_offer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_15sdp"
                 android:text="$25"
                 android:textColor="@color/background_intro__mentv_2"
                 android:textSize="@dimen/_11ssp"
                 android:visibility="invisible" />
-
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
