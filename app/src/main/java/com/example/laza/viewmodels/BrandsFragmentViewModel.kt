@@ -78,6 +78,7 @@ class BrandsFragmentViewModel @Inject constructor(
         }
     }
 
+
     // Common error handling function
     private suspend fun emitError(exception: Exception) {
         _brandsData.emit(NetworkResult.Error(exception.message.toString()))

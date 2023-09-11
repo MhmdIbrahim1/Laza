@@ -24,6 +24,7 @@ import com.example.laza.helper.getProductPrice
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import com.example.laza.utils.ShowBottomNavigation
+import com.example.laza.viewmodels.DetailsViewModel
 import com.example.laza.viewmodels.WishListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -33,6 +34,7 @@ import kotlinx.coroutines.launch
 class WishlistFragment : Fragment() {
     private lateinit var binding: FragmentWishlistBinding
     private val viewModel by viewModels<WishListViewModel>()
+    private val _viewModel by viewModels<DetailsViewModel>()
     private lateinit var wishListAdapter: WishListAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,6 +74,12 @@ class WishlistFragment : Fragment() {
                     updatedProduct
                 )
                 findNavController().navigate(action)
+            }
+        }
+
+        binding.cartFromWishlist.setOnClickListener {
+            if (isResumed) {
+                findNavController().navigate(R.id.action_wishlistFragment_to_cartFragment)
             }
         }
     }
@@ -166,7 +174,7 @@ class WishlistFragment : Fragment() {
                 val item = wishListAdapter.differ.currentList[position]
 
                 // Remove the item from the wishlist when swiped
-                viewModel.removeProductFromWishList(item.product.id, false)
+                _viewModel.removeFromWishList(item)
                 Toast.makeText(
                     requireContext(),
                     item.product.name + " removed from wishlist",

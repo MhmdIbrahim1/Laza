@@ -2,9 +2,7 @@ package com.example.laza.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.laza.data.Product
 import com.example.laza.data.WishlistProduct
-import com.example.laza.utils.Constants
 import com.example.laza.utils.Constants.USER_COLLECTION
 import com.example.laza.utils.NetworkResult
 import com.google.firebase.auth.FirebaseAuth
@@ -86,51 +84,6 @@ class WishListViewModel @Inject constructor(
                        _totalItemCount.emit(totalItemCount)
                    }
                 }
-            }
-        }
-    }
-
-    fun removeProductFromWishList(productId: String,newState: Boolean) {
-        viewModelScope.launch {
-            _removeProductFromWishListStatus.emit(NetworkResult.Loading())
-
-            // Reference to the wishlist collection
-            val wishlistRef = firestore.collection(USER_COLLECTION)
-                .document(auth.currentUser!!.uid)
-                .collection("wishlist")
-            // Remove the product from the wishlist
-            wishlistRef.document(productId).delete()
-                .addOnSuccessListener {
-                    viewModelScope.launch {
-                        _removeProductFromWishListStatus.emit(NetworkResult.Success("Product removed from wishlist"))
-                        updateProductWithNewWithListStatus(productId, newState)
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    viewModelScope.launch {
-                        _removeProductFromWishListStatus.emit(NetworkResult.Error(exception.message.toString()))
-                    }
-                }
-        }
-    }
-
-    private fun updateProductWithNewWithListStatus(productId: String, newStatus: Boolean) {
-        val productRef = firestore.collection(Constants.PRODUCT_COLLECTION).document(productId)
-
-        firestore.runTransaction { transaction ->
-            val product = transaction.get(productRef).toObject(Product::class.java)
-
-            if (product != null) {
-                val updatedProduct = product.copy(
-                    inWishList = newStatus
-                )
-
-                transaction.set(productRef, updatedProduct)
-            }
-        }.addOnFailureListener { e ->
-            // Handle the error here
-            viewModelScope.launch {
-                _wishListData.emit(NetworkResult.Error(e.message.toString()))
             }
         }
     }

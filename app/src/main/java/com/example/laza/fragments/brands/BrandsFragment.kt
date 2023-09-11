@@ -80,7 +80,25 @@ class BrandsFragment : Fragment() {
             }
         }
 
+//        brandsAdapter.onItemHeartClickListener = {
+//            if (isAdded) {
+//                // Check if the product is in the user's wishlist
+//                if (it.isFavorite) {
+//                    // Remove the product from the user's wishlist
+//                    wishListViewModel.removeFromWishList(it)
+//                    // Update the dataset to reflect the removed product from the wishlist
+//                    brandsAdapter.updateWishlistStatus(it.product.id, false)
+//
+//                    Toast.makeText(
+//                        requireContext(),
+//                        it.product.name + " removed from wishlist",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//        }
     }
+
 
     private fun observeBrandData() {
         lifecycleScope.launch {

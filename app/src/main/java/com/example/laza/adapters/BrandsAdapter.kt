@@ -86,11 +86,6 @@ class BrandsAdapter(private val context: Context) : RecyclerView.Adapter<BrandsA
             holder.binding.reviewsItemCount.text = context.getString(R.string.reviews_item_count_, product.ratings.size.toString())
         }
 
-        if (product.inWishList){
-            holder.binding.addToWishlist.setImageResource(R.drawable.ic_wishlist_filled)
-        }else{
-            holder.binding.addToWishlist.setImageResource(R.drawable.wishlist)
-        }
 
 
         // Set up item click listener
@@ -99,13 +94,23 @@ class BrandsAdapter(private val context: Context) : RecyclerView.Adapter<BrandsA
         }
 
         holder.binding.addToWishlist.setOnClickListener {
-            onItemHeartClickListener?.invoke(product)
+
         }
 
     }
+//
+//    // Add a function to update the dataset when the wishlist state changes
+//    fun updateWishlistStatus(wishlistProduct: WishlistProduct) {
+//        val position = differ.currentList.indexOfFirst { it.id == wishlistProduct.product.id }
+//        if (position != -1) {
+//            val product = differ.currentList[position]
+//            product.isInWishlist = wishlistProduct.isInWishlist
+//            notifyItemChanged(position)
+//        }
+//    }
 
     var onItemClickListener: ((Product) -> Unit)? = null
 
-    var onItemHeartClickListener: ((Product) -> Unit)? = null
+   // var onItemHeartClickListener: ((WishlistProduct) -> Unit)? = null
 
 }

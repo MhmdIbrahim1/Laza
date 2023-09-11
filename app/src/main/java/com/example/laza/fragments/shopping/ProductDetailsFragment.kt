@@ -149,10 +149,10 @@ class ProductDetailsFragment : Fragment() {
         binding.addToWishlist.setOnClickListener {
             if (viewModel.wishlistStatus.value == false) {
                 // Product is not in the wishlist, add it
-                viewModel.addToWishList(WishlistProduct(product, true),true)
+                viewModel.addToWishList(WishlistProduct(product, true))
             } else {
                 // Product is in the wishlist, remove it
-                viewModel.removeFromWishList(WishlistProduct(product, false),false)
+                viewModel.removeFromWishList(WishlistProduct(product, false))
             }
         }
 

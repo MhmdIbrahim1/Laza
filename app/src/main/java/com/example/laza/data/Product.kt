@@ -16,7 +16,6 @@ data class Product(
     val images: List<String>,
     val ratings: List<Float> = emptyList(),
     val reviewCount : Int? = null,
-    val inWishList: Boolean = false
 ):Parcelable{
     constructor(): this("", "", "", 0f, null, null, null, null, emptyList())
 }
