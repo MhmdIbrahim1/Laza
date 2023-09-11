@@ -173,7 +173,7 @@ class BrandsFragment : Fragment() {
             binding.availableOnStock.visibility = View.GONE
             binding.reviewsItemCount.visibility = View.VISIBLE
         } else {
-            binding.reviewsItemCount.text = itemCount.toString().plus(" items found")
+            binding.reviewsItemCount.text = itemCount.toString().plus(" items")
             binding.availableOnStock.visibility = View.VISIBLE
             binding.reviewsItemCount.visibility = View.VISIBLE
         }
