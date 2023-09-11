@@ -140,6 +140,9 @@
         <argument
             android:name="payment"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_billingFragment_to_orderConfirmationFragment"
+            app:destination="@id/orderConfirmationFragment" />
     </fragment>
     <fragment
         android:id="@+id/addReviewsFragment"
@@ -162,5 +165,15 @@
         <action
             android:id="@+id/action_reviewFragment_to_addReviewsFragment"
             app:destination="@id/addReviewsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderConfirmationFragment"
+        android:name="com.example.laza.fragments.shopping.OrderConfirmationFragment"
+        android:label="OrderConfirmationFragment"
+        tools:layout="@layout/fragment_order_confirmation"
+    >
+        <action
+            android:id="@+id/action_orderConfirmationFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

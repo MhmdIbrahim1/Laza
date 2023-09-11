@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color_general"
+    tools:context=".fragments.shopping.AddressesFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarAddReview"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/backArrow"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:layout_marginTop="20dp"
+                android:src="@color/circle_image_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/arrow_1"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:src="@drawable/arrow___left"
+                app:layout_constraintBottom_toBottomOf="@id/backArrow"
+                app:layout_constraintEnd_toEndOf="@id/backArrow"
+                app:layout_constraintStart_toStartOf="@id/backArrow"
+                app:layout_constraintTop_toTopOf="@id/backArrow"
+                android:contentDescription="@string/arrow_back" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:background="@color/g_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarAddReview" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottomGuideLine"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.60" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightGuideLine"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.96" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftGuideLine"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04" />
+
+    <ImageView
+        android:id="@+id/imageOrderConfirm"
+        android:layout_width="@dimen/_220sdp"
+        android:layout_height="@dimen/_200sdp"
+        android:src="@drawable/order_confirmation"
+        app:layout_constraintBottom_toTopOf="@+id/bottomGuideLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line"
+        android:contentDescription="@string/image_order_confirm" />
+
+    <ImageView
+        android:id="@+id/linesBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.5"
+        android:src="@drawable/lines_background"
+        app:layout_constraintBottom_toTopOf="@+id/bottomGuideLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line"
+        android:contentDescription="@string/image_order_confirm"/>
+
+    <TextView
+        android:id="@+id/orderConfirmation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/order_confirmation"
+        android:textColor="@color/background_intro__mentv_2"
+        android:textSize="@dimen/_20ssp"
+        app:layout_constraintEnd_toEndOf="@+id/imageOrderConfirm"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="@+id/imageOrderConfirm"
+        app:layout_constraintTop_toTopOf="@+id/bottomGuideLine" />
+
+    <TextView
+        android:id="@+id/yourOrderHasBeenPlaced"
+        style="@style/h2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:gravity="center"
+        android:text="@string/your_order_has_been_placed"
+        android:textAlignment="center"
+        android:textColor="@color/background_intro__mentv_2"
+        app:layout_constraintEnd_toEndOf="@+id/imageOrderConfirm"
+        app:layout_constraintStart_toStartOf="@+id/imageOrderConfirm"
+        app:layout_constraintTop_toBottomOf="@+id/orderConfirmation" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/goToOrders"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/go_to_orders"
+        style="@style/blueButtonStyle"
+        app:layout_constraintEnd_toStartOf="@+id/rightGuideLine"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/leftGuideLine"
+        app:layout_constraintTop_toBottomOf="@+id/yourOrderHasBeenPlaced" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:backgroundTint="@color/background_buttom_card"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/continueShopping"
+                style="@style/h3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingStart="@dimen/_80sdp"
+                android:paddingTop="@dimen/_20ssp"
+                android:paddingEnd="@dimen/_80sdp"
+                android:paddingBottom="@dimen/_15ssp"
+                android:text="@string/continue_shopping"
+                android:textColor="@color/g_white"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

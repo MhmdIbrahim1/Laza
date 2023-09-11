@@ -121,5 +121,12 @@
     <string name="brand_wishlist">brand_wishlist</string>
     <string name="no_items_found">No Items Found</string>
     <string name="arrow_back">arrow_back</string>
+    <string name="qu">qu</string>
+    <string name="do_you_want_to_order_your_cart_items">Do you want to order your cart items?</string>
+    <string name="image_order_confirm">image_order_confirm</string>
+    <string name="order_confirmation">Order Confirmed!</string>
+    <string name="your_order_has_been_placed">Your order has been confirmed, we will send you confirmation email shortly.</string>
+    <string name="go_to_orders">Go to Orders</string>
+    <string name="continue_shopping">Continue Shopping</string>
 
 </resources>

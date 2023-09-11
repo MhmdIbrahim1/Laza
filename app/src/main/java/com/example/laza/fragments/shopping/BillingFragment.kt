@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -19,11 +20,14 @@ import com.example.laza.adapters.AddressAdapter
 import com.example.laza.adapters.BillingProductAdapter
 import com.example.laza.data.Address
 import com.example.laza.data.CartProduct
+import com.example.laza.data.order.Order
+import com.example.laza.data.order.OrderStatus
 import com.example.laza.databinding.FragmentBillingBinding
 import com.example.laza.helper.formatPrice
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.BillingViewModel
+import com.example.laza.viewmodels.OrderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -35,6 +39,7 @@ class BillingFragment : Fragment() {
     private val addressAdapter by lazy { AddressAdapter() }
     private val billingAdapter by lazy { BillingProductAdapter(requireContext()) }
     private val viewModel by viewModels<BillingViewModel>()
+    private val orderViewModel by viewModels<OrderViewModel>()
     private val args by navArgs<BillingFragmentArgs>()
     private var products = emptyList<CartProduct>()
     private var totalPrice = 0f
@@ -61,7 +66,9 @@ class BillingFragment : Fragment() {
 
         setUpAddressRv()
         setUpBillingRv()
+
         observeAddresses()
+        observeOrder()
 
         if (!args.payment) {
             binding.apply {
@@ -90,6 +97,41 @@ class BillingFragment : Fragment() {
         binding.arrow1.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        binding.buttonPlaceOrder.setOnClickListener {
+            if (selectedAddress == null){
+                Toast.makeText(requireContext(), "Please select an address", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            showOrderConfirmationDialog()
+        }
+    }
+
+    private fun showOrderConfirmationDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.order_confirmation_dialog, null)
+        val alertDialogBuilder = AlertDialog.Builder(requireContext(), R.style.AlertDialogCustom)
+            .setView(dialogView)
+            .create()
+
+        val cancelButton = dialogView.findViewById<View>(R.id.confirm_cancel_button)
+        val confirmButton = dialogView.findViewById<View>(R.id.confirm_yes__button)
+
+        cancelButton.setOnClickListener {
+            alertDialogBuilder.dismiss()
+        }
+        confirmButton.setOnClickListener {
+            val order = Order(
+                OrderStatus.Ordered.status,
+                totalPrice,
+                products,
+                selectedAddress!!,
+            )
+            orderViewModel.placeOrder(order)
+            alertDialogBuilder.dismiss()
+        }
+
+        alertDialogBuilder.show()
+
     }
 
     private fun setUpBillingRv() {
@@ -125,6 +167,32 @@ class BillingFragment : Fragment() {
 
                         is NetworkResult.Error -> {
                             binding.progressbarAddress.visibility = View.GONE
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        }
+
+                        else -> Unit
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observeOrder(){
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
+                orderViewModel.orders.collectLatest {
+                    when(it){
+                        is NetworkResult.Loading -> {
+                            binding.buttonPlaceOrder.startAnimation()
+                        }
+
+                        is NetworkResult.Success -> {
+                            binding.buttonPlaceOrder.revertAnimation()
+                            findNavController().navigate(R.id.action_billingFragment_to_orderConfirmationFragment)
+                        }
+
+                        is NetworkResult.Error -> {
+                            binding.buttonPlaceOrder.revertAnimation()
                             Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                         }
 

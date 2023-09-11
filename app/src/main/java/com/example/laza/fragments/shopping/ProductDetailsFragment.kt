@@ -441,7 +441,8 @@ class ProductDetailsFragment : Fragment() {
         binding.circleIndicator.setWithViewPager2(binding.viewPagerProductImages)
         binding.circleIndicator.itemCount = (args.product.images.size)
         binding.circleIndicator.setAnimationMode(CircleIndicator.AnimationMode.SLIDE)
-        binding.circleIndicator.setAnimationMode(CircleIndicator.AnimationMode.SCALE)
+       // binding.circleIndicator.setAnimationMode(CircleIndicator.AnimationMode.SCALE)
+
     }
 
     // Set up Size RecyclerView
