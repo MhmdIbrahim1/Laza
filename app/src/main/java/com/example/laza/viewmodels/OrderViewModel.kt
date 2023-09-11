@@ -34,7 +34,7 @@ class OrderViewModel @Inject constructor(
         //TODO: Add order into orders collection
         //TODO: Delete the products from user cart collection
 
-        firestore.runBatch {
+        firestore.runBatch { batch ->
             firestore.collection(USER_COLLECTION)
                 .document(auth.uid!!).collection(ORDER_COLLECTION)
                 .document().set(order)
@@ -61,4 +61,5 @@ class OrderViewModel @Inject constructor(
                 }
         }
     }
+
 }

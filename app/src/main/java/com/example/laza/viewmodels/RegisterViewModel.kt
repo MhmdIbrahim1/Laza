@@ -62,6 +62,7 @@ class RegisterViewModel @Inject constructor(
             .set(user)
             .addOnSuccessListener {
                 _register.value = NetworkResult.Success(user)
+                sendConfirmationEmail()
             }
             .addOnFailureListener {
                 _register.value = NetworkResult.Error(it.message.toString())
@@ -73,4 +74,23 @@ class RegisterViewModel @Inject constructor(
         val passwordValidation = validatePassword(password)
         return emailValidation is RegisterValidation.Success && passwordValidation is RegisterValidation.Success
     }
+    private fun sendConfirmationEmail() {
+        val user = firebaseAuth.currentUser
+        user?.let {
+            it.sendEmailVerification()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        viewModelScope.launch {
+                            _register.emit(NetworkResult.Success(User()))
+                        }
+                    } else {
+                        viewModelScope.launch {
+                            _register.emit(NetworkResult.Error(task.exception?.message.toString()))
+                        }
+                    }
+                }
+        }
+    }
+
+
 }

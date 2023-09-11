@@ -39,7 +39,8 @@
                 app:layout_constraintBottom_toBottomOf="@id/backArrow"
                 app:layout_constraintEnd_toEndOf="@id/backArrow"
                 app:layout_constraintStart_toStartOf="@id/backArrow"
-                app:layout_constraintTop_toTopOf="@id/backArrow" />
+                app:layout_constraintTop_toTopOf="@id/backArrow"
+                android:contentDescription="@string/arrow_back" />
 
 
             <TextView
@@ -121,7 +122,8 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:singleLine="true"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:autofillHints="name" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -152,7 +154,8 @@
             android:paddingEnd="20dp"
             android:textColorHighlight="@color/bottom_nav_item_shadow_color"
             android:singleLine="true"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:autofillHints="name" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -176,7 +179,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-
             android:fontFamily="@font/poppins_light"
             android:gravity="start|center_vertical"
             android:hint="@string/street"
@@ -185,7 +187,8 @@
             android:paddingEnd="20dp"
             android:singleLine="true"
             android:textColorHighlight="@color/bottom_nav_item_shadow_color"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:autofillHints="name" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -216,7 +219,8 @@
             android:paddingEnd="20dp"
             android:singleLine="true"
             android:textColorHighlight="@color/bottom_nav_item_shadow_color"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:autofillHints="phone" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
@@ -233,7 +237,7 @@
             android:id="@+id/edCityLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="@dimen/_140sdp"
-            android:layout_height="@dimen/_45sdp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
             app:boxStrokeColor="@color/bottom_nav_item_shadow_color"
@@ -253,12 +257,13 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/poppins_light"
                 android:gravity="start|center_vertical"
+                android:textAlignment="center"
                 android:hint="@string/city"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
                 android:singleLine="true"
                 android:textColorHighlight="@color/bottom_nav_item_shadow_color"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:autofillHints="name"
+                android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -266,7 +271,7 @@
             android:id="@+id/edStateLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_45sdp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
             app:boxStrokeColor="@color/bottom_nav_item_shadow_color"
@@ -287,11 +292,12 @@
                 android:textColorHighlight="@color/bottom_nav_item_shadow_color"
                 android:fontFamily="@font/poppins_light"
                 android:gravity="start|center_vertical"
+                android:textAlignment="center"
                 android:hint="@string/state"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
                 android:singleLine="true"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:autofillHints="name"
+                android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 

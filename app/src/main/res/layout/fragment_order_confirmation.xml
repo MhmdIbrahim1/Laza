@@ -128,11 +128,13 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/goToOrders"
+        style="@style/blueButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="@dimen/_19sdp"
+        android:layout_marginBottom="@dimen/_18sdp"
         android:text="@string/go_to_orders"
-        style="@style/blueButtonStyle"
+        app:layout_constraintBottom_toTopOf="@+id/cardView2"
         app:layout_constraintEnd_toStartOf="@+id/rightGuideLine"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/leftGuideLine"
@@ -142,33 +144,22 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_50sdp"
         android:backgroundTint="@color/background_buttom_card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/continueShopping"
-                style="@style/h3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:paddingStart="@dimen/_80sdp"
-                android:paddingTop="@dimen/_20ssp"
-                android:paddingEnd="@dimen/_80sdp"
-                android:paddingBottom="@dimen/_15ssp"
-                android:text="@string/continue_shopping"
-                android:textColor="@color/g_white"
-                android:textSize="@dimen/_15ssp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
+        <TextView
+            android:id="@+id/continueShopping"
+            style="@style/h3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/continue_shopping"
+            android:textColor="@color/g_white"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
