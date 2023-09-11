@@ -1,5 +1,6 @@
 package com.example.laza.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -9,7 +10,7 @@ import com.example.laza.R
 import com.example.laza.data.Reviews
 import com.example.laza.databinding.ReviewRvItemBinding
 
-class ReviewsAdapter : RecyclerView.Adapter<ReviewsAdapter.ReviewsViewHolder>() {
+class ReviewsAdapter(private val context: Context) : RecyclerView.Adapter<ReviewsAdapter.ReviewsViewHolder>() {
 
     inner class ReviewsViewHolder(private val binding: ReviewRvItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -18,7 +19,7 @@ class ReviewsAdapter : RecyclerView.Adapter<ReviewsAdapter.ReviewsViewHolder>() 
             binding.apply {
                 tvName.text = reviews.name
                 tvReviewDescription.text = reviews.review
-                tvRating.text = "${reviews.ratingStars} rating"
+                tvRating.text =  context.getString(R.string.rating_with_number, reviews.ratingStars.toString())
                 ratingBar.rating = reviews.ratingStars.toFloat()
                 profileUserImageReview.setImageResource(R.drawable.profile)
             }

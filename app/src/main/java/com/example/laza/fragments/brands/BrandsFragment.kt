@@ -15,9 +15,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.laza.R
 import com.example.laza.adapters.BrandsAdapter
 import com.example.laza.databinding.FragmentBrandsBinding
-import com.example.laza.fragments.shopping.HomeFragmentDirections
 import com.example.laza.helper.getProductPrice
 import com.example.laza.utils.HideBottomNavigation
 import com.example.laza.utils.ItemSpacingDecoration
@@ -79,6 +79,7 @@ class BrandsFragment : Fragment() {
                 view.findNavController().navigate(action)
             }
         }
+
     }
 
     private fun observeBrandData() {
@@ -110,7 +111,7 @@ class BrandsFragment : Fragment() {
     }
 
     private fun setUpRecyclerView() {
-        brandsAdapter = BrandsAdapter()
+        brandsAdapter = BrandsAdapter(requireContext())
         binding.brandsRv.apply {
             val layoutManager = GridLayoutManager(
                 requireContext(),
@@ -168,11 +169,11 @@ class BrandsFragment : Fragment() {
 
     private fun updateItemCount(itemCount: Int) {
         if (itemCount == 0) {
-            binding.reviewsItemCount.text = "No items found"
+            binding.reviewsItemCount.text = resources.getString(R.string.no_items_found)
             binding.availableOnStock.visibility = View.GONE
             binding.reviewsItemCount.visibility = View.VISIBLE
         } else {
-            binding.reviewsItemCount.text = "$itemCount items"
+            binding.reviewsItemCount.text = itemCount.toString().plus(" items found")
             binding.availableOnStock.visibility = View.VISIBLE
             binding.reviewsItemCount.visibility = View.VISIBLE
         }

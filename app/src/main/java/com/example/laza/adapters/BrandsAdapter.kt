@@ -1,5 +1,6 @@
 package com.example.laza.adapters
 
+import android.content.Context
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
@@ -8,12 +9,12 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.example.laza.R
 import com.example.laza.data.Product
 import com.example.laza.databinding.BrandRvItemBinding
 import com.example.laza.helper.getProductPrice
-import dagger.hilt.android.AndroidEntryPoint
 
-class BrandsAdapter : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
+class BrandsAdapter(private val context: Context) : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
 
     inner class ViewHolder( val binding: BrandRvItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -23,19 +24,27 @@ class BrandsAdapter : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
                     crossfade(1000)
                 }
                 brandName.text = product.name
-                brandPriceBeforeOffer.text = "E£ ${product.price}"
+                brandPriceBeforeOffer.text = context.getString(R.string.egp_).plus(product.price)
 
                 // Check if offerPercentage is not null before using it
                 if (product.offerPercentage != null) {
                     val newPrice = product.offerPercentage.getProductPrice(product.price)
-                    brandPriceAfterOffer.text = "E£ $newPrice"
+                    brandPriceAfterOffer.text = context.getString(R.string.egp_).plus(newPrice)
                     brandPriceAfterOffer.visibility = View.VISIBLE
                     brandPriceBeforeOffer.paintFlags =
                         brandPriceBeforeOffer.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                     llLinearOffer.visibility = View.VISIBLE
-                    offerText.text = "${product.offerPercentage}% OFF"
+                    offerText.text = product.offerPercentage.toString().plus("% OFF")
+                    if (product.offerPercentage > 65) {
+                        dealText.text = context.getString(R.string.limited_deal)
+                    } else if (product.offerPercentage < 25) {
+                        dealText.visibility = View.GONE
+                    } else {
+                        dealText.visibility = View.VISIBLE
+                    }
                 } else {
-                    brandPriceAfterOffer.text = "" // Set a default value or empty text
+                    brandPriceAfterOffer.visibility = View.GONE
+                    llLinearOffer.visibility = View.GONE
                 }
             }
         }
@@ -74,16 +83,29 @@ class BrandsAdapter : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
         } else {
             holder.binding.ratingBar.rating = product.ratings.average().toFloat()
             holder.binding.tvRating.text = String.format("%.1f", product.ratings.average())
-            holder.binding.reviewsItemCount.text = "(${product.ratings.size})"
-
+            holder.binding.reviewsItemCount.text = context.getString(R.string.reviews_item_count_, product.ratings.size.toString())
         }
+
+        if (product.inWishList){
+            holder.binding.addToWishlist.setImageResource(R.drawable.ic_wishlist_filled)
+        }else{
+            holder.binding.addToWishlist.setImageResource(R.drawable.wishlist)
+        }
+
 
         // Set up item click listener
         holder.itemView.setOnClickListener {
             onItemClickListener?.let { it(product) }
         }
+
+        holder.binding.addToWishlist.setOnClickListener {
+            onItemHeartClickListener?.invoke(product)
+        }
+
     }
 
     var onItemClickListener: ((Product) -> Unit)? = null
+
+    var onItemHeartClickListener: ((Product) -> Unit)? = null
 
 }

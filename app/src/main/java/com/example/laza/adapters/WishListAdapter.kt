@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.example.laza.R
 import com.example.laza.data.Product
 import com.example.laza.data.WishlistProduct
 import com.example.laza.databinding.WishlistItemBinding
@@ -23,13 +24,13 @@ class WishListAdapter : RecyclerView.Adapter<WishListAdapter.WishListViewHolder>
                     crossfade(1000)
                 }
                 brandName.text = wishlistProduct.product.name
-                brandPriceBeforeOffer.text = "$${wishlistProduct.product.price}"
+                brandPriceBeforeOffer.text = itemView.context.getString(R.string.egp_).plus(wishlistProduct.product.price)
 
                 // Check if offerPercentage is not null before using it
                 if (wishlistProduct.product.offerPercentage != null) {
                     val discountedPrice =
                         wishlistProduct.product.price - (wishlistProduct.product.price * wishlistProduct.product.offerPercentage / 100)
-                    brandPriceAfterOffer.text = "$$discountedPrice"
+                    brandPriceAfterOffer.text = itemView.context.getString(R.string.egp_).plus(discountedPrice)
                     brandPriceAfterOffer.visibility = View.VISIBLE
                     brandPriceBeforeOffer.paintFlags =
                         brandPriceBeforeOffer.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
@@ -76,8 +77,8 @@ class WishListAdapter : RecyclerView.Adapter<WishListAdapter.WishListViewHolder>
         holder.itemView.setOnClickListener {
             onItemClickListener?.invoke(wishlistProduct.product)
         }
+
     }
 
     var onItemClickListener: ((Product) -> Unit)? = null
-
 }

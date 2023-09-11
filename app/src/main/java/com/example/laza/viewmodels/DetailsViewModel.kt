@@ -1,7 +1,5 @@
 package com.example.laza.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.laza.data.CartProduct
@@ -55,7 +53,7 @@ class DetailsViewModel @Inject constructor(
             .document(auth.uid!!)
             .collection("wishlist")
             .whereEqualTo("product.id", productId)
-            .addSnapshotListener() { snapshot, e ->
+            .addSnapshotListener { snapshot, e ->
                 if (e != null) {
                     _wishlistStatus.value = null
                     return@addSnapshotListener
@@ -75,8 +73,8 @@ class DetailsViewModel @Inject constructor(
             .collection(CART_COLLECTION)
             .whereEqualTo("product.id", cartProduct.product.id)
             .get()
-            .addOnSuccessListener {
-                it.documents.let {
+            .addOnSuccessListener { snapshot ->
+                snapshot.documents.let {
                     if (it.isEmpty()) { // add new Product
                         addNewProduct(cartProduct)
                     } else { // update existing product
@@ -107,7 +105,7 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    fun addToWishList(wishlistProduct: WishlistProduct) {
+    fun addToWishList(wishlistProduct: WishlistProduct, newStatus: Boolean) {
         viewModelScope.launch {
             _addToWishList.emit(NetworkResult.Loading())
         }
@@ -123,6 +121,10 @@ class DetailsViewModel @Inject constructor(
                             viewModelScope.launch {
                                 if (e == null) {
                                     _addToWishList.emit(NetworkResult.Success(addedProduct!!))
+                                    updateProductWithNewWithListStatus(
+                                        wishlistProduct.product.id,
+                                        newStatus
+                                    )
                                 } else {
                                     _addToWishList.emit(NetworkResult.Error(e.message.toString()))
                                 }
@@ -136,7 +138,7 @@ class DetailsViewModel @Inject constructor(
             }
     }
 
-    fun removeFromWishList(wishlistProduct: WishlistProduct) {
+    fun removeFromWishList(wishlistProduct: WishlistProduct, newStatus: Boolean) {
         viewModelScope.launch {
             _removeFromWishList.emit(NetworkResult.Loading())
         }
@@ -144,6 +146,10 @@ class DetailsViewModel @Inject constructor(
             viewModelScope.launch {
                 if (e == null) {
                     _removeFromWishList.emit(NetworkResult.Success(removedProduct!!))
+                    updateProductWithNewWithListStatus(
+                        wishlistProduct.product.id,
+                        newStatus
+                    )
                 } else {
                     _removeFromWishList.emit(NetworkResult.Error(e.message.toString()))
                 }
@@ -185,4 +191,24 @@ class DetailsViewModel @Inject constructor(
             }
     }
 
+    private fun updateProductWithNewWithListStatus(productId: String, newStatus: Boolean) {
+        val productRef = firestore.collection(Constants.PRODUCT_COLLECTION).document(productId)
+
+        firestore.runTransaction { transaction ->
+            val product = transaction.get(productRef).toObject(Product::class.java)
+
+            if (product != null) {
+                val updatedProduct = product.copy(
+                    inWishList = newStatus
+                )
+
+                transaction.set(productRef, updatedProduct)
+            }
+        }.addOnFailureListener { e ->
+            // Handle the error here
+            viewModelScope.launch {
+                _addToWishList.emit(NetworkResult.Error(e.message.toString()))
+            }
+        }
+    }
 }

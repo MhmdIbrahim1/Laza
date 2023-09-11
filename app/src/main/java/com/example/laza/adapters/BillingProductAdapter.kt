@@ -1,19 +1,20 @@
 package com.example.laza.adapters
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.example.laza.R
 import com.example.laza.data.CartProduct
 import com.example.laza.databinding.BillingProductsRvItemBinding
 
 
-class BillingProductAdapter :
+class BillingProductAdapter(private val context: Context):
     RecyclerView.Adapter<BillingProductAdapter.BillingProductViewHolder>() {
 
     inner class BillingProductViewHolder(val binding: BillingProductsRvItemBinding) :
@@ -24,7 +25,10 @@ class BillingProductAdapter :
                 tvProductCartName.text = billingProduct.product.name
                 tvBillingProductQuantity.text = billingProduct.quantity.toString()
 
-                tvProductCartPrice.text = "E£ ${String.format("%.2f", billingProduct.product.price)}"
+                tvProductCartPrice.text = context.getString(
+                    R.string.egp,
+                    billingProduct.product.price.toString()
+                )
 
                 imageCartProductColor.setImageDrawable(
                     ColorDrawable(

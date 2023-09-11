@@ -30,8 +30,8 @@ import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.DetailsViewModel
 import com.example.laza.viewmodels.ReviewsViewModel
-import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import io.github.vejei.viewpagerindicator.indicator.CircleIndicator
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -108,7 +108,7 @@ class ProductDetailsFragment : Fragment() {
         // Populate the UI with product details
         binding.apply {
             productName.text = product.name
-            productPrice.text = "E£ ${(product.price.formatPrice())}"
+            productPrice.text = resources.getString(R.string.egp, product.price.formatPrice())
             tvProductDescription.text = product.description
 
             // Hide the labels for color and size if they are not available
@@ -117,6 +117,21 @@ class ProductDetailsFragment : Fragment() {
             }
             if (product.sizes.isNullOrEmpty()) {
                 tvProductSize.visibility = View.INVISIBLE
+            }
+
+            if (product.offerPercentage != null) {
+                offerCard.visibility = View.VISIBLE
+                offerText.text = product.offerPercentage.toString().plus("% OFF")
+                if (product.offerPercentage!! > 65) {
+                    dealText.text = resources.getString(R.string.limited_deal)
+                } else if (product.offerPercentage!! < 25) {
+                    dealText.visibility = View.GONE
+                } else {
+                    dealText.visibility = View.VISIBLE
+                }
+            } else {
+                offerCard.visibility = View.GONE
+                dealText.visibility = View.GONE
             }
         }
 
@@ -134,41 +149,43 @@ class ProductDetailsFragment : Fragment() {
         binding.addToWishlist.setOnClickListener {
             if (viewModel.wishlistStatus.value == false) {
                 // Product is not in the wishlist, add it
-                viewModel.addToWishList(WishlistProduct(product, true))
+                viewModel.addToWishList(WishlistProduct(product, true),true)
             } else {
                 // Product is in the wishlist, remove it
-                viewModel.removeFromWishList(WishlistProduct(product, false))
+                viewModel.removeFromWishList(WishlistProduct(product, false),false)
             }
         }
 
 
-     // if no reviews, navigate to add review fragment else navigate to reviews fragment
+        // if no reviews, navigate to add review fragment else navigate to reviews fragment
         binding.viewAll.setOnClickListener {
-            if (reviewsAdapter.differ.currentList.isEmpty()){
-                val action = ProductDetailsFragmentDirections.actionProductDetailsFragmentToAddReviewsFragment(
-                    reviews = Reviews(
-                        name = "",
-                        review = "",
-                        ratingStars = 0.0,
-                        image = "",
-                        documentId = product.id
+            if (reviewsAdapter.differ.currentList.isEmpty()) {
+                val action =
+                    ProductDetailsFragmentDirections.actionProductDetailsFragmentToAddReviewsFragment(
+                        reviews = Reviews(
+                            name = "",
+                            review = "",
+                            ratingStars = 0.0,
+                            image = "",
+                            documentId = product.id
+                        )
                     )
-                )
                 findNavController().navigate(action)
-            }else{
-                val action = ProductDetailsFragmentDirections.actionProductDetailsFragmentToReviewFragment(
-                    product = Product(
-                        id  = product.id,
-                        name = "",
-                        brand = "",
-                        price = 0f,
-                        offerPercentage = null,
-                        description = null,
-                        colors = null,
-                        sizes = null,
-                        images = emptyList()
+            } else {
+                val action =
+                    ProductDetailsFragmentDirections.actionProductDetailsFragmentToReviewFragment(
+                        product = Product(
+                            id = product.id,
+                            name = "",
+                            brand = "",
+                            price = 0f,
+                            offerPercentage = null,
+                            description = null,
+                            colors = null,
+                            sizes = null,
+                            images = emptyList()
+                        )
                     )
-                )
                 findNavController().navigate(action)
             }
         }
@@ -181,18 +198,28 @@ class ProductDetailsFragment : Fragment() {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.wishlistStatus.collect { status ->
                     if (status == true) {
-                        binding.addToWishlist.text = "In Wishlist"
-                        binding.addToWishlist.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_wishlist_filled, 0, 0, 0)
+                        binding.addToWishlist.text = resources.getString(R.string.in_wishlist)
+                        binding.addToWishlist.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_wishlist_filled,
+                            0,
+                            0,
+                            0
+                        )
                     } else {
-                        binding.addToWishlist.text = "Add To Wishlist"
-                        binding.addToWishlist.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_wishlist_unfilled, 0, 0, 0)
+                        binding.addToWishlist.text = resources.getString(R.string.add_to_wishlist)
+                        binding.addToWishlist.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_wishlist_unfilled,
+                            0,
+                            0,
+                            0
+                        )
                     }
                 }
             }
         }
     }
 
-    // Observe the "Add to Wishlist" action
+    // Observe the "Add to Wishlist"
     private fun observeAddToWishlist() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -204,7 +231,6 @@ class ProductDetailsFragment : Fragment() {
                                 ("Added To WishList"),
                                 Toast.LENGTH_SHORT
                             ).show()
-                            //binding.addToWishlist.isEnabled = false
                         }
 
                         is NetworkResult.Error -> {
@@ -230,7 +256,6 @@ class ProductDetailsFragment : Fragment() {
                                 ("Removed From WishList"),
                                 Toast.LENGTH_SHORT
                             ).show()
-                            //binding.addToWishlist.isEnabled = true
                         }
 
                         is NetworkResult.Error -> {
@@ -245,7 +270,7 @@ class ProductDetailsFragment : Fragment() {
         }
     }
 
-    // Observe the "Add to Cart" action
+    // Observe the "Add to Cart"
     private fun observeAddToCart() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -286,10 +311,10 @@ class ProductDetailsFragment : Fragment() {
                         is NetworkResult.Loading -> {}
 
                         is NetworkResult.Success -> {
-                            if (result.data.isNullOrEmpty()){
+                            if (result.data.isNullOrEmpty()) {
                                 binding.tvProductReviewsTitle.visibility = View.INVISIBLE
                                 binding.viewAll.text = getString(R.string.add_review)
-                            }else{
+                            } else {
                                 reviewsAdapter.differ.submitList(result.data)
                             }
                         }
@@ -371,7 +396,7 @@ class ProductDetailsFragment : Fragment() {
     private fun observeTotalReviewsCount() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                reviewsViewModel.totalReviewsCount.collect{
+                reviewsViewModel.totalReviewsCount.collect {
                     reviewsViewModel.fetchTotalReviewsCount(product.id)
                     updateTotalReviewsCount(it)
                 }
@@ -380,10 +405,10 @@ class ProductDetailsFragment : Fragment() {
     }
 
     private fun updateTotalRating(it: Float) {
-        if (it == 0f){
+        if (it == 0f) {
             binding.tvRating.text = "0.0"
             binding.ratingBar.rating = 0.0F
-        }else{
+        } else {
             // round to 1 decimal place
             binding.tvRating.text = String.format("%.1f", it)
             binding.ratingBar.rating = it
@@ -392,24 +417,31 @@ class ProductDetailsFragment : Fragment() {
 
 
     private fun updateTotalReviewsCount(itemCount: Int) {
-        if (itemCount == 0){
-            binding.reviewsItemCount.text = "No Reviews "
+        if (itemCount == 0) {
+            binding.reviewsItemCount.text = resources.getString(R.string.no_reviews)
             binding.tvRating.text = "0.0"
             binding.ratingBar.rating = 0.0F
-        }else{
-            binding.reviewsItemCount.text = "($itemCount)"
+        } else {
+            binding.reviewsItemCount.text = resources.getString(R.string.reviews_item_count, itemCount.toString())
         }
     }
-
 
 
     // Set up ViewPager
     private fun setUpViewPager() {
         binding.viewPagerProductImages.adapter = viePagerAdapter
-        TabLayoutMediator(
-            binding.tabLayoutImageIndicator,
-            binding.viewPagerProductImages
-        ) { _, _ -> }.attach()
+        binding.viewPagerProductImages.postDelayed(object : Runnable {
+            override fun run() {
+                binding.viewPagerProductImages.currentItem =
+                    (binding.viewPagerProductImages.currentItem + 1) % product.images.size
+                binding.viewPagerProductImages.postDelayed(this, 4000)
+
+            }
+        }, 2000)
+        binding.circleIndicator.setWithViewPager2(binding.viewPagerProductImages)
+        binding.circleIndicator.itemCount = (args.product.images.size)
+        binding.circleIndicator.setAnimationMode(CircleIndicator.AnimationMode.SLIDE)
+        binding.circleIndicator.setAnimationMode(CircleIndicator.AnimationMode.SCALE)
     }
 
     // Set up Size RecyclerView

@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.laza.R
-import com.example.laza.data.Address
 import com.example.laza.data.Reviews
 import com.example.laza.databinding.ReviewRvItemBinding
 
@@ -22,12 +21,12 @@ class ReviewsProductsDetailsAdapter: RecyclerView.Adapter<ReviewsProductsDetails
 
                 //reduce the length of the review
                 if (reviews.review.length > 45) {
-                    tvReviewDescription.text = reviews.review.substring(0, 45) + "..."
+                    tvReviewDescription.text = reviews.review.substring(0, 45).plus("...")
                 }else{
                     tvReviewDescription.text = reviews.review
                 }
 
-                tvRating.text = "${reviews.ratingStars} rating"
+                tvRating.text = itemView.context.getString(R.string.rating_with_number, reviews.ratingStars.toString())
                 ratingBar.rating = reviews.ratingStars.toFloat()
                 profileUserImageReview.setImageResource(R.drawable.profile)
             }

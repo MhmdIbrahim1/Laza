@@ -52,17 +52,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
         // set up the theme of the app based on the user's choice (light or dark)
         sharedPreferences = getSharedPreferences("isDark", MODE_PRIVATE)
         val isDarkMode = sharedPreferences.getBoolean("isDark", isDark)
-        if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            delegate.applyDayNight()
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            delegate.applyDayNight()
-        }
-
         setContentView(binding.root)
-
-
         onLogout()
         changeStatusBarColor()
         bottomNavigationListener()
@@ -220,45 +210,51 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
     }
 
     private fun navigateToBilling() {
-        if (navController.currentDestination?.id == R.id.homeFragment) {
-            val action = HomeFragmentDirections.actionHomeFragmentToBillingFragment(
-                totalPrice = 0.0f, // Replace with the actual total price value
-                products = emptyArray(), // Replace with the actual products array
-                payment = false // Replace with the actual payment value
-            )
-            navController.navigate(action)
-        } else if (navController.currentDestination?.id == R.id.productDetailsFragment) {
-            val action =
-                ProductDetailsFragmentDirections.actionProductDetailsFragmentToBillingFragment(
+        when (navController.currentDestination?.id) {
+            R.id.homeFragment -> {
+                val action = HomeFragmentDirections.actionHomeFragmentToBillingFragment(
                     totalPrice = 0.0f, // Replace with the actual total price value
                     products = emptyArray(), // Replace with the actual products array
                     payment = false // Replace with the actual payment value
                 )
-            navController.navigate(action)
-        }else if (navController.currentDestination?.id == R.id.cartFragment) {
-            val action =
-                CartFragmentDirections.actionCartFragmentToBillingFragment(
-                    totalPrice = 0.0f, // Replace with the actual total price value
-                    products = emptyArray(), // Replace with the actual products array
-                    payment = false // Replace with the actual payment value
-                )
-            navController.navigate(action)
-        }else if (navController.currentDestination?.id == R.id.brandsFragment) {
-            val action =
-                BrandsFragmentDirections.actionBrandsFragmentToBillingFragment(
-                    totalPrice = 0.0f, // Replace with the actual total price value
-                    products = emptyArray(), // Replace with the actual products array
-                    payment = false // Replace with the actual payment value
-                )
-            navController.navigate(action)
-        }else if (navController.currentDestination?.id == R.id.wishlistFragment) {
-            val action =
-                WishlistFragmentDirections.actionWishlistFragmentToBillingFragment(
-                    totalPrice = 0.0f, // Replace with the actual total price value
-                    products = emptyArray(), // Replace with the actual products array
-                    payment = false // Replace with the actual payment value
-                )
-            navController.navigate(action)
+                navController.navigate(action)
+            }
+            R.id.productDetailsFragment -> {
+                val action =
+                    ProductDetailsFragmentDirections.actionProductDetailsFragmentToBillingFragment(
+                        totalPrice = 0.0f, // Replace with the actual total price value
+                        products = emptyArray(), // Replace with the actual products array
+                        payment = false // Replace with the actual payment value
+                    )
+                navController.navigate(action)
+            }
+            R.id.cartFragment -> {
+                val action =
+                    CartFragmentDirections.actionCartFragmentToBillingFragment(
+                        totalPrice = 0.0f, // Replace with the actual total price value
+                        products = emptyArray(), // Replace with the actual products array
+                        payment = false // Replace with the actual payment value
+                    )
+                navController.navigate(action)
+            }
+            R.id.brandsFragment -> {
+                val action =
+                    BrandsFragmentDirections.actionBrandsFragmentToBillingFragment(
+                        totalPrice = 0.0f, // Replace with the actual total price value
+                        products = emptyArray(), // Replace with the actual products array
+                        payment = false // Replace with the actual payment value
+                    )
+                navController.navigate(action)
+            }
+            R.id.wishlistFragment -> {
+                val action =
+                    WishlistFragmentDirections.actionWishlistFragmentToBillingFragment(
+                        totalPrice = 0.0f, // Replace with the actual total price value
+                        products = emptyArray(), // Replace with the actual products array
+                        payment = false // Replace with the actual payment value
+                    )
+                navController.navigate(action)
+            }
         }
     }
 }

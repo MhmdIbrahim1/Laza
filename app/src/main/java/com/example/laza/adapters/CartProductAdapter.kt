@@ -1,5 +1,6 @@
 package com.example.laza.adapters
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
@@ -12,7 +13,7 @@ import com.example.laza.R
 import com.example.laza.data.CartProduct
 import com.example.laza.databinding.CartProductItemBinding
 
-class CartProductAdapter :
+class CartProductAdapter(private val context: Context) :
     RecyclerView.Adapter<CartProductAdapter.CartProductViewHolder>() {
 
     inner class CartProductViewHolder(val binding: CartProductItemBinding) :
@@ -26,7 +27,10 @@ class CartProductAdapter :
                 tvProductCartName.text = cartProduct.product.name
                 tvCartProductQuantity.text = cartProduct.quantity.toString()
 
-                tvProductCartPrice.text = "E£ ${String.format("%.2f", cartProduct.product.price)}"
+                tvProductCartPrice.text = context.getString(
+                    R.string.egp,
+                    cartProduct.product.price.toString()
+                )
 
                 imageCartProductColor.setImageDrawable(
                     ColorDrawable(

@@ -15,7 +15,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.laza.R
 import com.example.laza.adapters.ReviewsAdapter
-import com.example.laza.adapters.ReviewsProductsDetailsAdapter
 import com.example.laza.data.Product
 import com.example.laza.data.Reviews
 import com.example.laza.databinding.FragmentReviewBinding
@@ -23,7 +22,6 @@ import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.ReviewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -139,16 +137,16 @@ class ReviewFragment : Fragment() {
 
     private fun updateTotalReviewsCount(itemCount: Int) {
         if (itemCount == 0){
-            binding.reviewsItemCount.text = "No Reviews "
+            binding.reviewsItemCount.text = resources.getString(R.string.no_reviews)
             binding.tvRating.text = "0.0"
             binding.ratingBar.rating = 0.0F
         }else{
-            binding.reviewsItemCount.text = "$itemCount Reviews"
+            binding.reviewsItemCount.text = itemCount.toString().plus(" ").plus(resources.getString(R.string.reviews))
         }
     }
 
     private fun setUpReviewsRv() {
-        reviewsAdapter = ReviewsAdapter()
+        reviewsAdapter = ReviewsAdapter(requireContext())
         binding.reviesRv.apply {
             adapter = reviewsAdapter
             layoutManager =

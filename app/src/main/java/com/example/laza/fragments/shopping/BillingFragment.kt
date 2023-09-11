@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
 class BillingFragment : Fragment() {
     private lateinit var binding: FragmentBillingBinding
     private val addressAdapter by lazy { AddressAdapter() }
-    private val billingAdapter by lazy { BillingProductAdapter() }
+    private val billingAdapter by lazy { BillingProductAdapter(requireContext()) }
     private val viewModel by viewModels<BillingViewModel>()
     private val args by navArgs<BillingFragmentArgs>()
     private var products = emptyList<CartProduct>()
@@ -73,7 +73,7 @@ class BillingFragment : Fragment() {
         }
 
         billingAdapter.differ.submitList(products)
-        binding.tvTotalPrice.text = "E£ ${totalPrice.formatPrice()}"
+        binding.tvTotalPrice.text = resources.getString(R.string.egp, totalPrice.formatPrice())
 
         addressAdapter.onClick = {
             selectedAddress = it

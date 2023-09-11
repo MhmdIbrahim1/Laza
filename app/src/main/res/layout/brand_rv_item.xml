@@ -2,7 +2,6 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/_122sdp"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/_10sdp"
@@ -24,7 +23,8 @@
             android:src="@drawable/testimg"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/brand_image" />
 
         <ImageView
             android:id="@+id/add_to_wishlist"
@@ -34,7 +34,8 @@
             android:layout_marginEnd="@dimen/_5sdp"
             android:src="@drawable/wishlist"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/brand_image" />
+            app:layout_constraintTop_toTopOf="@+id/brand_image"
+            android:contentDescription="@string/brand_wishlist" />
 
 
         <LinearLayout
@@ -51,7 +52,7 @@
                 android:id="@+id/tvRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4.5"
+                android:text="@string/_4_5"
                 android:textColor="@color/background_intro__mentv_2"
                 android:textSize="@dimen/_10ssp"
                 android:textStyle="bold" />
@@ -73,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:text="(45)"
+                android:text="@string/_45"
                 android:textColor="@color/g_blue"
                 android:textSize="@dimen/_10ssp"
                 android:textStyle="bold"
@@ -86,8 +87,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
             android:ellipsize="end"
-            android:maxLines="2"
-            android:text="Brand Name"
+            android:maxLines="1"
+            android:text="@string/brand_name"
             android:layout_marginStart="@dimen/_4sdp"
             android:textColor="@color/background_intro__mentv_2"
             android:textSize="@dimen/_11ssp"
@@ -102,7 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4sdp"
             android:orientation="horizontal"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/brand_name"
             app:layout_constraintTop_toBottomOf="@+id/ll_linear_rating">
@@ -124,9 +125,8 @@
                     android:layout_marginTop="@dimen/_2sdp"
                     android:layout_marginEnd="@dimen/_4sdp"
                     android:layout_marginBottom="@dimen/_2sdp"
-                    android:paddingStart="@dimen/_4sdp"
                     android:paddingBottom="@dimen/_2sdp"
-                    android:text="50% OFF"
+                    android:text="@string/_50_off"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_9ssp"
                     android:textStyle="bold" />
@@ -139,7 +139,7 @@
                 android:layout_marginTop="@dimen/_2sdp"
                 android:layout_marginEnd="@dimen/_4sdp"
                 android:layout_marginBottom="@dimen/_2sdp"
-                android:text="Deal"
+                android:text="@string/deal"
                 android:textColor="@color/discount_"
                 android:textSize="@dimen/_10ssp"
                 android:textStyle="bold" />
@@ -161,7 +161,7 @@
                 android:id="@+id/brand_price_before_offer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="$45"
+                android:text="@string/_50"
                 android:layout_marginStart="@dimen/_4sdp"
                 android:textColor="@color/background_intro__mentv_2"
                 android:textSize="@dimen/_11ssp" />
@@ -171,7 +171,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_18sdp"
-                android:text="$25"
+                android:text="@string/_50"
                 android:visibility="invisible"
                 android:textColor="@color/background_intro__mentv_2"
                 android:textSize="@dimen/_11ssp" />

@@ -46,15 +46,15 @@
     <string name="hello">Hello</string>
     <string name="welcome_to_laza">Welcome to Laza.</string>
     <string name="choose_brand">Choose Brand</string>
-    <string name="new_arrivals">New Arraival</string>
+    <string name="new_arrivals">New Arrivals</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="are_you_sure_you_want_to_logout">Are you sure you want to logout?</string>
-    <string name="product_name">Adidas flow...</string>
+    <string name="product_name">Adidas flow…</string>
     <string name="product_price">300$</string>
     <string name="color">color</string>
     <string name="size">Size</string>
-    <string name="product_description">Description...</string>
+    <string name="product_description">Description…</string>
     <string name="add_to_cart">Add to Cart</string>
     <string name="add_to_wishlist">Add to Wishlist</string>
     <string name="description">Description</string>
@@ -68,6 +68,15 @@
     <string name="AddedToWishlist">Added to wichlist</string>
     <string name="RemovedFromWishlist">Removed from wishlist</string>
     <string name="in_wishlist">In Wishlist</string>
+    <string name="egp">E£ %s</string>
+    <string name="egp_">E£ </string>
+    <string name="limited_deal">Limited Deal</string>
+    <string name="no_reviews">No Reviews</string>
+    <string name="reviews_item_count">( %1$s )</string>
+    <string name="reviews_item_count_">( %1$s )</string>
+    <string name="offer_text">%s%% OFF</string>
+    <string name="rating_with_number">%s rating</string>
+
     <string name="total">Total</string>
     <string name="check_out">Check Out</string>
     <string name="your_shopping_cart_is_empty">Your Shopping Cart Is Empty</string>
@@ -101,5 +110,16 @@
     <string name="back_arrow">back_arrow</string>
     <string name="no_reviews_yet">No reviews yet</string>
     <string name="dark_mode">Dark Mode</string>
+    <string name="brand_image">brand_image</string>
+    <string name="brand_name">Brand Name</string>
+    <string name="_4_5">4.5</string>
+    <string name="_45">(45)</string>
+    <string name="_50_off">50% OFF</string>
+    <string name="deal">Deal</string>
+    <string name="_50">$50</string>
+    <string name="_25">$25</string>
+    <string name="brand_wishlist">brand_wishlist</string>
+    <string name="no_items_found">No Items Found</string>
+    <string name="arrow_back">arrow_back</string>
 
 </resources>

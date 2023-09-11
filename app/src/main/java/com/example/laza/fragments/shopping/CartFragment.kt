@@ -30,7 +30,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class CartFragment : Fragment() {
     private lateinit var binding: FragmentCartBinding
-    private val cartProductAdapter by lazy { CartProductAdapter() }
+    private val cartProductAdapter by lazy { CartProductAdapter(requireContext()) }
     private val viewModel by activityViewModels<CartViewModel>() // activityViewModels because we want to share the same view-model with the activity
     var totalPrice = 0f
 
@@ -131,7 +131,7 @@ class CartFragment : Fragment() {
                 viewModel.productsPrice.collectLatest { price ->
                     price?.let {
                         totalPrice = it
-                        binding.tvTotalPrice.text = "E£ ${price.formatPrice()}"
+                        binding.tvTotalPrice.text = resources.getString(R.string.egp, totalPrice.formatPrice())
                     }
 
                 }
