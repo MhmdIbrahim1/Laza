@@ -128,5 +128,12 @@
     <string name="your_order_has_been_placed">Your order has been confirmed, we will send you confirmation email shortly.</string>
     <string name="go_to_orders">Go to Orders</string>
     <string name="continue_shopping">Continue Shopping</string>
+    <string name="my_account">Account Information</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="forgot_password_change_password">Forgot/Change Password?</string>
+
+    <string name="reset_password">Reset Password</string>
+    <string name="we_will_send_you_the_password_reset_link_to_your_email">We will send you the password reset link to your email</string>
 
 </resources>

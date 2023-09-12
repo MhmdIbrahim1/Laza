@@ -3,9 +3,11 @@ package com.example.laza.activites
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.CompoundButton
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -13,13 +15,17 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.Glide
 import com.example.laza.R
 import com.example.laza.databinding.ActivityShoppingBinding
 import com.example.laza.fragments.brands.BrandsFragmentDirections
@@ -30,6 +36,7 @@ import com.example.laza.fragments.shopping.ProductDetailsFragmentDirections
 import com.example.laza.fragments.shopping.WishlistFragmentDirections
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.CartViewModel
+import com.example.laza.viewmodels.UserAccountViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -42,6 +49,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
     private lateinit var navController: NavController
 
     val viewModel  by viewModels<CartViewModel>()
+    val userViewModel by viewModels<UserAccountViewModel>()
 
     private lateinit var sharedPreferences: SharedPreferences
     private val isDark = false
@@ -57,6 +65,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
         changeStatusBarColor()
         bottomNavigationListener()
         setNavigationItemSelectedListener()
+        observeGetUser()
 
         // observe the cart products numbers
         observeCartProductNumbers()
@@ -87,6 +96,13 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
             val intent = Intent(this, ShoppingActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
+        }
+
+        binding.navView.getHeaderView(0).setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToUserAccountFragment()
+            navController.navigate(action)
+            // Close the drawer after navigating
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
         }
 
     }
@@ -162,6 +178,66 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
         }
     }
 
+    private fun observeGetUser() {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                userViewModel.user.collectLatest {
+                    when (it) {
+                        is NetworkResult.Loading -> {
+//                            showUserLoading()
+                        }
+
+                        is NetworkResult.Success -> {
+                            val headerView = binding.navView.getHeaderView(0)
+                            val userName = headerView.findViewById<TextView>(R.id.tvUserName)
+                            val userImage = headerView.findViewById<ImageView>(R.id.profileUserImageReview)
+                            userName.text = it.data?.firstName + " " + it.data?.lastName
+                            Glide.with(this@ShoppingActivity).load(it.data?.imagePath)
+                                .error(ResourcesCompat.getDrawable(resources, R.drawable.profile, null))
+                                .into(userImage)
+                            Log.d("UserAccountFragment", it.data.toString())
+                        }
+
+                        is NetworkResult.Error -> {
+                          Log.d("UserAccountFragment", it.message.toString())
+                        }
+
+                        else -> Unit
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setNavigationItemSelectedListener(){
+        binding.navView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_orders -> {
+                    Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show()
+                }
+
+                R.id.nav_settings -> {
+                    Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show()
+                }
+
+                R.id.nav_info -> {
+                   // navigate to the user account fragment
+                    val action = HomeFragmentDirections.actionHomeFragmentToUserAccountFragment()
+                    navController.navigate(action)
+                }
+
+                R.id.nav_billing -> {
+                    navigateToBilling()
+                }
+
+            }
+            // Close the drawer after navigating
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            true
+        }
+
+    }
+
     private fun bottomNavigationListener(){
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
@@ -180,33 +256,6 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
             }
             true
         }
-    }
-
-    private fun setNavigationItemSelectedListener(){
-        binding.navView.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.nav_orders -> {
-                    Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show()
-                }
-
-                R.id.nav_settings -> {
-                    Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show()
-                }
-
-                R.id.nav_info -> {
-                    Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show()
-                }
-
-                R.id.nav_billing -> {
-                    navigateToBilling()
-                }
-
-            }
-            // Close the drawer after navigating
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-            true
-        }
-
     }
 
     private fun navigateToBilling() {

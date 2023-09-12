@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.airbnb.lottie.LottieAnimationView
+import com.airbnb.lottie.LottieDrawable
 import com.example.laza.R
 import com.example.laza.databinding.FragmentOrderConfirmationBinding
 import com.example.laza.utils.HideBottomNavigation
@@ -25,13 +27,18 @@ class OrderConfirmationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.arrow1.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.action_orderConfirmationFragment_to_homeFragment)
         }
         binding.continueShopping.setOnClickListener {
             findNavController().navigate(R.id.action_orderConfirmationFragment_to_homeFragment)
         }
-    }
 
+        val lottieAnimationView = binding.imageOrderConfirm
+        lottieAnimationView.setAnimation(R.raw.confirmed)
+        lottieAnimationView.repeatCount = LottieDrawable.INFINITE
+        lottieAnimationView.playAnimation()
+
+    }
 
     override fun onResume() {
         super.onResume()

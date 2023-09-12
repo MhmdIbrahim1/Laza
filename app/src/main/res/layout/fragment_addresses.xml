@@ -318,11 +318,11 @@
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="20dp"
             android:layout_weight="1"
-            android:background="@drawable/white_background"
+            android:background="@drawable/cancel_background"
             android:fontFamily="@font/poppins_thin"
             android:text="@string/delete"
             android:textAllCaps="false"
-            android:textColor="@color/g_gray700"
+            android:textColor="@color/background_intro__mentv_2"
             android:textSize="12sp"
             android:visibility="visible" />
 
@@ -333,7 +333,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginBottom="20dp"
             android:layout_weight="1"
-            android:background="@drawable/blue_background"
+            android:background="@drawable/blue_background_cart"
             android:fontFamily="@font/poppins_thin"
             android:text="@string/save"
             android:textAllCaps="false"

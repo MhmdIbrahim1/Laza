@@ -48,6 +48,7 @@
     <color name="background_intro__mentv_2">@color/g_black</color>
     <color name="background_intro__women_1">#B4FEFEFE</color>
     <color name="badge_coloe">#FA5252</color>
+    <color name="ed_email">@color/white</color>
 
     <color name="background_intro_2">#9873AC</color>
     <color name="background_intro__mentv_5">@color/g_black</color>

@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_homeFragment_to_billingFragment"
             app:destination="@id/billingFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_userAccountFragment"
+            app:destination="@id/userAccountFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -174,6 +177,16 @@
     >
         <action
             android:id="@+id/action_orderConfirmationFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userAccountFragment"
+        android:name="com.example.laza.fragments.settings.UserAccountFragment"
+        android:label="UserAccountFragment"
+        tools:layout="@layout/fragment_user_account"
+        >
+        <action
+            android:id="@+id/action_userAccountFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

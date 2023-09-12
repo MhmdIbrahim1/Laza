@@ -36,22 +36,28 @@ class RegisterViewModel @Inject constructor(
             runBlocking {
                 _register.emit(NetworkResult.Loading())
             }
-            firebaseAuth.createUserWithEmailAndPassword(user.emil, password)
-                .addOnSuccessListener {firebaseUser ->
-                    firebaseUser.user?.let {
-                        saveUserInfo(it.uid,user)
+            user.email?.let {
+                firebaseAuth.createUserWithEmailAndPassword(it, password)
+                    .addOnSuccessListener {firebaseUser ->
+                        firebaseUser.user?.let {
+                            saveUserInfo(it.uid,user)
+                        }
                     }
-                }
-                .addOnFailureListener {
-                    _register.value = NetworkResult.Error(it.message.toString())
-                }
+                    .addOnFailureListener {
+                        _register.value = NetworkResult.Error(it.message.toString())
+                    }
+            }
         }else{
-            val registerValidation = RegisterFailedState(
-                validateEmail(user.emil),
-                validatePassword(password)
-            )
+            val registerValidation = user.email?.let { validateEmail(it) }?.let {
+                RegisterFailedState(
+                    it,
+                    validatePassword(password)
+                )
+            }
             viewModelScope.launch {
-                _validation.send(registerValidation)
+                if (registerValidation != null) {
+                    _validation.send(registerValidation)
+                }
             }
         }
     }
@@ -70,7 +76,7 @@ class RegisterViewModel @Inject constructor(
     }
 
     private fun checkValidation(user: User, password: String): Boolean {
-        val emailValidation = validateEmail(user.emil)
+        val emailValidation = user.email?.let { validateEmail(it) }
         val passwordValidation = validatePassword(password)
         return emailValidation is RegisterValidation.Success && passwordValidation is RegisterValidation.Success
     }

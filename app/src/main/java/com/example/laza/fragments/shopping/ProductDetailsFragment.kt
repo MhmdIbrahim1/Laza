@@ -434,14 +434,14 @@ class ProductDetailsFragment : Fragment() {
             override fun run() {
                 binding.viewPagerProductImages.currentItem =
                     (binding.viewPagerProductImages.currentItem + 1) % product.images.size
-                binding.viewPagerProductImages.postDelayed(this, 4000)
+                binding.viewPagerProductImages.postDelayed(this, 3500)
 
             }
         }, 2000)
         binding.circleIndicator.setWithViewPager2(binding.viewPagerProductImages)
         binding.circleIndicator.itemCount = (args.product.images.size)
-        binding.circleIndicator.setAnimationMode(CircleIndicator.AnimationMode.SLIDE)
-       // binding.circleIndicator.setAnimationMode(CircleIndicator.AnimationMode.SCALE)
+      // binding.circleIndicator.setAnimationMode(CircleIndicator.AnimationMode.SLIDE)
+       binding.circleIndicator.setAnimationMode(CircleIndicator.AnimationMode.SCALE)
 
     }
 

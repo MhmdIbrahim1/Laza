@@ -9,7 +9,7 @@ import dagger.hilt.android.HiltAndroidApp
 class MyApp: Application() {
     override fun onCreate() {
         super.onCreate()
-        // Set up the theme of the app based on the user's choice (light or dark)
+
         val sharedPreferences = getSharedPreferences("isDark", MODE_PRIVATE)
         val isDarkMode = sharedPreferences.getBoolean("isDark", false)
         if (isDarkMode) {

@@ -12,6 +12,8 @@
     <color name="darker">#151B20</color>
     <color name="g_pink">#FF9999</color>
     <color name="g_icon_tint">#97AABD</color>
+    <color name="ed_email">@color/black</color>
+
     <color name="g_hint">#666666</color>
     <color name="discount_">#cd0c32</color>
     <color name="g_gray700">#666666</color>

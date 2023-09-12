@@ -8,7 +8,6 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.TwitterAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -88,13 +87,21 @@ class LoginViewModel @Inject constructor(
                 viewModelScope.launch {
                     authResult.user?.let { user ->
                         val userDocumentRef = firestore.collection(USER_COLLECTION).document(user.uid)
+                        // Split display name into first and last names
+                        val displayName = user.displayName ?: ""
+                        val fullNameArray = displayName.split(" ")
+                        val firstName = fullNameArray.getOrElse(0) { "" }
+                        val lastName = fullNameArray.getOrElse(1) { "" }
 
                         userDocumentRef.get().addOnSuccessListener { documentSnapshot ->
                             if (documentSnapshot.exists()) {
                                 // User document already exists, update display name and photo URL
                                 userDocumentRef.update(
-                                    "displayName", user.displayName,
+                                    "displayName", displayName,
+                                    "firstName", firstName,
+                                    "lastName", lastName,
                                     "photoUrl", user.photoUrl.toString()
+
                                 ).addOnSuccessListener {
                                     viewModelScope.launch { _login.emit(NetworkResult.Success("Login Success")) }
                                 }.addOnFailureListener { error ->
@@ -105,10 +112,12 @@ class LoginViewModel @Inject constructor(
                             } else {
                                 // User document doesn't exist, create a new one
                                 val userData = hashMapOf(
-                                    "uid" to user.uid,
-                                    "email" to user.email,
-                                    "displayName" to user.displayName,
-                                    "photoUrl" to user.photoUrl.toString()
+                                       "uid" to user.uid,
+                                        "email" to user.email,
+                                        "displayName" to displayName,
+                                        "firstName" to firstName,
+                                        "lastName" to lastName,
+                                        "photoUrl" to user.photoUrl.toString()
                                 )
 
                                 userDocumentRef.set(userData)
@@ -154,10 +163,16 @@ class LoginViewModel @Inject constructor(
 
         // Check if the user document already exists
         userDocumentRef.get().addOnSuccessListener { documentSnapshot ->
+            val displayName = user.displayName ?: ""
+            val fullNameArray = displayName.split(" ")
+            val firstName = fullNameArray.getOrElse(0) { "" }
+            val lastName = fullNameArray.getOrElse(1) { "" }
             if (documentSnapshot.exists()) {
                 // User document already exists, update display name and photo URL
                 userDocumentRef.update(
-                    "displayName", user.displayName,
+                    "displayName", displayName,
+                    "firstName", firstName,
+                    "lastName", lastName,
                     "photoUrl", user.photoUrl.toString()
                 ).addOnSuccessListener {
                     viewModelScope.launch { _login.emit(NetworkResult.Success("Login Success")) }
@@ -171,7 +186,9 @@ class LoginViewModel @Inject constructor(
                 val userData = hashMapOf(
                     "uid" to user.uid,
                     "email" to user.email,
-                    "displayName" to user.displayName,
+                    "displayName" to displayName,
+                    "firstName" to firstName,
+                    "lastName" to lastName,
                     "photoUrl" to user.photoUrl.toString()
                 )
 
