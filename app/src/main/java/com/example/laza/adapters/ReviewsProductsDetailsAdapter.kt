@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.laza.R
 import com.example.laza.data.Reviews
 import com.example.laza.databinding.ReviewRvItemBinding
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class ReviewsProductsDetailsAdapter: RecyclerView.Adapter<ReviewsProductsDetailsAdapter.ReviewsPDViewHolder>() {
 
@@ -18,6 +21,20 @@ class ReviewsProductsDetailsAdapter: RecyclerView.Adapter<ReviewsProductsDetails
                 tvReviewDescription.text = reviews.review
                 tvReviewDescription.maxLines = 1
                 tvReviewDescription.ellipsize = null
+
+                // Check if order.date is a timestamp (milliseconds)
+                if (reviews.date.toLongOrNull() != null) {
+                    // Convert the timestamp to a Date
+                    val date = Date(reviews.date.toLong())
+
+                    // Format the date as needed
+                    val sampleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                    val formattedDate = sampleDateFormat.format(date)
+                    tvReviewDate.text = formattedDate
+                } else {
+                    // If it's not a timestamp, display it as is
+                    tvReviewDate.text = reviews.date
+                }
 
                 //reduce the length of the review
                 if (reviews.review.length > 45) {

@@ -66,6 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/dark_mode"
+                style="@style/SwitchCompatStyle"
                 android:textColor="@color/background_intro__mentv_2"
                 android:textSize="@dimen/_14ssp"
                 android:drawableStart="@drawable/sun"

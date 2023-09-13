@@ -189,6 +189,10 @@ class ProductDetailsFragment : Fragment() {
                 findNavController().navigate(action)
             }
         }
+
+        binding.cartFromDetails.setOnClickListener {
+            findNavController().navigate(R.id.action_productDetailsFragment_to_cartFragment)
+        }
     }
 
 
@@ -471,12 +475,8 @@ class ProductDetailsFragment : Fragment() {
         reviewsAdapter = ReviewsProductsDetailsAdapter()
         binding.rvReviews.apply {
             adapter = reviewsAdapter
-            layoutManager =
-                GridLayoutManager(requireContext(), 1, GridLayoutManager.HORIZONTAL, false)
-
-            val itemSpacingDecoration = ItemSpacingDecoration(10)
-            addItemDecoration(itemSpacingDecoration)
-
+            layoutManager =LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            addItemDecoration(ItemSpacingDecoration(5))
             viewModel.fetchReviews(product.id)
         }
     }

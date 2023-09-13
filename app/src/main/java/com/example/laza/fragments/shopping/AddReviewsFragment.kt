@@ -53,13 +53,15 @@ class AddReviewsFragment : Fragment() {
                 val rating = ratingBar.rating
                 // add default image from drawable
                 val image = R.drawable.profile
+                val date = System.currentTimeMillis().toString()
 
                 if (name.isNotEmpty() && reviewText.isNotEmpty()) {
                     val review = Reviews(
                         name = name,
                         review = reviewText,
                         ratingStars = rating.toDouble(),
-                        image = image.toString()
+                        image = image.toString(),
+                        date = date
                     )
                     viewModel.addReview(productId, review)
 

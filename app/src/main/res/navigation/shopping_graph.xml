@@ -34,6 +34,12 @@
         <action
             android:id="@+id/action_homeFragment_to_userAccountFragment"
             app:destination="@id/userAccountFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_allOrdersFragment"
+            app:destination="@id/allOrdersFragment" />
+        <action
+            android:id="@+id/action_homeFragment_self"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -110,6 +116,9 @@
         <action
             android:id="@+id/action_productDetailsFragment_to_billingFragment"
             app:destination="@id/billingFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
     </fragment>
 
     <fragment
@@ -178,6 +187,9 @@
         <action
             android:id="@+id/action_orderConfirmationFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_orderConfirmationFragment_to_allOrdersFragment"
+            app:destination="@id/allOrdersFragment" />
     </fragment>
     <fragment
         android:id="@+id/userAccountFragment"
@@ -187,6 +199,16 @@
         >
         <action
             android:id="@+id/action_userAccountFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/allOrdersFragment"
+        android:name="com.example.laza.fragments.shopping.AllOrdersFragment"
+        android:label="AllOrdersFragment"
+        tools:layout="@layout/fragment_all_orders"
+        >
+        <action
+            android:id="@+id/action_allOrdersFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

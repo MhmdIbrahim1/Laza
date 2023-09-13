@@ -46,6 +46,15 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:src="@drawable/arrow___left"
                 android:contentDescription="@string/arrow_back" />
+
+            <ImageView
+                android:id="@+id/cart_from_details"
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_gravity="end"
+                android:src="@drawable/cart"
+                android:contentDescription="@string/arrow_back" />
         </androidx.cardview.widget.CardView>
 
         <io.github.vejei.viewpagerindicator.indicator.CircleIndicator
@@ -333,7 +342,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
-            android:orientation="vertical"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/review_rv_item"
             app:layout_constraintEnd_toEndOf="@id/llProductPreferences"
             app:layout_constraintStart_toStartOf="@id/llProductPreferences"
             app:layout_constraintTop_toBottomOf="@id/tvProductReviewsTitle" />

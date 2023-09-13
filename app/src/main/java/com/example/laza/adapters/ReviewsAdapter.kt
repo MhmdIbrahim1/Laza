@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.laza.R
 import com.example.laza.data.Reviews
 import com.example.laza.databinding.ReviewRvItemBinding
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class ReviewsAdapter(private val context: Context) : RecyclerView.Adapter<ReviewsAdapter.ReviewsViewHolder>() {
 
@@ -22,6 +25,20 @@ class ReviewsAdapter(private val context: Context) : RecyclerView.Adapter<Review
                 tvRating.text =  context.getString(R.string.rating_with_number, reviews.ratingStars.toString())
                 ratingBar.rating = reviews.ratingStars.toFloat()
                 profileUserImageReview.setImageResource(R.drawable.profile)
+
+                // Check if order.date is a timestamp (milliseconds)
+                if (reviews.date.toLongOrNull() != null) {
+                    // Convert the timestamp to a Date
+                    val date = Date(reviews.date.toLong())
+
+                    // Format the date as needed
+                    val sampleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+                    val formattedDate = sampleDateFormat.format(date)
+                    tvReviewDate.text = formattedDate
+                } else {
+                    // If it's not a timestamp, display it as is
+                    tvReviewDate.text = reviews.date
+                }
             }
         }
     }

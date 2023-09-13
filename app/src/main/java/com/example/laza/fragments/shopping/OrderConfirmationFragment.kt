@@ -32,6 +32,9 @@ class OrderConfirmationFragment : Fragment() {
         binding.continueShopping.setOnClickListener {
             findNavController().navigate(R.id.action_orderConfirmationFragment_to_homeFragment)
         }
+        binding.goToOrders.setOnClickListener {
+            findNavController().navigate(R.id.action_orderConfirmationFragment_to_allOrdersFragment)
+        }
 
         val lottieAnimationView = binding.imageOrderConfirm
         lottieAnimationView.setAnimation(R.raw.confirmed)

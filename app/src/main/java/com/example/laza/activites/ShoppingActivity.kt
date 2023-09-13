@@ -15,7 +15,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Lifecycle
@@ -23,7 +22,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
 import com.example.laza.R
@@ -213,7 +211,9 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
         binding.navView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_orders -> {
-                    Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show()
+                    // navigate to the all orders fragment
+                    val action = HomeFragmentDirections.actionHomeFragmentToAllOrdersFragment()
+                    navController.navigate(action)
                 }
 
                 R.id.nav_settings -> {

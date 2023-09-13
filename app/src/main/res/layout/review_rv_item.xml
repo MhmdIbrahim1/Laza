@@ -28,7 +28,7 @@
 
         <TextView
             android:id="@+id/tvName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:text="Mohamed Ibrahim"
@@ -38,6 +38,17 @@
             app:layout_constraintEnd_toStartOf="@+id/ratingBar"
             app:layout_constraintStart_toEndOf="@id/profileUserImageReview"
             app:layout_constraintTop_toTopOf="@id/profileUserImageReview" />
+
+
+        <TextView
+            android:id="@+id/tvReviewDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/_2sdp"
+            app:drawableStartCompat="@drawable/clock"
+            app:layout_constraintStart_toStartOf="@+id/tvName"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            tools:text="@tools:sample/lorem" />
 
 
         <TextView

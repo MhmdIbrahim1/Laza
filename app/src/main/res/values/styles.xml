@@ -126,4 +126,10 @@
     </style>
 
 
+    <style name="SwitchCompatStyle" >
+        <item name="thumbTint">@color/switch_color</item>
+        <item name="trackTint">@color/switch_color</item>
+    </style>
+
+
 </resources>

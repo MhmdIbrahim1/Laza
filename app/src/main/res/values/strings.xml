@@ -135,5 +135,8 @@
 
     <string name="reset_password">Reset Password</string>
     <string name="we_will_send_you_the_password_reset_link_to_your_email">We will send you the password reset link to your email</string>
+    <string name="no_orders_to_show">No orders to show</string>
+    <string name="order_state">order state</string>
+    <string name="_4_5_rating">4.5 rating</string>
 
 </resources>
