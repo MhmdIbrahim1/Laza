@@ -1,11 +1,13 @@
 package com.example.laza.fragments.shopping
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.laza.R
 import com.example.laza.adapters.ColorAdapter
+import com.example.laza.adapters.ReviewsAdapter
 import com.example.laza.adapters.ReviewsProductsDetailsAdapter
 import com.example.laza.adapters.SizeAdapter
 import com.example.laza.adapters.ViewPager2Images
@@ -30,6 +33,7 @@ import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.DetailsViewModel
 import com.example.laza.viewmodels.ReviewsViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.vejei.viewpagerindicator.indicator.CircleIndicator
 import kotlinx.coroutines.launch
@@ -85,11 +89,13 @@ class ProductDetailsFragment : Fragment() {
         // Set up button click listeners and observers
         onAddToCart()
         observeAddToCart()
+        onAddToCartImage()
         observeAddToWishlist()
         observeRemoveFromWishlist()
         observeFetchReviews()
         observeTotalReviewsCount()
         observeTotalRating()
+
 
 
         // Fetch the initial wishlist status for the product
@@ -190,8 +196,9 @@ class ProductDetailsFragment : Fragment() {
             }
         }
 
-        binding.cartFromDetails.setOnClickListener {
-            findNavController().navigate(R.id.action_productDetailsFragment_to_cartFragment)
+
+        requireActivity().onBackPressedDispatcher.addCallback {
+            findNavController().navigateUp()
         }
     }
 
@@ -282,20 +289,25 @@ class ProductDetailsFragment : Fragment() {
                     when (result) {
                         is NetworkResult.Loading -> {
                             binding.btnAddToCart.startAnimation()
+                            binding.progressbarCart.visibility = View.VISIBLE
                         }
 
                         is NetworkResult.Success -> {
                             binding.btnAddToCart.revertAnimation()
-                            Toast.makeText(
-                                requireContext(),
-                                (R.string.AddedToCart),
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
+                            binding.progressbarCart.visibility = View.INVISIBLE
+                            Log.d("AddToCart", result.data.toString())
+                            if (isAdded){
+                                Snackbar.make(requireView(), "Added to cart", Snackbar.LENGTH_LONG).setAction("Go to cart") {
+                                    val action = ProductDetailsFragmentDirections.actionProductDetailsFragmentToCartFragment()
+                                    findNavController().navigate(action)
+                                }.show()
+
+                            }
                         }
 
                         is NetworkResult.Error -> {
                             binding.btnAddToCart.revertAnimation()
+                            binding.progressbarCart.visibility = View.INVISIBLE
                             Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT)
                                 .show()
                         }
@@ -382,6 +394,57 @@ class ProductDetailsFragment : Fragment() {
                         selectedSize
                     )
                 )
+
+            }
+        }
+    }
+
+    private fun onAddToCartImage() {
+        binding.cartFromDetails.setOnClickListener {
+            // Check if there are available colors and sizes for the product
+            val availableColors = product.colors
+            val availableSizes = product.sizes
+
+            if (availableColors.isNullOrEmpty() && availableSizes.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), (R.string.OutOfStock), Toast.LENGTH_SHORT).show()
+            } else if (availableColors.isNullOrEmpty()) {
+                if (selectedSize == null) {
+                    Toast.makeText(
+                        requireContext(),
+                        (R.string.PleaseSelectSize),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
+                }
+                viewModel.addUpdateProductInCart(CartProduct(product, 1, null, selectedSize))
+            } else if (availableSizes.isNullOrEmpty()) {
+                if (selectedColor == null) {
+                    Toast.makeText(
+                        requireContext(),
+                        (R.string.PleaseSelectColor),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
+                }
+                viewModel.addUpdateProductInCart(CartProduct(product, 1, selectedColor, null))
+            } else {
+                if (selectedColor == null || selectedSize == null) {
+                    Toast.makeText(
+                        requireContext(),
+                        (R.string.PleaseSelectColorAndSize),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
+                }
+                viewModel.addUpdateProductInCart(
+                    CartProduct(
+                        product,
+                        1,
+                        selectedColor,
+                        selectedSize
+                    )
+                )
+
             }
         }
     }
@@ -475,15 +538,21 @@ class ProductDetailsFragment : Fragment() {
         reviewsAdapter = ReviewsProductsDetailsAdapter()
         binding.rvReviews.apply {
             adapter = reviewsAdapter
-            layoutManager =LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            addItemDecoration(ItemSpacingDecoration(5))
+            layoutManager =
+                GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, true)
+            val itemSpacingDecoration = ItemSpacingDecoration(10)
+            addItemDecoration(itemSpacingDecoration)
+
             viewModel.fetchReviews(product.id)
         }
     }
 
+
     // Hide bottom navigation on resume
     override fun onResume() {
         super.onResume()
-        HideBottomNavigation()
+        if (isAdded){
+            HideBottomNavigation()
+        }
     }
 }

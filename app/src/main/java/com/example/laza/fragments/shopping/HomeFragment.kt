@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -90,6 +91,11 @@ class HomeFragment : Fragment() {
                     HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(updatedProduct)
                 view.findNavController().navigate(action)
             }
+        }
+
+        // when system back button pressed
+        requireActivity().onBackPressedDispatcher.addCallback {
+            requireActivity().finish()
         }
     }
 
@@ -240,4 +246,6 @@ class HomeFragment : Fragment() {
         super.onResume()
         ShowBottomNavigation()
     }
+
+
 }

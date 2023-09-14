@@ -102,5 +102,14 @@ class ReviewsViewModel @Inject constructor(
         super.onCleared()
         // Remove listeners when the ViewModel is cleared
         reviewsListenerActive = false
+        clear()
+    }
+
+    private fun clear() {
+        viewModelScope.launch {
+            _fetchReviews.emit(NetworkResult.UnSpecified())
+            _totalReviewsCount.emit(0)
+            _totalRating.emit(0f)
+        }
     }
 }

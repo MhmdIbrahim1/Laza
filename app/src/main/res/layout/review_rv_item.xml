@@ -28,14 +28,13 @@
 
         <TextView
             android:id="@+id/tvName"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:text="Mohamed Ibrahim"
             android:textColor="@color/background_intro__mentv_2"
             android:textSize="@dimen/_13ssp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/ratingBar"
             app:layout_constraintStart_toEndOf="@id/profileUserImageReview"
             app:layout_constraintTop_toTopOf="@id/profileUserImageReview" />
 
@@ -55,11 +54,11 @@
             android:id="@+id/tvRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_6sdp"
             android:text="4.5 rating"
             android:textColor="@color/background_intro__mentv_2"
             android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvName" />
 
@@ -72,6 +71,7 @@
             android:isIndicator="true"
             android:numStars="5"
             android:progressTint="#ffd203"
+            app:layout_constraintBottom_toBottomOf="@+id/tvReviewDate"
             app:layout_constraintEnd_toEndOf="@+id/tvRating"
             app:layout_constraintTop_toBottomOf="@+id/tvRating" />
 

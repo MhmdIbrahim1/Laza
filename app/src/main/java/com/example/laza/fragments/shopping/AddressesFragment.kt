@@ -26,7 +26,9 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AddressesFragment : Fragment() {
-    private lateinit var binding: FragmentAddressesBinding
+    private var _binding: FragmentAddressesBinding? = null
+    private val binding get() = _binding!!
+
     private val viewModel by viewModels<AddressViewModel>()
     private val args by navArgs<AddressesFragmentArgs>()
 
@@ -42,7 +44,7 @@ class AddressesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View{
-        binding = FragmentAddressesBinding.inflate(inflater, container, false)
+        _binding = FragmentAddressesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -193,5 +195,11 @@ class AddressesFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         HideBottomNavigation()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+
     }
 }

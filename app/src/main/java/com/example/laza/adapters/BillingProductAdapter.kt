@@ -72,4 +72,5 @@ class BillingProductAdapter(private val context: Context):
         holder.bind(billingProduct)
     }
 
+
 }

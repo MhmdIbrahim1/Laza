@@ -20,4 +20,5 @@ class MyApp: Application() {
 
         FirebaseApp.initializeApp(this)
     }
+
 }

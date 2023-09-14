@@ -138,5 +138,8 @@
     <string name="no_orders_to_show">No orders to show</string>
     <string name="order_state">order state</string>
     <string name="_4_5_rating">4.5 rating</string>
+    <string name="order_details">Order Details</string>
+    <string name="address">Address</string>
+    <string name="products">Products</string>
 
 </resources>

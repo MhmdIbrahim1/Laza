@@ -24,13 +24,14 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class IntroductionFragmentOne : Fragment() {
-    private lateinit var binding: FragmentIntroductionOneBinding
+    private var _binding: FragmentIntroductionOneBinding? = null
+    private val binding get() = _binding!!
     private val viewModel by activityViewModels<IntroductionViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentIntroductionOneBinding.inflate(inflater, container, false)
+        _binding = FragmentIntroductionOneBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -65,5 +66,9 @@ class IntroductionFragmentOne : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 }

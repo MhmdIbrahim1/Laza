@@ -14,6 +14,7 @@ import com.example.laza.utils.NetworkResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -168,7 +169,7 @@ class DetailsViewModel @Inject constructor(
         firestore.collection(Constants.PRODUCT_COLLECTION)
             .document(productId)
             .collection(REVIEWS_COLLECTION)
-            .limit(7)
+            .limit(2)
             .get()
             .addOnSuccessListener {
                 val reviews = it.toObjects(Reviews::class.java)
@@ -184,4 +185,20 @@ class DetailsViewModel @Inject constructor(
     }
 
 
+    private fun clear() {
+        viewModelScope.launch {
+            _addToCart.emit(NetworkResult.UnSpecified())
+            _addToWishList.emit(NetworkResult.UnSpecified())
+            _removeFromWishList.emit(NetworkResult.UnSpecified())
+            _wishlistStatus.emit(null)
+            _fetchReviews.emit(NetworkResult.UnSpecified())
+        }
+
+        viewModelScope.cancel()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        clear()
+    }
 }

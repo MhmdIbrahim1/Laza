@@ -7,6 +7,7 @@ import com.example.laza.R
 import com.example.laza.utils.Constants.INTRODUCTION_KEY
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -43,5 +44,15 @@ class IntroductionViewModel @Inject constructor(
 
     fun startButtonClicked() {
         sharedPreferences.edit().putBoolean(INTRODUCTION_KEY, true).apply()
+    }
+
+    private fun clear() {
+        viewModelScope.launch { _navigateState.emit(0) }
+        viewModelScope.cancel()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        clear()
     }
 }

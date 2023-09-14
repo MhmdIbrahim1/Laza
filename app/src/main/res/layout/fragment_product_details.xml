@@ -12,6 +12,17 @@
         android:layout_height="match_parent"
         android:background="@color/background_color_general">
 
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressbarCart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            app:indicatorColor="@color/g_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
         <androidx.cardview.widget.CardView
             android:id="@+id/cardImageProductDetails"
             android:layout_width="0dp"
@@ -49,11 +60,12 @@
 
             <ImageView
                 android:id="@+id/cart_from_details"
-                android:layout_width="@dimen/_28sdp"
-                android:layout_height="@dimen/_28sdp"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:layout_gravity="end"
-                android:src="@drawable/cart"
+                android:src="@drawable/add_to_cart"
+                app:tint="@color/g_blue"
                 android:contentDescription="@string/arrow_back" />
         </androidx.cardview.widget.CardView>
 
@@ -339,12 +351,11 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvReviews"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/review_rv_item"
             app:layout_constraintEnd_toEndOf="@id/llProductPreferences"
             app:layout_constraintStart_toStartOf="@id/llProductPreferences"
             app:layout_constraintTop_toBottomOf="@id/tvProductReviewsTitle" />

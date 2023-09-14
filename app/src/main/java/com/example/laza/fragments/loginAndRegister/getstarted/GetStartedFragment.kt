@@ -32,7 +32,8 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class GetStartedFragment : Fragment() {
-    private lateinit var binding: FragmentGetStartedBinding
+    private var _binding: FragmentGetStartedBinding? = null
+    private val binding get() = _binding!!
     private val viewModel by viewModels<LoginViewModel>()
 
     private var doubleBackToExitPressedOnce = false
@@ -40,15 +41,11 @@ class GetStartedFragment : Fragment() {
     private var shouldHandleBackPress = true
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentGetStartedBinding.inflate(inflater, container, false)
+        _binding = FragmentGetStartedBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -167,5 +164,10 @@ class GetStartedFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         doublePressHandler.removeCallbacksAndMessages(null) // Remove callbacks when the fragment is paused
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

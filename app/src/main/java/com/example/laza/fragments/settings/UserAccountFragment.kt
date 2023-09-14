@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.res.ResourcesCompat
@@ -32,7 +33,8 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class UserAccountFragment : Fragment() {
-    private lateinit var binding: FragmentUserAccountBinding
+    private var _binding: FragmentUserAccountBinding? = null
+    private val binding get() = _binding!!
     private val userViewModel by activityViewModels<UserAccountViewModel>()
     private lateinit var imageActivityResultLauncher: ActivityResultLauncher<Intent>
 
@@ -41,7 +43,7 @@ class UserAccountFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentUserAccountBinding.inflate(inflater)
+        _binding = FragmentUserAccountBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -63,9 +65,6 @@ class UserAccountFragment : Fragment() {
         observeGetUser()
         observeUpdateUser()
         observeResetPassword()
-        // Clear the success state
-        userViewModel.clearUpdateInfo()
-
 
 
         binding.imageEdit.setOnClickListener {
@@ -99,7 +98,10 @@ class UserAccountFragment : Fragment() {
         binding.edEmail.isEnabled = false
 
 
-
+        // when the user clicks on the system back button navigate to the home fragment
+        requireActivity().onBackPressedDispatcher.addCallback {
+            findNavController().navigate(R.id.action_userAccountFragment_to_homeFragment)
+        }
     }
 
     private fun observeUpdateUser() {
@@ -223,5 +225,10 @@ class UserAccountFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         HideBottomNavigation()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

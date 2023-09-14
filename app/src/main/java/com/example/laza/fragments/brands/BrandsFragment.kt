@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -80,23 +81,13 @@ class BrandsFragment : Fragment() {
             }
         }
 
-//        brandsAdapter.onItemHeartClickListener = {
-//            if (isAdded) {
-//                // Check if the product is in the user's wishlist
-//                if (it.isFavorite) {
-//                    // Remove the product from the user's wishlist
-//                    wishListViewModel.removeFromWishList(it)
-//                    // Update the dataset to reflect the removed product from the wishlist
-//                    brandsAdapter.updateWishlistStatus(it.product.id, false)
-//
-//                    Toast.makeText(
-//                        requireContext(),
-//                        it.product.name + " removed from wishlist",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-//            }
-//        }
+        binding.cartFromBrands.setOnClickListener {
+            findNavController().navigate(R.id.action_brandsFragment_to_cartFragment)
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback {
+            findNavController().navigateUp()
+        }
     }
 
 

@@ -21,13 +21,14 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ResetPasswordFragment : Fragment() {
-    private lateinit var binding: FragmentResetPasswordBinding
+    private var _binding: FragmentResetPasswordBinding? = null
+    private val binding get() = _binding!!
     private val viewModel by viewModels<LoginViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentResetPasswordBinding.inflate(inflater, container, false)
+        _binding = FragmentResetPasswordBinding.inflate(inflater, container, false)
 
 
         binding.arrow1.setOnClickListener {
@@ -84,6 +85,11 @@ class ResetPasswordFragment : Fragment() {
         binding.apply {
             progressBar.visibility = View.GONE
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
 

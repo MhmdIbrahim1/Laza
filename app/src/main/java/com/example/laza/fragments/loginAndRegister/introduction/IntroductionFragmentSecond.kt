@@ -20,14 +20,15 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class IntroductionFragmentSecond : Fragment() {
-    private lateinit var binding: FragmentIntroductionSecondBinding
+    private var _binding: FragmentIntroductionSecondBinding? = null
+    private val binding get() = _binding!!
     private val viewModel by activityViewModels<IntroductionViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentIntroductionSecondBinding.inflate(inflater, container, false)
+        _binding = FragmentIntroductionSecondBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -61,5 +62,10 @@ class IntroductionFragmentSecond : Fragment() {
             viewModel.startButtonClicked()
             findNavController().navigate(R.id.action_introductionFragmentSecond_to_getStartedFragment)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

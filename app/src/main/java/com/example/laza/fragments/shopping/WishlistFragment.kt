@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -32,7 +33,9 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class WishlistFragment : Fragment() {
-    private lateinit var binding: FragmentWishlistBinding
+    private var _binding: FragmentWishlistBinding? = null
+    private val binding get() = _binding!!
+
     private val viewModel by viewModels<WishListViewModel>()
     private val _viewModel by viewModels<DetailsViewModel>()
     private lateinit var wishListAdapter: WishListAdapter
@@ -41,7 +44,7 @@ class WishlistFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentWishlistBinding.inflate(inflater, container, false)
+        _binding = FragmentWishlistBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -82,6 +85,12 @@ class WishlistFragment : Fragment() {
                 findNavController().navigate(R.id.action_wishlistFragment_to_cartFragment)
             }
         }
+
+        // if the previous destination was the HomeFragment, and the user clicked on the back button then navigate to the HomeFragment
+        requireActivity().onBackPressedDispatcher.addCallback {
+            findNavController().navigateUp()
+        }
+
     }
 
     private fun observeWishListData() {
@@ -271,5 +280,10 @@ class WishlistFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         ShowBottomNavigation()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

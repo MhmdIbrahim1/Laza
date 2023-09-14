@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.StorageReference
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -199,11 +200,22 @@ class UserAccountViewModel @Inject constructor(
         }
     }
 
-    fun clearUpdateInfo() {
+
+    private fun clear(){
         viewModelScope.launch {
+            _user.emit(NetworkResult.UnSpecified())
+            _resetPassword.emit(NetworkResult.UnSpecified())
             _updateInfo.emit(NetworkResult.UnSpecified())
         }
+
+
+
+        viewModelScope.cancel()
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        clear()
+    }
 
 }

@@ -28,7 +28,8 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ReviewFragment : Fragment() {
-    private lateinit var binding: FragmentReviewBinding
+    private var _binding: FragmentReviewBinding? = null
+    private val binding get() = _binding!!
     private lateinit var reviewsAdapter: ReviewsAdapter
     private val viewModel by viewModels<ReviewsViewModel>()
 
@@ -43,7 +44,7 @@ class ReviewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentReviewBinding.inflate(inflater, container, false)
+        _binding = FragmentReviewBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -156,6 +157,11 @@ class ReviewFragment : Fragment() {
 
             viewModel.fetchReviews(product.id)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

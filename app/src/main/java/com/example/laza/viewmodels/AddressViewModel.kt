@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -109,5 +110,19 @@ class AddressViewModel @Inject constructor(
         return address.addressTitle.isNotEmpty() && address.fullName.isNotEmpty() &&
                 address.street.isNotEmpty() && address.city.isNotEmpty() &&
                 address.phone.isNotEmpty() && address.state.isNotEmpty()
+    }
+
+    private fun clear(){
+        viewModelScope.launch {
+            _addNewAddress.emit(NetworkResult.UnSpecified())
+            _deleteAddress.emit(NetworkResult.UnSpecified())
+        }
+
+        viewModelScope.cancel()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        clear()
     }
 }

@@ -8,6 +8,7 @@ import com.example.laza.utils.NetworkResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -93,4 +94,16 @@ class WishListViewModel @Inject constructor(
         }
     }
 
+    private fun clear(){
+        viewModelScope.launch {
+            _wishListData.emit(NetworkResult.UnSpecified())
+        }
+
+        viewModelScope.cancel()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        clear()
+    }
 }

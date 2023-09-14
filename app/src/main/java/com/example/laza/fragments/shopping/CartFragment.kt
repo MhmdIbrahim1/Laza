@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.laza.R
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
+import androidx.navigation.findNavController
 import com.example.laza.adapters.CartProductAdapter
 import com.example.laza.databinding.FragmentCartBinding
 import com.example.laza.firebase.FirebaseCommon
@@ -24,12 +26,14 @@ import com.example.laza.utils.NetworkResult
 import com.example.laza.utils.ShowBottomNavigation
 import com.example.laza.viewmodels.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CartFragment : Fragment() {
-    private lateinit var binding: FragmentCartBinding
+    private var _binding: FragmentCartBinding? = null
+    private val binding get() = _binding!!
     private val cartProductAdapter by lazy { CartProductAdapter(requireContext()) }
     private val viewModel by activityViewModels<CartViewModel>() // activityViewModels because we want to share the same view-model with the activity
     var totalPrice = 0f
@@ -40,7 +44,7 @@ class CartFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCartBinding.inflate(inflater, container, false)
+        _binding = FragmentCartBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -66,7 +70,7 @@ class CartFragment : Fragment() {
         }
 
         binding.arrow1.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.action_cartFragment_to_homeFragment)
         }
 
         binding.buttonCheckout.setOnClickListener {
@@ -78,7 +82,11 @@ class CartFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-    }
+        // if the previous destination was the HomeFragment, and the user clicked on the back button then navigate to the HomeFragment
+        requireActivity().onBackPressedDispatcher.addCallback {
+                findNavController().navigate(R.id.action_cartFragment_to_homeFragment)
+            }
+        }
 
     private fun setUpCartRV() {
         binding.rvCart.apply {
@@ -131,7 +139,8 @@ class CartFragment : Fragment() {
                 viewModel.productsPrice.collectLatest { price ->
                     price?.let {
                         totalPrice = it
-                        binding.tvTotalPrice.text = resources.getString(R.string.egp, totalPrice.formatPrice())
+                        binding.tvTotalPrice.text =
+                            resources.getString(R.string.egp, totalPrice.formatPrice())
                     }
 
                 }
@@ -142,15 +151,19 @@ class CartFragment : Fragment() {
     private fun observeDialog() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.deleteDialog.collectLatest {cartProduct ->
-                    val dialogView = layoutInflater.inflate(R.layout.delete_confirmation_dialog, null)
+                viewModel.deleteDialog.collectLatest { cartProduct ->
+                    val dialogView =
+                        layoutInflater.inflate(R.layout.delete_confirmation_dialog, null)
 
-                    val alertDialogBuilder = AlertDialog.Builder(requireContext(), R.style.AlertDialogCustom)
-                        .setView(dialogView)
-                        .create()
+                    val alertDialogBuilder =
+                        AlertDialog.Builder(requireContext(), R.style.AlertDialogCustom)
+                            .setView(dialogView)
+                            .create()
 
-                    val cancelButton = dialogView.findViewById<AppCompatButton>(R.id.confirm_cancel_button)
-                    val deleteButton = dialogView.findViewById<AppCompatButton>(R.id.confirm_delete__button)
+                    val cancelButton =
+                        dialogView.findViewById<AppCompatButton>(R.id.confirm_cancel_button)
+                    val deleteButton =
+                        dialogView.findViewById<AppCompatButton>(R.id.confirm_delete__button)
 
                     cancelButton.setOnClickListener {
                         alertDialogBuilder.dismiss()
@@ -197,7 +210,15 @@ class CartFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        ShowBottomNavigation()
+        if (isAdded) {
+            ShowBottomNavigation()
+        }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 
 }

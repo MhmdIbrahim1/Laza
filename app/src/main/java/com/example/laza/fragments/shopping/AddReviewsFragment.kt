@@ -24,7 +24,8 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AddReviewsFragment : Fragment() {
-    private lateinit var binding: FragmentReviewsBinding
+    private var _binding: FragmentReviewsBinding? = null
+    private val binding get() = _binding!!
     private val viewModel by viewModels<AddReviewsViewModel>()
     private val homeViewModel by viewModels<HomeFragmentViewModel>()
     private val args by navArgs<AddReviewsFragmentArgs>()
@@ -32,7 +33,7 @@ class AddReviewsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentReviewsBinding.inflate(inflater, container, false)
+        _binding = FragmentReviewsBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -116,4 +117,8 @@ class AddReviewsFragment : Fragment() {
     }
 
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

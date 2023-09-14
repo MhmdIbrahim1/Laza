@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -24,6 +25,7 @@ import com.example.laza.data.order.Order
 import com.example.laza.data.order.OrderStatus
 import com.example.laza.databinding.FragmentBillingBinding
 import com.example.laza.helper.formatPrice
+import com.example.laza.utils.HideBottomNavigation
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.BillingViewModel
@@ -35,7 +37,9 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BillingFragment : Fragment() {
-    private lateinit var binding: FragmentBillingBinding
+    private var _binding: FragmentBillingBinding? = null
+    private val binding get() = _binding!!
+
     private val addressAdapter by lazy { AddressAdapter() }
     private val billingAdapter by lazy { BillingProductAdapter(requireContext()) }
     private val viewModel by viewModels<BillingViewModel>()
@@ -57,7 +61,7 @@ class BillingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentBillingBinding.inflate(inflater, container, false)
+        _binding = FragmentBillingBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -105,6 +109,16 @@ class BillingFragment : Fragment() {
             }
             showOrderConfirmationDialog()
         }
+
+        // if the previous destination was the HomeFragment, and the user clicked on the back button then navigate to the HomeFragment
+        requireActivity().onBackPressedDispatcher.addCallback {
+            if (findNavController().previousBackStackEntry?.destination?.id == R.id.homeFragment) {
+                findNavController().navigate(R.id.action_billingFragment_to_homeFragment)
+            } else {
+                findNavController().navigateUp()
+            }
+        }
+
     }
 
     private fun showOrderConfirmationDialog() {
@@ -202,6 +216,17 @@ class BillingFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        HideBottomNavigation()
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

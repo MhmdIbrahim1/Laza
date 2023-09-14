@@ -47,7 +47,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
     private lateinit var navController: NavController
 
     val viewModel  by viewModels<CartViewModel>()
-    val userViewModel by viewModels<UserAccountViewModel>()
+    private val userViewModel by viewModels<UserAccountViewModel>()
 
     private lateinit var sharedPreferences: SharedPreferences
     private val isDark = false
@@ -61,7 +61,6 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
         setContentView(binding.root)
         onLogout()
         changeStatusBarColor()
-        bottomNavigationListener()
         setNavigationItemSelectedListener()
         observeGetUser()
 
@@ -102,6 +101,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
             // Close the drawer after navigating
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         }
+
 
     }
 
@@ -238,26 +238,6 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
 
     }
 
-    private fun bottomNavigationListener(){
-        binding.bottomNavigation.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.homeFragment -> {
-                    navController.navigate(R.id.homeFragment)
-                }
-                R.id.brandsFragment -> {
-                    navController.navigate(R.id.brandsFragment)
-                }
-                R.id.wishlistFragment -> {
-                    navController.navigate(R.id.wishlistFragment)
-                }
-                R.id.cartFragment -> {
-                    navController.navigate(R.id.cartFragment)
-                }
-            }
-            true
-        }
-    }
-
     private fun navigateToBilling() {
         when (navController.currentDestination?.id) {
             R.id.homeFragment -> {
@@ -305,5 +285,11 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
                 navController.navigate(action)
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.bottomNavigation.setOnItemSelectedListener(null)
+        viewModel
     }
 }

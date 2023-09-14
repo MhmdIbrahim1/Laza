@@ -3,15 +3,16 @@ package com.example.laza.adapters
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.laza.R
+import com.example.laza.data.Product
 import com.example.laza.data.order.Order
 import com.example.laza.data.order.OrderStatus
 import com.example.laza.data.order.getOrderStatus
 import com.example.laza.databinding.OrderItemBinding
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -22,45 +23,43 @@ class AllOrdersAdapter : RecyclerView.Adapter<AllOrdersAdapter.OrdersViewHolder>
         fun bind(order: Order) {
             binding.apply {
                 tvOrderId.text = order.orderId.toString()
-                // Check if order.date is a timestamp (milliseconds)
+                // Check if reviews.date is a timestamp (milliseconds)
                 if (order.date.toLongOrNull() != null) {
                     // Convert the timestamp to a Date
                     val date = Date(order.date.toLong())
 
-                    // Format the date as needed
-                    val sampleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-                    val formattedDate = sampleDateFormat.format(date)
-                    tvOrderDate.text = formattedDate
+                    // Format the date and time as "yyyy-MM-dd (HH:mm)"
+                    val dateFormat = SimpleDateFormat("yyyy-MM-dd (HH:mm)", Locale.ENGLISH)
+                    // val sampleDateFormat = SimpleDateFormat("EEE - MMM - d (HH:mm)", Locale.ENGLISH)
+                    val formattedDateTime = dateFormat.format(date)
+
+                    tvOrderDate.text = formattedDateTime
                 } else {
                     // If it's not a timestamp, display it as is
                     tvOrderDate.text = order.date
                 }
-
-                val resources = itemView.resources
-
+                val res = itemView.context
                 val colorDrawable = when (getOrderStatus(order.orderStatus)) {
                     is OrderStatus.Ordered -> {
-                        ColorDrawable(resources.getColor(R.color.g_orange_yellow))
+                        ColorDrawable(ContextCompat.getColor(res,R.color.g_orange_yellow))
                     }
                     is OrderStatus.Confirmed -> {
-                        ColorDrawable(resources.getColor(R.color.g_green))
+                        ColorDrawable(ContextCompat.getColor(res,R.color.g_green))
                     }
                     is OrderStatus.Delivered -> {
-                        ColorDrawable(resources.getColor(R.color.g_green))
+                        ColorDrawable(ContextCompat.getColor(res,R.color.g_green))
                     }
                     is OrderStatus.Shipped -> {
-                        ColorDrawable(resources.getColor(R.color.g_green))
+                        ColorDrawable(ContextCompat.getColor(res,R.color.g_green))
                     }
                     is OrderStatus.Canceled -> {
-                        ColorDrawable(resources.getColor(R.color.g_red))
+                        ColorDrawable(ContextCompat.getColor(res,R.color.g_red))
                     }
                     is OrderStatus.Returned -> {
-                        ColorDrawable(resources.getColor(R.color.g_red))
+                        ColorDrawable(ContextCompat.getColor(res,R.color.g_red))
                     }
                 }
-
                 imageOrderState.setImageDrawable(colorDrawable)
-
             }
         }
     }
@@ -97,6 +96,7 @@ class AllOrdersAdapter : RecyclerView.Adapter<AllOrdersAdapter.OrdersViewHolder>
         holder.itemView.setOnClickListener {
             onClick?.invoke(order)
         }
+
     }
 
     override fun getItemCount(): Int {

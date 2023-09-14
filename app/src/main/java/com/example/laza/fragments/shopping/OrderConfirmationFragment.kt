@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
@@ -14,12 +15,13 @@ import com.example.laza.utils.HideBottomNavigation
 
 
 class OrderConfirmationFragment : Fragment() {
-    private lateinit var binding: FragmentOrderConfirmationBinding
+    private var _binding: FragmentOrderConfirmationBinding? = null
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentOrderConfirmationBinding.inflate(inflater, container, false)
+        _binding = FragmentOrderConfirmationBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -40,11 +42,15 @@ class OrderConfirmationFragment : Fragment() {
         lottieAnimationView.setAnimation(R.raw.confirmed)
         lottieAnimationView.repeatCount = LottieDrawable.INFINITE
         lottieAnimationView.playAnimation()
-
     }
 
     override fun onResume() {
         super.onResume()
         HideBottomNavigation()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -7,6 +7,7 @@ import com.example.laza.utils.Constants.PRODUCT_COLLECTION
 import com.example.laza.utils.NetworkResult
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -90,4 +91,18 @@ class BrandsFragmentViewModel @Inject constructor(
         var oldBrandList: List<Product> = emptyList(),
         var isPagingEnd: Boolean = false
     )
+
+    private fun clear(){
+        viewModelScope.launch {
+            _brandsData.emit(NetworkResult.UnSpecified())
+            _totalItemCount.emit(0)
+        }
+
+        viewModelScope.cancel()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        clear()
+    }
 }
