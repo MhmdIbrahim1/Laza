@@ -97,6 +97,8 @@ class HomeFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback {
             requireActivity().finish()
         }
+
+
     }
 
 

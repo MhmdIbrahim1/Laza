@@ -128,10 +128,9 @@ class OrderDetailsFragment : Fragment() {
 
     private fun animateStepView(stepView: StepView, targetStep: Int) {
         val animator = ValueAnimator.ofInt(0, targetStep)
-        animator.duration = 900 // Adjust the duration as needed
+        animator.duration = 700 // Adjust the duration as needed
         animator.addUpdateListener { animation ->
             val animatedValue = animation.animatedValue as Int
-           //animate all steps
             stepView.go(animatedValue, true)
         }
         animator.start()
@@ -145,4 +144,6 @@ class OrderDetailsFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }

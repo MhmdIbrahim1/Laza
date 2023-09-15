@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.StorageReference
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -42,6 +43,10 @@ class UserAccountViewModel @Inject constructor(
 
     private val _resetPassword = MutableStateFlow<NetworkResult<User>>(NetworkResult.UnSpecified())
     val resetPassword = _resetPassword.asStateFlow()
+
+    private var getUserJob: Job? = null
+    private var observeUpdateUserJob: Job? = null
+    private var observeResetPasswordJob: Job? = null
 
 
 
@@ -202,20 +207,23 @@ class UserAccountViewModel @Inject constructor(
 
 
     private fun clear(){
+        getUserJob?.cancel()
+        observeUpdateUserJob?.cancel()
+        observeResetPasswordJob?.cancel()
         viewModelScope.launch {
             _user.emit(NetworkResult.UnSpecified())
             _resetPassword.emit(NetworkResult.UnSpecified())
             _updateInfo.emit(NetworkResult.UnSpecified())
         }
-
-
-
-        viewModelScope.cancel()
     }
 
     override fun onCleared() {
         super.onCleared()
         clear()
+    }
+
+    fun clearUpdateInfo() {
+        _updateInfo.value = NetworkResult.UnSpecified()
     }
 
 }

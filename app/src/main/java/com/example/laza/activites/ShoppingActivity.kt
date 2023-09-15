@@ -3,6 +3,8 @@ package com.example.laza.activites
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
@@ -10,6 +12,7 @@ import android.widget.CompoundButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +20,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -46,11 +50,14 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
     private val binding by lazy { ActivityShoppingBinding.inflate(layoutInflater) }
     private lateinit var navController: NavController
 
-    val viewModel  by viewModels<CartViewModel>()
+    val viewModel by viewModels<CartViewModel>()
     private val userViewModel by viewModels<UserAccountViewModel>()
 
     private lateinit var sharedPreferences: SharedPreferences
     private val isDark = false
+    private var doubleBackToExitPressedOnce = false
+    private val doublePressHandler = Handler(Looper.myLooper()!!)
+    private var shouldHandleBackPress = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,15 +109,44 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         }
 
+        onBackPressedDispatcher.addCallback {
+            if (shouldHandleBackPress) {
+                if (doubleBackToExitPressedOnce) {
+                    finish()
+                }else {
+                    doubleBackToExitPressedOnce = true
+                    Toast.makeText(
+                        this@ShoppingActivity,
+                        R.string.press_back_again_to_exit,
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    doublePressHandler.postDelayed({
+                        doubleBackToExitPressedOnce = false
+                    }, 4000) // Delay for resetting the double press flag
+                }
+            } else {
+                // If not handling the back press, let the activity handle it
+                isEnabled = false
+                onBackPressed()
+                isEnabled = true
+            }
+        }
+        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
     }
 
     // Implementation of the DrawerOpener interface
     override fun openDrawer() {
-        // Implement the logic to open the drawer here
         val drawerLayout = binding.drawerLayout
-        drawerLayout.openDrawer(GravityCompat.START)
+
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START) // Close the drawer
+        } else {
+            drawerLayout.openDrawer(GravityCompat.START) // Open the drawer
+        }
     }
+
 
     private fun onLogout() {
         binding.navView.findViewById<TextView>(R.id.logout).setOnClickListener {
@@ -155,7 +191,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
         window.statusBarColor = resources.getColor(R.color.status_bar, null)
     }
 
-    private fun observeCartProductNumbers(){
+    private fun observeCartProductNumbers() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.cartProduct.collectLatest {
@@ -169,6 +205,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
                                 badgeTextColor = resources.getColor(R.color.white, null)
                             }
                         }
+
                         else -> Unit
                     }
                 }
@@ -188,16 +225,23 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
                         is NetworkResult.Success -> {
                             val headerView = binding.navView.getHeaderView(0)
                             val userName = headerView.findViewById<TextView>(R.id.tvUserName)
-                            val userImage = headerView.findViewById<ImageView>(R.id.profileUserImageReview)
+                            val userImage =
+                                headerView.findViewById<ImageView>(R.id.profileUserImageReview)
                             userName.text = it.data?.firstName + " " + it.data?.lastName
                             Glide.with(this@ShoppingActivity).load(it.data?.imagePath)
-                                .error(ResourcesCompat.getDrawable(resources, R.drawable.profile, null))
+                                .error(
+                                    ResourcesCompat.getDrawable(
+                                        resources,
+                                        R.drawable.profile,
+                                        null
+                                    )
+                                )
                                 .into(userImage)
                             Log.d("UserAccountFragment", it.data.toString())
                         }
 
                         is NetworkResult.Error -> {
-                          Log.d("UserAccountFragment", it.message.toString())
+                            Log.d("UserAccountFragment", it.message.toString())
                         }
 
                         else -> Unit
@@ -207,7 +251,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
         }
     }
 
-    private fun setNavigationItemSelectedListener(){
+    private fun setNavigationItemSelectedListener() {
         binding.navView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_orders -> {
@@ -221,7 +265,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
                 }
 
                 R.id.nav_info -> {
-                   // navigate to the user account fragment
+                    // navigate to the user account fragment
                     val action = HomeFragmentDirections.actionHomeFragmentToUserAccountFragment()
                     navController.navigate(action)
                 }
@@ -248,6 +292,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
                 )
                 navController.navigate(action)
             }
+
             R.id.productDetailsFragment -> {
                 val action =
                     ProductDetailsFragmentDirections.actionProductDetailsFragmentToBillingFragment(
@@ -257,6 +302,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
                     )
                 navController.navigate(action)
             }
+
             R.id.cartFragment -> {
                 val action =
                     CartFragmentDirections.actionCartFragmentToBillingFragment(
@@ -266,6 +312,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
                     )
                 navController.navigate(action)
             }
+
             R.id.brandsFragment -> {
                 val action =
                     BrandsFragmentDirections.actionBrandsFragmentToBillingFragment(
@@ -275,6 +322,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
                     )
                 navController.navigate(action)
             }
+
             R.id.wishlistFragment -> {
                 val action =
                     WishlistFragmentDirections.actionWishlistFragmentToBillingFragment(
@@ -290,6 +338,5 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
     override fun onDestroy() {
         super.onDestroy()
         binding.bottomNavigation.setOnItemSelectedListener(null)
-        viewModel
     }
 }

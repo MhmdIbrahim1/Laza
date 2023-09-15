@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.res.ResourcesCompat
@@ -27,6 +26,7 @@ import com.example.laza.utils.HideBottomNavigation
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.UserAccountViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -39,6 +39,13 @@ class UserAccountFragment : Fragment() {
     private lateinit var imageActivityResultLauncher: ActivityResultLauncher<Intent>
 
     private var imageUri: Uri? = null
+
+    // Coroutine jobs for observing data
+    private var updateUserInfoJob: Job? = null
+    private var getUserInfoJob: Job? = null
+    private var resetPasswordJob: Job? = null
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -98,14 +105,12 @@ class UserAccountFragment : Fragment() {
         binding.edEmail.isEnabled = false
 
 
-        // when the user clicks on the system back button navigate to the home fragment
-        requireActivity().onBackPressedDispatcher.addCallback {
-            findNavController().navigate(R.id.action_userAccountFragment_to_homeFragment)
-        }
+
     }
 
     private fun observeUpdateUser() {
-        lifecycleScope.launch {
+        updateUserInfoJob?.cancel()
+        updateUserInfoJob = lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 userViewModel.updateInfo.collectLatest {
                     when (it) {
@@ -115,8 +120,7 @@ class UserAccountFragment : Fragment() {
 
                         is NetworkResult.Success -> {
                             binding.buttonSave.revertAnimation()
-                            findNavController().navigate(R.id.action_userAccountFragment_to_homeFragment)
-
+                            findNavController().navigateUp()
                             Toast.makeText(requireContext(), "User Information Updated", Toast.LENGTH_SHORT).show()
                         }
 
@@ -132,8 +136,10 @@ class UserAccountFragment : Fragment() {
         }
     }
 
+
     private fun observeGetUser() {
-        lifecycleScope.launch {
+        getUserInfoJob?.cancel()
+        getUserInfoJob = lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 userViewModel.user.collectLatest {
                     when (it) {
@@ -158,8 +164,11 @@ class UserAccountFragment : Fragment() {
         }
     }
 
-    private fun observeResetPassword(){
-        lifecycleScope.launch {
+
+
+    private fun observeResetPassword() {
+        resetPasswordJob?.cancel()
+        resetPasswordJob = lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 userViewModel.resetPassword.collectLatest {
                     when (it) {
@@ -230,5 +239,10 @@ class UserAccountFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
+        // Clear the updateInfo StateFlow when the view is destroyed
+        userViewModel.clearUpdateInfo()
+
+
     }
 }

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.example.laza.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.auth.FirebaseAuth
 
 fun Fragment.setUpBottomSheetDialog(
     OnSendClick: (String) -> Unit
@@ -16,12 +17,11 @@ fun Fragment.setUpBottomSheetDialog(
     dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
     dialog.show()
 
-    val edEmail = view.findViewById<EditText>(R.id.edResetPassword)
     val buttonsSend = view.findViewById<Button>(R.id.buttonSendResetPassword)
     val buttonsCancel = view.findViewById<Button>(R.id.buttonCancelResetPassword)
 
     buttonsSend.setOnClickListener {
-        val email = edEmail.text.toString()
+        val email  = FirebaseAuth.getInstance().currentUser?.email.toString()
         OnSendClick(email)
         dialog.dismiss()
     }
