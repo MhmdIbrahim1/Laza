@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_homeFragment_to_allOrdersFragment"
             app:destination="@id/allOrdersFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -58,14 +61,11 @@
             android:id="@+id/action_cartFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
         <action
-            android:id="@+id/action_cartFragment_to_billingFragment"
-            app:destination="@id/billingFragment" />
-        <action
-            android:id="@+id/action_cartFragment_to_billingFragment2"
-            app:destination="@id/billingFragment" />
-        <action
             android:id="@+id/action_cartFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_billingFragment"
+            app:destination="@id/billingFragment" />
     </fragment>
     <fragment
         android:id="@+id/wishlistFragment"
@@ -80,9 +80,6 @@
             android:id="@+id/action_wishlistFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
         <action
-            android:id="@+id/action_wishlistFragment_to_billingFragment"
-            app:destination="@id/billingFragment" />
-        <action
             android:id="@+id/action_wishlistFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
 
@@ -95,9 +92,6 @@
         <action
             android:id="@+id/action_brandsFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
-        <action
-            android:id="@+id/action_brandsFragment_to_billingFragment"
-            app:destination="@id/billingFragment" />
         <action
             android:id="@+id/action_brandsFragment_to_cartFragment"
             app:destination="@id/cartFragment"
@@ -121,9 +115,6 @@
             android:id="@+id/action_productDetailsFragment_to_reviewFragment"
             app:destination="@id/reviewFragment" />
         <action
-            android:id="@+id/action_productDetailsFragment_to_billingFragment"
-            app:destination="@id/billingFragment" />
-        <action
             android:id="@+id/action_productDetailsFragment_to_cartFragment"
             app:destination="@id/cartFragment"
             app:launchSingleTop="false"
@@ -142,9 +133,6 @@
             app:argType="com.example.laza.data.Address"
             app:nullable="true"
             android:defaultValue="@null" />
-        <action
-            android:id="@+id/action_addressesFragment_to_billingFragment2"
-            app:destination="@id/billingFragment" />
     </fragment>
     <fragment
         android:id="@+id/billingFragment"
@@ -244,4 +232,26 @@
             android:name="order"
             app:argType="com.example.laza.data.order.Order" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.laza.fragments.settings.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings"
+        >
+        <action
+            android:id="@+id/action_settingsFragment_to_userAccountFragment"
+            app:destination="@id/userAccountFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_allOrdersFragment"
+            app:destination="@id/allOrdersFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_languageFragment"
+            app:destination="@id/languageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/languageFragment"
+        android:name="com.example.laza.fragments.settings.LanguageFragment"
+        android:label="LanguageFragment"
+        tools:layout="@layout/fragment_language"
+        />
 </navigation>

@@ -1,5 +1,6 @@
 package com.example.laza.activites
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -22,6 +23,7 @@ class TwitterActivity : LoginRegisterActivity() {
     private val viewModel by viewModels<LoginViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val provider: OAuthProvider.Builder = OAuthProvider.newBuilder("twitter.com")
         provider.addCustomParameter("lang", "en")
         val pendingResultTask: Task<AuthResult>? = auth.pendingAuthResult

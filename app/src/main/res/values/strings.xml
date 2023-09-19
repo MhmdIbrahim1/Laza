@@ -142,5 +142,15 @@
     <string name="address">Address</string>
     <string name="products">Products</string>
     <string name="press_back_again_to_exit">Press back again to exit</string>
+    <string name="edit_personal_detail">edit personal detail</string>
+    <string name="orderss">Orders</string>
+    <string name="track_orders">Track Orders</string>
+    <string name="notifications">Notifications</string>
+    <string name="regional">Regional</string>
+    <string name="languages">Languages</string>
+    <string name="version_1_0_0">Version 1.0.0</string>
+    <string name="english">English</string>
+    <string name="arabic">Arabic (العربية)</string>
+    <string name="search">Search...</string>
 
 </resources>

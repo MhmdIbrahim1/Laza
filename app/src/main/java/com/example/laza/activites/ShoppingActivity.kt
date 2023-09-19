@@ -1,5 +1,6 @@
 package com.example.laza.activites
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -30,12 +31,10 @@ import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
 import com.example.laza.R
 import com.example.laza.databinding.ActivityShoppingBinding
-import com.example.laza.fragments.brands.BrandsFragmentDirections
-import com.example.laza.fragments.shopping.CartFragmentDirections
 import com.example.laza.fragments.shopping.HomeFragment
 import com.example.laza.fragments.shopping.HomeFragmentDirections
-import com.example.laza.fragments.shopping.ProductDetailsFragmentDirections
-import com.example.laza.fragments.shopping.WishlistFragmentDirections
+import com.example.laza.utils.MyContextWrapper
+import com.example.laza.utils.MyPreference
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.CartViewModel
 import com.example.laza.viewmodels.UserAccountViewModel
@@ -59,12 +58,15 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
     private val doublePressHandler = Handler(Looper.myLooper()!!)
     private var shouldHandleBackPress = true
 
+    lateinit var myPreference: MyPreference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // set up the theme of the app based on the user's choice (light or dark)
-        sharedPreferences = getSharedPreferences("isDark", MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences("AppSettings", MODE_PRIVATE)
         val isDarkMode = sharedPreferences.getBoolean("isDark", isDark)
+
         setContentView(binding.root)
         onLogout()
         changeStatusBarColor()
@@ -113,7 +115,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
             if (shouldHandleBackPress) {
                 if (doubleBackToExitPressedOnce) {
                     finish()
-                }else {
+                } else {
                     doubleBackToExitPressedOnce = true
                     Toast.makeText(
                         this@ShoppingActivity,
@@ -261,7 +263,9 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
                 }
 
                 R.id.nav_settings -> {
-                    Toast.makeText(this, "Coming soon!", Toast.LENGTH_SHORT).show()
+                    // navigate to the settings fragment
+                    val action = HomeFragmentDirections.actionHomeFragmentToSettingsFragment()
+                    navController.navigate(action)
                 }
 
                 R.id.nav_info -> {
@@ -292,51 +296,17 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
                 )
                 navController.navigate(action)
             }
-
-            R.id.productDetailsFragment -> {
-                val action =
-                    ProductDetailsFragmentDirections.actionProductDetailsFragmentToBillingFragment(
-                        totalPrice = 0.0f, // Replace with the actual total price value
-                        products = emptyArray(), // Replace with the actual products array
-                        payment = false // Replace with the actual payment value
-                    )
-                navController.navigate(action)
-            }
-
-            R.id.cartFragment -> {
-                val action =
-                    CartFragmentDirections.actionCartFragmentToBillingFragment(
-                        totalPrice = 0.0f, // Replace with the actual total price value
-                        products = emptyArray(), // Replace with the actual products array
-                        payment = false // Replace with the actual payment value
-                    )
-                navController.navigate(action)
-            }
-
-            R.id.brandsFragment -> {
-                val action =
-                    BrandsFragmentDirections.actionBrandsFragmentToBillingFragment(
-                        totalPrice = 0.0f, // Replace with the actual total price value
-                        products = emptyArray(), // Replace with the actual products array
-                        payment = false // Replace with the actual payment value
-                    )
-                navController.navigate(action)
-            }
-
-            R.id.wishlistFragment -> {
-                val action =
-                    WishlistFragmentDirections.actionWishlistFragmentToBillingFragment(
-                        totalPrice = 0.0f, // Replace with the actual total price value
-                        products = emptyArray(), // Replace with the actual products array
-                        payment = false // Replace with the actual payment value
-                    )
-                navController.navigate(action)
-            }
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         binding.bottomNavigation.setOnItemSelectedListener(null)
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        myPreference = MyPreference(newBase!!)
+        val lang = myPreference.getLanguage()
+        super.attachBaseContext(MyContextWrapper.wrap(newBase,lang))
     }
 }

@@ -44,41 +44,29 @@ class UserAccountViewModel @Inject constructor(
     private val _resetPassword = MutableStateFlow<NetworkResult<User>>(NetworkResult.UnSpecified())
     val resetPassword = _resetPassword.asStateFlow()
 
-    private var getUserJob: Job? = null
-    private var observeUpdateUserJob: Job? = null
-    private var observeResetPasswordJob: Job? = null
-
-
 
     init {
-        //getUser()
-        getUserRealTime()
+        getUser()
+        //getUserRealTime()
     }
 
-    private fun getUser() {
+    private fun getUser(){
         viewModelScope.launch {
             _user.emit(NetworkResult.Loading())
         }
-
-        firestore.collection(USER_COLLECTION).document(auth.uid!!).get()
-            .addOnSuccessListener { users ->
-                val user = users.toObject(User::class.java)
-                user?.let {
-                    // Log the User object received from Firestore
-                    Log.d("UserAccountViewModel", "User from Firestore: $it")
-                    if (it.firstName != null && it.lastName != null && it.email != null) {
+        firestore.collection(USER_COLLECTION).document(auth.uid!!)
+            .addSnapshotListener { value, error ->
+                if (error != null){
+                    viewModelScope.launch {
+                        _user.emit(NetworkResult.Error(error.message.toString()))
+                    }
+                }else{
+                    val user = value?.toObject(User::class.java)
+                    user?.let {
                         viewModelScope.launch {
-                            _user.emit(NetworkResult.Success(it))
-                        }
-                    } else {
-                        viewModelScope.launch {
-                            _user.emit(NetworkResult.Error("User data is incomplete"))
+                            _user.emit(NetworkResult.Success(user))
                         }
                     }
-                }
-            }.addOnFailureListener {
-                viewModelScope.launch {
-                    _user.emit(NetworkResult.Error(it.message.toString()))
                 }
             }
     }
@@ -205,22 +193,6 @@ class UserAccountViewModel @Inject constructor(
         }
     }
 
-
-    private fun clear(){
-        getUserJob?.cancel()
-        observeUpdateUserJob?.cancel()
-        observeResetPasswordJob?.cancel()
-        viewModelScope.launch {
-            _user.emit(NetworkResult.UnSpecified())
-            _resetPassword.emit(NetworkResult.UnSpecified())
-            _updateInfo.emit(NetworkResult.UnSpecified())
-        }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        clear()
-    }
 
     fun clearUpdateInfo() {
         _updateInfo.value = NetworkResult.UnSpecified()

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/background_color_general">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_language"
+        android:layout_width="0dp"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintStart_toStartOf="@id/guideline1"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/backArrow"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:src="@color/circle_image_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/arrow_1"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:src="@drawable/arrow___left"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/backArrow"
+                app:layout_constraintStart_toStartOf="@id/backArrow"
+                app:layout_constraintTop_toTopOf="@id/backArrow" />
+
+            <TextView
+                android:id="@+id/tv_order_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_light"
+                android:text="@string/languages"
+                android:textColor="@color/background_intro__mentv_2"
+                android:textSize="@dimen/_20ssp"
+                app:layout_constraintBottom_toBottomOf="@+id/backArrow"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/backArrow"
+                app:layout_constraintTop_toTopOf="@+id/backArrow" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/guideline1"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_language"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/_15sdp">
+
+        <LinearLayout
+            android:id="@+id/linear_english"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/search_box_background"
+            >
+
+            <TextView
+                android:id="@+id/tv_english"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/english"
+                style="@style/BigTextViewThin"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/background_intro__mentv_2"
+                android:padding="10dp"
+                />
+
+            <ImageView
+                android:id="@+id/img_english"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/ic_picked"
+                android:layout_gravity="center"
+                app:tint="@color/g_hint"
+                android:visibility="visible"
+                android:layout_marginEnd="5dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_arabic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/search_box_background"
+            android:layout_marginTop="15dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_arabic"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/arabic"
+                style="@style/BigTextViewThin"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:textColor="@color/background_intro__mentv_2"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"/>
+
+            <ImageView
+                android:id="@+id/img_arabic"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/ic_picked"
+                android:layout_gravity="center"
+                app:tint="@color/g_hint"
+                android:visibility="visible"
+                android:layout_marginEnd="5dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.96" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

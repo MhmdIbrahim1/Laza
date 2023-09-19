@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.laza.R
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
-import androidx.navigation.findNavController
 import com.example.laza.adapters.CartProductAdapter
 import com.example.laza.databinding.FragmentCartBinding
 import com.example.laza.firebase.FirebaseCommon
@@ -26,7 +25,6 @@ import com.example.laza.utils.NetworkResult
 import com.example.laza.utils.ShowBottomNavigation
 import com.example.laza.viewmodels.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -36,7 +34,7 @@ class CartFragment : Fragment() {
     private val binding get() = _binding!!
     private val cartProductAdapter by lazy { CartProductAdapter(requireContext()) }
     private val viewModel by activityViewModels<CartViewModel>() // activityViewModels because we want to share the same view-model with the activity
-    var totalPrice = 0f
+    private var totalPrice = 0f
 
 
     override fun onCreateView(

@@ -51,7 +51,7 @@ class AllOrdersFragment : Fragment() {
         }
 
         binding.arrow1.setOnClickListener {
-            requireActivity().onBackPressed()
+           findNavController().navigateUp()
         }
 
         requireActivity().onBackPressedDispatcher.addCallback {

@@ -85,7 +85,7 @@
                         android:layout_height="match_parent"
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical"
-                        android:hint="Search..."
+                        android:hint="@string/search"
                         android:paddingStart="@dimen/_6sdp"
                         android:singleLine="true"
                         android:textColor="@color/g_white"
