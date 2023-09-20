@@ -152,5 +152,7 @@
     <string name="english">English</string>
     <string name="arabic">Arabic (العربية)</string>
     <string name="search">Search...</string>
+    <string name="please_select_color">Please select color</string>
+    <string name="please_select_size">Please select size</string>
 
 </resources>

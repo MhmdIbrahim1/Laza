@@ -20,6 +20,7 @@ import com.example.laza.adapters.CartProductAdapter
 import com.example.laza.databinding.FragmentCartBinding
 import com.example.laza.firebase.FirebaseCommon
 import com.example.laza.helper.formatPrice
+import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import com.example.laza.utils.ShowBottomNavigation
@@ -43,6 +44,8 @@ class CartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
+        setGArrowImageBasedOnLayoutDirection(resources,binding.arrow1)
+
         return binding.root
     }
 

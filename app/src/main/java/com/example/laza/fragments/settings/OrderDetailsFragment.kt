@@ -19,6 +19,7 @@ import com.example.laza.data.order.OrderStatus
 import com.example.laza.data.order.getOrderStatus
 import com.example.laza.databinding.FragmentOrderDetailsBinding
 import com.example.laza.helper.formatPrice
+import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
 import com.example.laza.utils.HideBottomNavigation
 import com.example.storein.utils.VerticalItemDecoration
 import com.shuhart.stepview.StepView
@@ -35,6 +36,8 @@ class OrderDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentOrderDetailsBinding.inflate(inflater, container, false)
+        setGArrowImageBasedOnLayoutDirection(resources,binding.arrow1)
+
         return binding.root
     }
 

@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.laza.databinding.FragmentResetPasswordBinding
+import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -29,6 +30,7 @@ class ResetPasswordFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentResetPasswordBinding.inflate(inflater, container, false)
+        setGArrowImageBasedOnLayoutDirection(resources,binding.arrow1)
 
 
         binding.arrow1.setOnClickListener {

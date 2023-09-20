@@ -21,6 +21,7 @@ import com.example.laza.R
 import com.example.laza.activites.ShoppingActivity
 import com.example.laza.activites.TwitterActivity
 import com.example.laza.databinding.FragmentGetStartedBinding
+import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
 import com.example.laza.utils.NetworkResult
 import com.example.laza.utils.getGoogleSignInClient
 import com.example.laza.viewmodels.LoginViewModel
@@ -46,6 +47,7 @@ class GetStartedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentGetStartedBinding.inflate(inflater, container, false)
+        setGArrowImageBasedOnLayoutDirection(resources,binding.arrow1)
         return binding.root
     }
 

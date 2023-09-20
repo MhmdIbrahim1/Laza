@@ -37,7 +37,7 @@ class ReviewsAdapter(private val context: Context) : RecyclerView.Adapter<Review
                     tvReviewDate.text = formattedDate
                 } else {
                     // If it's not a timestamp, display it as is
-                    tvReviewDate.text = reviews.date
+                    //tvReviewDate.text = reviews.date
                 }
             }
         }

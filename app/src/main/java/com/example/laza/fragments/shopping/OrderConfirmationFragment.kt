@@ -11,6 +11,7 @@ import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.example.laza.R
 import com.example.laza.databinding.FragmentOrderConfirmationBinding
+import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
 import com.example.laza.utils.HideBottomNavigation
 
 
@@ -22,6 +23,8 @@ class OrderConfirmationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentOrderConfirmationBinding.inflate(inflater, container, false)
+        setGArrowImageBasedOnLayoutDirection(resources,binding.arrow1)
+
         return binding.root
     }
 

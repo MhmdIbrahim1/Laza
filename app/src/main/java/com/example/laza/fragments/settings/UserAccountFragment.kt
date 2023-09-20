@@ -23,6 +23,7 @@ import com.example.laza.R
 import com.example.laza.data.User
 import com.example.laza.databinding.FragmentUserAccountBinding
 import com.example.laza.dialog.setUpBottomSheetDialog
+import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
 import com.example.laza.utils.HideBottomNavigation
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.UserAccountViewModel
@@ -52,6 +53,8 @@ class UserAccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentUserAccountBinding.inflate(inflater, container, false)
+        setGArrowImageBasedOnLayoutDirection(resources,binding.arrow1)
+
         return binding.root
     }
 

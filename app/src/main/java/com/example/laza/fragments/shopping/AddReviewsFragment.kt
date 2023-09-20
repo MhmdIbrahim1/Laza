@@ -15,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.laza.R
 import com.example.laza.data.Reviews
 import com.example.laza.databinding.FragmentReviewsBinding
+import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.AddReviewsViewModel
 import com.example.laza.viewmodels.HomeFragmentViewModel
@@ -34,6 +35,8 @@ class AddReviewsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentReviewsBinding.inflate(inflater, container, false)
+        setGArrowImageBasedOnLayoutDirection(resources,binding.arrow1)
+
         return binding.root
 
     }

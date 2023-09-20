@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.laza.R
 import com.example.laza.adapters.AllOrdersAdapter
 import com.example.laza.databinding.FragmentAllOrdersBinding
+import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
 import com.example.laza.utils.HideBottomNavigation
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.AllOrdersViewModel
@@ -36,6 +37,7 @@ class AllOrdersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAllOrdersBinding.inflate(inflater, container, false)
+        setGArrowImageBasedOnLayoutDirection(resources,binding.arrow1)
         return binding.root
     }
 

@@ -20,6 +20,7 @@ import com.example.laza.R
 import com.example.laza.adapters.BrandsAdapter
 import com.example.laza.databinding.FragmentBrandsBinding
 import com.example.laza.helper.getProductPrice
+import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
 import com.example.laza.utils.HideBottomNavigation
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
@@ -40,6 +41,9 @@ class BrandsFragment : Fragment() {
     ): View {
         val binding = FragmentBrandsBinding.inflate(inflater, container, false)
         this.binding = binding // Assign the inflated binding instance to the property
+
+        setGArrowImageBasedOnLayoutDirection(resources,binding.arrow1)
+
         return binding.root
     }
 

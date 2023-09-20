@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.laza.R
 import com.example.laza.adapters.ColorAdapter
-import com.example.laza.adapters.ReviewsAdapter
 import com.example.laza.adapters.ReviewsProductsDetailsAdapter
 import com.example.laza.adapters.SizeAdapter
 import com.example.laza.adapters.ViewPager2Images
@@ -28,6 +27,7 @@ import com.example.laza.data.Reviews
 import com.example.laza.data.WishlistProduct
 import com.example.laza.databinding.FragmentProductDetailsBinding
 import com.example.laza.helper.formatPrice
+import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
 import com.example.laza.utils.HideBottomNavigation
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
@@ -71,6 +71,9 @@ class ProductDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProductDetailsBinding.inflate(inflater, container, false)
+
+        setGArrowImageBasedOnLayoutDirection(resources,binding.arrow1)
+
         return binding.root
     }
 
@@ -297,7 +300,11 @@ class ProductDetailsFragment : Fragment() {
                             binding.progressbarCart.visibility = View.INVISIBLE
                             Log.d("AddToCart", result.data.toString())
                             if (isAdded){
-                                Snackbar.make(requireView(), "Added to cart", Snackbar.LENGTH_LONG).setAction("Go to cart") {
+                                Snackbar.make(requireView(), "Added to cart", Snackbar.LENGTH_LONG)
+                                    .setBackgroundTint(resources.getColor(R.color.g_blue,null))
+                                    .setActionTextColor(resources.getColor(R.color.g_black,null))
+                                    .setTextColor(resources.getColor(R.color.g_black,null))
+                                    .setAction("Go to cart") {
                                     val action = ProductDetailsFragmentDirections.actionProductDetailsFragmentToCartFragment()
                                     findNavController().navigate(action)
                                 }.show()
@@ -350,40 +357,17 @@ class ProductDetailsFragment : Fragment() {
 
     // Handle "Add to Cart" button click
     private fun onAddToCart() {
-        binding.btnAddToCart.setOnClickListener {
-            // Check if there are available colors and sizes for the product
-            val availableColors = product.colors
-            val availableSizes = product.sizes
-
-            if (availableColors.isNullOrEmpty() && availableSizes.isNullOrEmpty()) {
-                Toast.makeText(requireContext(), (R.string.OutOfStock), Toast.LENGTH_SHORT).show()
-            } else if (availableColors.isNullOrEmpty()) {
-                if (selectedSize == null) {
-                    Toast.makeText(
-                        requireContext(),
-                        (R.string.PleaseSelectSize),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return@setOnClickListener
-                }
-                viewModel.addUpdateProductInCart(CartProduct(product, 1, null, selectedSize))
-            } else if (availableSizes.isNullOrEmpty()) {
+        binding.btnAddToCart.apply {
+            setOnClickListener {
                 if (selectedColor == null) {
-                    Toast.makeText(
-                        requireContext(),
-                        (R.string.PleaseSelectColor),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    binding.tvColorWarning.visibility = View.VISIBLE
+                    binding.tvProductColor.error
                     return@setOnClickListener
                 }
-                viewModel.addUpdateProductInCart(CartProduct(product, 1, selectedColor, null))
-            } else {
-                if (selectedColor == null || selectedSize == null) {
-                    Toast.makeText(
-                        requireContext(),
-                        (R.string.PleaseSelectColorAndSize),
-                        Toast.LENGTH_SHORT
-                    ).show()
+
+                if (selectedSize == null) {
+                    binding.tvSizeWarning.visibility = View.VISIBLE
+                    binding.tvProductColor.error
                     return@setOnClickListener
                 }
                 viewModel.addUpdateProductInCart(
@@ -394,46 +378,22 @@ class ProductDetailsFragment : Fragment() {
                         selectedSize
                     )
                 )
-
             }
         }
     }
 
     private fun onAddToCartImage() {
-        binding.cartFromDetails.setOnClickListener {
-            // Check if there are available colors and sizes for the product
-            val availableColors = product.colors
-            val availableSizes = product.sizes
-
-            if (availableColors.isNullOrEmpty() && availableSizes.isNullOrEmpty()) {
-                Toast.makeText(requireContext(), (R.string.OutOfStock), Toast.LENGTH_SHORT).show()
-            } else if (availableColors.isNullOrEmpty()) {
-                if (selectedSize == null) {
-                    Toast.makeText(
-                        requireContext(),
-                        (R.string.PleaseSelectSize),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return@setOnClickListener
-                }
-                viewModel.addUpdateProductInCart(CartProduct(product, 1, null, selectedSize))
-            } else if (availableSizes.isNullOrEmpty()) {
+        binding.cartFromDetails.apply {
+            setOnClickListener {
                 if (selectedColor == null) {
-                    Toast.makeText(
-                        requireContext(),
-                        (R.string.PleaseSelectColor),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    binding.tvColorWarning.visibility = View.VISIBLE
+                    binding.tvProductColor.error
                     return@setOnClickListener
                 }
-                viewModel.addUpdateProductInCart(CartProduct(product, 1, selectedColor, null))
-            } else {
-                if (selectedColor == null || selectedSize == null) {
-                    Toast.makeText(
-                        requireContext(),
-                        (R.string.PleaseSelectColorAndSize),
-                        Toast.LENGTH_SHORT
-                    ).show()
+
+                if (selectedSize == null) {
+                    binding.tvSizeWarning.visibility = View.VISIBLE
+                    binding.tvProductColor.error
                     return@setOnClickListener
                 }
                 viewModel.addUpdateProductInCart(
@@ -444,7 +404,6 @@ class ProductDetailsFragment : Fragment() {
                         selectedSize
                     )
                 )
-
             }
         }
     }

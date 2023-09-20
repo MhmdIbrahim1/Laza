@@ -30,10 +30,10 @@
 
             <ImageView
                 android:id="@+id/arrow_1"
-                android:layout_width="@dimen/_35sdp"
-                android:layout_height="@dimen/_35sdp"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:src="@drawable/g_arrow_left"
                 android:contentDescription="@string/back_arrow"
-                android:src="@drawable/arrow___left"
                 app:layout_constraintBottom_toBottomOf="@id/backArrow"
                 app:layout_constraintEnd_toEndOf="@id/backArrow"
                 app:layout_constraintStart_toStartOf="@id/backArrow"

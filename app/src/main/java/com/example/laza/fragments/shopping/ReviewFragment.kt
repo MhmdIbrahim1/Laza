@@ -65,7 +65,8 @@ class ReviewFragment : Fragment() {
                     review = "",
                     ratingStars = 0.0,
                     image = "",
-                    documentId = product.id
+                    documentId = product.id,
+                    date = System.currentTimeMillis().toString()
                 )
             )
             findNavController().navigate(action)

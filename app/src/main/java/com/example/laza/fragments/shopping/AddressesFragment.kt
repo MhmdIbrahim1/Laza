@@ -15,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.laza.R
 import com.example.laza.data.Address
 import com.example.laza.databinding.FragmentAddressesBinding
+import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
 import com.example.laza.utils.HideBottomNavigation
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.AddressViewModel
@@ -45,6 +46,8 @@ class AddressesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View{
         _binding = FragmentAddressesBinding.inflate(inflater, container, false)
+        setGArrowImageBasedOnLayoutDirection(resources,binding.arrow1)
+
         return binding.root
     }
 

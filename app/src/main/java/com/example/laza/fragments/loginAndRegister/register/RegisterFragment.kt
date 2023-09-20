@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.laza.R
 import com.example.laza.data.User
 import com.example.laza.databinding.FragmentRegisterBinding
+import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
 import com.example.laza.utils.NetworkResult
 import com.example.laza.utils.RegisterValidation
 import com.example.laza.viewmodels.RegisterViewModel
@@ -33,6 +34,8 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRegisterBinding.inflate(layoutInflater, container, false)
+        setGArrowImageBasedOnLayoutDirection(resources,binding.arrow1)
+
         return binding.root
     }
 

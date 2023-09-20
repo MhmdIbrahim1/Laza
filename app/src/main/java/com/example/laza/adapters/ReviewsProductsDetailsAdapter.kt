@@ -33,7 +33,7 @@ class ReviewsProductsDetailsAdapter: RecyclerView.Adapter<ReviewsProductsDetails
                     tvReviewDate.text = formattedDate
                 } else {
                     // If it's not a timestamp, display it as is
-                    tvReviewDate.text = reviews.date
+                  //  tvReviewDate.text = reviews.date
                 }
 
                 //reduce the length of the review

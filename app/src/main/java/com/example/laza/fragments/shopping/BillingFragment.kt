@@ -25,6 +25,7 @@ import com.example.laza.data.order.Order
 import com.example.laza.data.order.OrderStatus
 import com.example.laza.databinding.FragmentBillingBinding
 import com.example.laza.helper.formatPrice
+import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
 import com.example.laza.utils.HideBottomNavigation
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
@@ -62,6 +63,8 @@ class BillingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBillingBinding.inflate(inflater, container, false)
+        setGArrowImageBasedOnLayoutDirection(resources,binding.arrow1)
+
         return binding.root
     }
 

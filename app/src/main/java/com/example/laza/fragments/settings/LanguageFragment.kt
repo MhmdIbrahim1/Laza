@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.laza.activites.ShoppingActivity
 import com.example.laza.databinding.FragmentLanguageBinding
+import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
 import com.example.laza.utils.MyPreference
 import java.util.*
 
@@ -22,6 +23,8 @@ class LanguageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLanguageBinding.inflate(inflater)
+        setGArrowImageBasedOnLayoutDirection(resources,binding.arrow1)
+
         return binding.root
     }
 

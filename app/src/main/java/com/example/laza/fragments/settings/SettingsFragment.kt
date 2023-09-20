@@ -17,6 +17,8 @@ import br.com.simplepass.loadingbutton.BuildConfig
 import com.bumptech.glide.Glide
 import com.example.laza.R
 import com.example.laza.databinding.FragmentSettingsBinding
+import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
+import com.example.laza.helper.setSubArrowImageBasedOnLayoutDirection
 import com.example.laza.utils.HideBottomNavigation
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.UserAccountViewModel
@@ -35,6 +37,12 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSettingsBinding.inflate(inflater)
+        setGArrowImageBasedOnLayoutDirection(resources,binding.arrow01)
+        setSubArrowImageBasedOnLayoutDirection(resources,binding.arrow1)
+        setSubArrowImageBasedOnLayoutDirection(resources,binding.arrow2)
+        setSubArrowImageBasedOnLayoutDirection(resources,binding.arrow3)
+        setSubArrowImageBasedOnLayoutDirection(resources,binding.arrow4)
+        setSubArrowImageBasedOnLayoutDirection(resources,binding.arrow5)
         return binding.root
     }
 
@@ -61,7 +69,7 @@ class SettingsFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        binding.arrow1.setOnClickListener {
+        binding.arrow01.setOnClickListener {
             findNavController().navigateUp()
         }
     }
