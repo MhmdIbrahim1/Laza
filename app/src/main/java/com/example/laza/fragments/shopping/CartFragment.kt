@@ -21,6 +21,7 @@ import com.example.laza.databinding.FragmentCartBinding
 import com.example.laza.firebase.FirebaseCommon
 import com.example.laza.helper.formatPrice
 import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
+import com.example.laza.utils.CartUtil
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import com.example.laza.utils.ShowBottomNavigation
@@ -30,10 +31,10 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CartFragment : Fragment() {
+class CartFragment : Fragment(), CartUtil {
     private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
-    private val cartProductAdapter by lazy { CartProductAdapter(requireContext()) }
+    private lateinit var cartProductAdapter: CartProductAdapter
     private val viewModel by activityViewModels<CartViewModel>() // activityViewModels because we want to share the same view-model with the activity
     private var totalPrice = 0f
 
@@ -44,7 +45,7 @@ class CartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
-        setGArrowImageBasedOnLayoutDirection(resources,binding.arrow1)
+        setGArrowImageBasedOnLayoutDirection(resources, binding.arrow1)
 
         return binding.root
     }
@@ -56,7 +57,6 @@ class CartFragment : Fragment() {
         observeCartProduct()
         observeProductPrice()
         observeDialog()
-
         cartProductAdapter.onProductClick = {
             val b = Bundle().apply { putParcelable("product", it.product) }
             findNavController().navigate(R.id.action_cartFragment_to_productDetailsFragment, b)
@@ -85,11 +85,12 @@ class CartFragment : Fragment() {
 
         // if the previous destination was the HomeFragment, and the user clicked on the back button then navigate to the HomeFragment
         requireActivity().onBackPressedDispatcher.addCallback {
-                findNavController().navigate(R.id.action_cartFragment_to_homeFragment)
-            }
+            findNavController().navigate(R.id.action_cartFragment_to_homeFragment)
         }
+    }
 
     private fun setUpCartRV() {
+        cartProductAdapter = CartProductAdapter(requireContext(), this)
         binding.rvCart.apply {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -221,5 +222,39 @@ class CartFragment : Fragment() {
         _binding = null
     }
 
+    override fun deleteItem(position: Int) {
+
+        val dialogView =
+            layoutInflater.inflate(R.layout.delete_confirmation_dialog, null)
+
+        val alertDialogBuilder =
+            AlertDialog.Builder(requireContext(), R.style.AlertDialogCustom)
+                .setView(dialogView)
+                .create()
+
+        val cancelButton =
+            dialogView.findViewById<AppCompatButton>(R.id.confirm_cancel_button)
+        val deleteButton =
+            dialogView.findViewById<AppCompatButton>(R.id.confirm_delete__button)
+
+        cancelButton.setOnClickListener {
+            alertDialogBuilder.dismiss()
+        }
+
+        deleteButton.setOnClickListener {
+            val item = cartProductAdapter.differ.currentList[position]
+            // First, delete the product from Firestore
+            viewModel.deleteProduct(item)
+
+            // Then, remove it from the local list
+            val newList = cartProductAdapter.differ.currentList.toMutableList()
+            newList.removeAt(position)
+            cartProductAdapter.differ.submitList(newList)
+            alertDialogBuilder.dismiss()
+        }
+
+        alertDialogBuilder.show()
+    }
 
 }
+

@@ -12,13 +12,14 @@ import coil.load
 import com.example.laza.R
 import com.example.laza.data.CartProduct
 import com.example.laza.databinding.CartProductItemBinding
+import com.example.laza.utils.CartUtil
 
-class CartProductAdapter(private val context: Context) :
+class CartProductAdapter(private val context: Context,private val cartUtil: CartUtil? = null) :
     RecyclerView.Adapter<CartProductAdapter.CartProductViewHolder>() {
 
     inner class CartProductViewHolder(val binding: CartProductItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(cartProduct: CartProduct) {
+        fun bind(cartProduct: CartProduct, position: Int) {
             binding.apply {
                 imageCartProduct.load(cartProduct.product.images.getOrNull(0)) {
                     crossfade(600)
@@ -39,6 +40,10 @@ class CartProductAdapter(private val context: Context) :
                 )
                 tvCartProductSize.text = cartProduct.selectedSize
                     ?: "N/A".also { imageCartProductSize.setImageDrawable(ColorDrawable(Color.TRANSPARENT)) }
+            }
+
+            binding.removeCartProduct.setOnClickListener {
+                cartUtil?.deleteItem(position)
             }
         }
     }
@@ -73,7 +78,7 @@ class CartProductAdapter(private val context: Context) :
 
     override fun onBindViewHolder(holder: CartProductViewHolder, position: Int) {
         val cartProduct = differ.currentList[position]
-        holder.bind(cartProduct)
+        holder.bind(cartProduct, position)
 
         holder.itemView.setOnClickListener {
             onProductClick?.invoke(cartProduct)

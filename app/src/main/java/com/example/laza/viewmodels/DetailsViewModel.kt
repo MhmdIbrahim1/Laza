@@ -1,5 +1,6 @@
 package com.example.laza.viewmodels
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.laza.data.CartProduct
@@ -16,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -46,6 +48,13 @@ class DetailsViewModel @Inject constructor(
     private val _fetchReviews =
         MutableStateFlow<NetworkResult<List<Reviews>>>(NetworkResult.UnSpecified())
     val fetchReviews = _fetchReviews.asStateFlow()
+
+    private val _colorWarningVisible =MutableLiveData<Boolean>()
+    val colorWarningVisible = _colorWarningVisible
+
+    private val _sizeWarningVisible = MutableLiveData<Boolean>()
+    val sizeWarningVisible = _sizeWarningVisible
+
 
     fun fetchInitialWishlistStatus(productId: String) {
         // Query Firestore to check if the product is in the user's wishlist
@@ -183,6 +192,17 @@ class DetailsViewModel @Inject constructor(
                 }
             }
     }
+
+    // Method to set color warning visibility
+    fun setColorWarningVisibility(isVisible: Boolean) {
+        _colorWarningVisible.postValue(isVisible)
+    }
+
+    // Method to set size warning visibility
+    fun setSizeWarningVisibility(isVisible: Boolean) {
+        _sizeWarningVisible.postValue(isVisible)
+    }
+
 
 
     private fun clear() {

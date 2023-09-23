@@ -35,6 +35,7 @@ class FirebaseCommon(
             }
     }
 
+
     fun addProductToWishList(wishlistProduct: WishlistProduct, onResult: (WishlistProduct?, Exception?) -> Unit) {
         if (wishlistCollection != null) {
             wishlistCollection.document(wishlistProduct.product.id)

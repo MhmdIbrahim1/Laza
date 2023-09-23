@@ -34,6 +34,9 @@ class CartViewModel @Inject constructor(
     private val _deleteDialog = Channel <CartProduct>(Channel.CONFLATED)
     val deleteDialog = _deleteDialog.receiveAsFlow()
 
+    private val _deleteProduct = Channel <CartProduct>(Channel.CONFLATED)
+    val deleteProduct = _deleteProduct.receiveAsFlow()
+
 
     private var cartProductDocumented = emptyList<DocumentSnapshot>()
 
@@ -130,6 +133,17 @@ class CartViewModel @Inject constructor(
                 viewModelScope.launch {
                     _cartProducts.emit(NetworkResult.Error(e.message.toString()))
                 }
+        }
+    }
+
+
+    fun deleteProduct(cartProduct: CartProduct) {
+        val index = _cartProducts.value.data?.indexOf(cartProduct)
+        if (index != null && index != -1) {
+
+            val documentId = cartProductDocumented[index].id
+            firestore.collection(USER_COLLECTION).document(auth.uid!!).collection(CART_COLLECTION)
+                .document(documentId).delete()
         }
     }
 
