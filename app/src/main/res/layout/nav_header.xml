@@ -12,6 +12,7 @@
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"
         android:src="@drawable/profile"
+        android:background="@drawable/profile_img_background"
         android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginStart="@dimen/_25sdp"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"

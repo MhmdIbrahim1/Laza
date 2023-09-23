@@ -3,6 +3,7 @@ package com.example.laza.fragments.shopping
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,7 @@ import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import com.example.laza.utils.ShowBottomNavigation
+import com.example.laza.utils.WishlistUtil
 import com.example.laza.viewmodels.DetailsViewModel
 import com.example.laza.viewmodels.WishListViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,13 +35,18 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class WishlistFragment : Fragment() {
+class WishlistFragment : Fragment(), WishlistUtil {
     private var _binding: FragmentWishlistBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<WishListViewModel>()
     private val _viewModel by viewModels<DetailsViewModel>()
     private lateinit var wishListAdapter: WishListAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        observeWishListData()
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,13 +62,12 @@ class WishlistFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setUpRecyclerView()
-        observeWishListData()
         observeTotalItemCount()
         setupSwipeToDelete()
         observeRemoveProductFromWishListStatus()
 
         binding.arrow1.setOnClickListener {
-            findNavController().navigate(R.id.action_wishlistFragment_to_homeFragment)
+           activity?.onBackPressed()
         }
         binding.cartFromWishlist.setOnClickListener {
             Toast.makeText(requireContext(), "Coming soon!", Toast.LENGTH_SHORT).show()
@@ -108,6 +114,7 @@ class WishlistFragment : Fragment() {
                         is NetworkResult.Success -> {
                             binding.progressBar.visibility = View.GONE
                             wishListAdapter.differ.submitList(it.data)
+                            Log.d( "differ","observeWishListData: ${wishListAdapter.differ.currentList.size} ")
                         }
 
                         is NetworkResult.Error -> {
@@ -266,7 +273,7 @@ class WishlistFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(binding.brandsRv)
     }
     private fun setUpRecyclerView() {
-        wishListAdapter = WishListAdapter()
+        wishListAdapter = WishListAdapter(this)
         binding.brandsRv.apply {
             val layoutManager = GridLayoutManager(
                 requireContext(),
@@ -280,6 +287,8 @@ class WishlistFragment : Fragment() {
         }
     }
 
+
+
     override fun onResume() {
         super.onResume()
         ShowBottomNavigation()
@@ -289,4 +298,19 @@ class WishlistFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    override fun deleteItem(position: Int) {
+        val item = wishListAdapter.differ.currentList[position]
+        _viewModel.removeFromWishList(item)
+
+        val newList = wishListAdapter.differ.currentList.toMutableList()
+        newList.removeAt(position)
+        wishListAdapter.differ.submitList(newList)
+        Toast.makeText(
+            requireContext(),
+            item.product.name + " removed from wishlist",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
 }

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
+    <color name="purple_500">#1c1e20</color>
+    <color name="purple_700">#1c1e20</color>
     <color name="teal_200">#2003DAC5</color>
     <color name="lightMediumGray">#40D1D1D1</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FAFDFF</color>
     <color name="dark">#313C44</color>
-    <color name="darker">#151B20</color>
+    <color name="darker">#1c1e20</color>
     <color name="g_pink">#FF9999</color>
     <color name="g_icon_tint">#97AABD</color>
     <color name="ed_email">@color/black</color>

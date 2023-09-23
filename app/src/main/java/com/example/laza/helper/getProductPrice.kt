@@ -6,7 +6,6 @@ import android.widget.ImageView
 import com.example.laza.R
 
 fun Float?.getProductPrice(price: Float): Float {
-    //this --> Percentage
     if (this == null)
         return price
     return price - (price * this / 100)
@@ -32,9 +31,11 @@ fun setSubArrowImageBasedOnLayoutDirection(resources: Resources, imageView: Imag
     val layoutDirection = resources.configuration.layoutDirection
     val arrowDrawableResId = if (layoutDirection == View.LAYOUT_DIRECTION_RTL) {
         R.drawable.sub_left_arrow
-
     } else {
         R.drawable.sub_right_arrow
     }
     imageView.setImageResource(arrowDrawableResId)
 }
+
+
+

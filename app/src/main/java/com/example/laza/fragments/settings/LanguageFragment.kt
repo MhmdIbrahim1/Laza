@@ -1,4 +1,5 @@
 package com.example.laza.fragments.settings
+
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -16,14 +17,15 @@ import java.util.*
 
 class LanguageFragment : Fragment() {
     private lateinit var binding: FragmentLanguageBinding
-    lateinit var myPreference: MyPreference
+    private lateinit var myPreference: MyPreference
+    private var currentLanguage: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLanguageBinding.inflate(inflater)
-        setGArrowImageBasedOnLayoutDirection(resources,binding.arrow1)
+        setGArrowImageBasedOnLayoutDirection(resources, binding.arrow1)
 
         return binding.root
     }
@@ -31,18 +33,17 @@ class LanguageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val currentLanguage = Locale.getDefault().language
 
         myPreference = MyPreference(requireContext())
-        Log.d("test", currentLanguage)
-        when (currentLanguage) {
-            "en" -> {
-                changeToEnglish()
-            }
 
-            "ar" -> {
-                changeToArabic()
-            }
+        currentLanguage = myPreference.getLanguage()
+        
+
+        Log.d("test", currentLanguage)
+        if (currentLanguage == "ar") {
+            changeToArabic()
+        } else {
+            changeToEnglish()
         }
 
         binding.linearArabic.setOnClickListener {
@@ -65,7 +66,10 @@ class LanguageFragment : Fragment() {
         Locale.setDefault(locale)
         val config = requireContext().resources.configuration
         config.setLocale(locale)
-        requireContext().resources.updateConfiguration(config, requireContext().resources.displayMetrics)
+        requireContext().resources.updateConfiguration(
+            config,
+            requireContext().resources.displayMetrics
+        )
         val intent = Intent(requireContext(), ShoppingActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
@@ -80,8 +84,6 @@ class LanguageFragment : Fragment() {
         binding.imgEnglish.visibility = View.GONE
         binding.imgArabic.visibility = View.VISIBLE
     }
-
-
 
 
 }

@@ -50,6 +50,12 @@
         <action
             android:id="@+id/action_searchFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_brandsFragment"
+            app:destination="@id/brandsFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -120,6 +126,9 @@
             app:launchSingleTop="false"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_wishlistFragment"
+            app:destination="@id/wishlistFragment" />
 
     </fragment>
 

@@ -112,7 +112,7 @@ class HomeFragment : Fragment() {
                         }
 
                         is NetworkResult.Success -> {
-                            Log.d("HomeFragment", "observeNewArrival: ${it.data}")
+                      //      Log.d("HomeFragment", "observeNewArrival: ${it.data}")
                             newArrivalAdapter.differ.submitList(it.data)
                             hideLoading()
                         }

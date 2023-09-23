@@ -74,7 +74,8 @@
                     android:id="@+id/imageUser"
                     android:layout_width="43dp"
                     android:layout_height="43dp"
-                    android:src="@color/black"
+                    android:src="@drawable/profile"
+                    android:background="@drawable/profile_img_background"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

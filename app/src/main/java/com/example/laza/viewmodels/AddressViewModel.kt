@@ -34,9 +34,11 @@ class AddressViewModel @Inject constructor(
     private val _error = MutableSharedFlow<String>()
     val error = _error.asSharedFlow()
     fun addAddress(address: Address) {
+
         val validateInputs = validateAddress(address)
         if (validateInputs) {
             viewModelScope.launch { _addNewAddress.emit(NetworkResult.Loading()) }
+
             val newDocRef = firestore.collection(USER_COLLECTION).document(auth.uid!!).collection(
                 ADDRESS_COLLECTION).document()
             newDocRef.set(address.copy(documentId = newDocRef.id))

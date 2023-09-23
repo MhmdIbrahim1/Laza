@@ -31,6 +31,7 @@ import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.BillingViewModel
 import com.example.laza.viewmodels.OrderViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -206,7 +207,8 @@ class BillingFragment : Fragment() {
 
                         is NetworkResult.Success -> {
                             binding.buttonPlaceOrder.revertAnimation()
-                            findNavController().navigate(R.id.action_billingFragment_to_orderConfirmationFragment)
+                           val action = BillingFragmentDirections.actionBillingFragmentToOrderConfirmationFragment()
+                            findNavController().navigate(action)
                         }
 
                         is NetworkResult.Error -> {

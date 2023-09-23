@@ -77,6 +77,7 @@
         android:layout_height="85dp"
         android:layout_marginTop="24dp"
         android:src="@color/black"
+        android:background="@drawable/profile_img_background"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"

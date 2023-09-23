@@ -54,6 +54,14 @@ class AddReviewsFragment : Fragment() {
             btnSubmitReview.setOnClickListener {
                 val name = edName.text.toString()
                 val reviewText = edReviewDescription.text.toString()
+                if (ratingBar.rating == 0f) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Please select a rating.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
+                }
                 val rating = ratingBar.rating
                 // add default image from drawable
                 val image = R.drawable.profile

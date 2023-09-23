@@ -305,9 +305,14 @@ class ProductDetailsFragment : Fragment() {
                                     .setActionTextColor(resources.getColor(R.color.g_black,null))
                                     .setTextColor(resources.getColor(R.color.g_black,null))
                                     .setAction("Go to cart") {
-                                    val action = ProductDetailsFragmentDirections.actionProductDetailsFragmentToCartFragment()
-                                    findNavController().navigate(action)
-                                }.show()
+                                        if (lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED)) {
+                                            if (findNavController().currentDestination?.id == R.id.productDetailsFragment) {
+                                                val action = ProductDetailsFragmentDirections.actionProductDetailsFragmentToCartFragment()
+                                                findNavController().navigate(action)
+                                            }
+                                        }
+                                    }.setAnchorView(binding.tvProductDescription)
+                                .show()
 
                             }
                         }
