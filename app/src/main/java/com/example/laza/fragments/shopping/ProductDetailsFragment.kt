@@ -305,7 +305,7 @@ class ProductDetailsFragment : Fragment() {
                                     .setActionTextColor(resources.getColor(R.color.g_black,null))
                                     .setTextColor(resources.getColor(R.color.g_black,null))
                                     .setAction("Go to cart") {
-                                        if (lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED)) {
+                                        if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
                                             if (findNavController().currentDestination?.id == R.id.productDetailsFragment) {
                                                 val action = ProductDetailsFragmentDirections.actionProductDetailsFragmentToCartFragment()
                                                 findNavController().navigate(action)

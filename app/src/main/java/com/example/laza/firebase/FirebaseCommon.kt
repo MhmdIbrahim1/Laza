@@ -3,9 +3,12 @@ package com.example.laza.firebase
 import com.example.laza.data.CartProduct
 import com.example.laza.data.WishlistProduct
 import com.example.laza.utils.Constants.CART_COLLECTION
+import com.example.laza.utils.Constants.PRODUCT_COLLECTION
 import com.example.laza.utils.Constants.USER_COLLECTION
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 
 class FirebaseCommon(
@@ -23,6 +26,9 @@ class FirebaseCommon(
             .document(uid)
             .collection("wishlist")
     }
+
+    private val productsCollection = Firebase.firestore.collection(PRODUCT_COLLECTION)
+
 
     fun addProductToCart(cartProduct: CartProduct, onResult: (CartProduct?, Exception?) -> Unit) {
         cartCollection!!.document()
@@ -102,7 +108,16 @@ class FirebaseCommon(
         }
     }
 
+    fun searchProducts(searchQuery: String) = productsCollection
+        .orderBy("title")
+        .startAt(searchQuery)
+        .endAt("\u03A9+$searchQuery")
+        .limit(5)
+        .get()
+
+
     enum class QuantityChanging {
         INCREASE, DECREASE
     }
+
 }

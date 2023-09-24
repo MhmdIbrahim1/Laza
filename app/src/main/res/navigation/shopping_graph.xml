@@ -53,9 +53,6 @@
         <action
             android:id="@+id/action_searchFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
-        <action
-            android:id="@+id/action_searchFragment_to_brandsFragment"
-            app:destination="@id/brandsFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
