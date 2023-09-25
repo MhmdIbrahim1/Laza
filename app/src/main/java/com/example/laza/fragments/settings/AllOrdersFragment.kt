@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.laza.R
+import androidx.navigation.Navigation.findNavController
 import com.example.laza.adapters.AllOrdersAdapter
 import com.example.laza.databinding.FragmentAllOrdersBinding
 import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
@@ -48,8 +49,10 @@ class AllOrdersFragment : Fragment() {
         observeGetAllOrders()
 
         ordersAdapter.onClick = {
-            val action = AllOrdersFragmentDirections.actionAllOrdersFragmentToOrderDetailsFragment(it)
-            findNavController().navigate(action)
+            if (findNavController(binding.root).currentDestination?.id == R.id.allOrdersFragment) {
+                val action = AllOrdersFragmentDirections.actionAllOrdersFragmentToOrderDetailsFragment(it)
+                findNavController(binding.root).navigate(action)
+            }
         }
 
         binding.arrow1.setOnClickListener {

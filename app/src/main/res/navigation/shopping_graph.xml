@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_homeFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -253,6 +256,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_languageFragment"
             app:destination="@id/languageFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_allAddressesFragment"
+            app:destination="@id/allAddressesFragment" />
     </fragment>
     <fragment
         android:id="@+id/languageFragment"
@@ -260,4 +266,14 @@
         android:label="LanguageFragment"
         tools:layout="@layout/fragment_language"
         />
+    <fragment
+        android:id="@+id/allAddressesFragment"
+        android:name="com.example.laza.fragments.settings.AllAddressesFragment"
+        android:label="AllAddressesFragment"
+        tools:layout="@layout/fragment_all_addresses"
+        >
+        <action
+            android:id="@+id/action_allAddressesFragment_to_addressesFragment"
+            app:destination="@id/addressesFragment" />
+    </fragment>
 </navigation>

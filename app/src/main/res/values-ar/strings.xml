@@ -139,7 +139,7 @@
     <string name="order_state">حالة الطلب</string>
     <string name="_4_5_rating">تقييم 4.5</string>
     <string name="order_details">تفاصيل الطلب</string>
-    <string name="address">العنوان</string>
+    <string name="address">العناوين</string>
     <string name="products">المنتجات</string>
     <string name="press_back_again_to_exit">اضغط مرة أخرى للخروج</string>
     <string name="edit_personal_detail">تحرير التفاصيل الشخصية</string>
@@ -149,7 +149,7 @@
     <string name="regional">إقليمي</string>
     <string name="languages">اللغات</string>
     <string name="version_1_0_0">الإصدار 1.0.0</string>
-    <string name="english">الإنجليزية</string>
+    <string name="english">Englishc</string>
     <string name="arabic">العربية</string>
 
     <string name="search">ابحث…</string>

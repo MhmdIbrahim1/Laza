@@ -14,6 +14,7 @@ import android.widget.CompoundButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+
 import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -27,6 +28,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
@@ -295,20 +297,26 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
             when (it.itemId) {
                 R.id.nav_orders -> {
                     // navigate to the all orders fragment
-                    val action = HomeFragmentDirections.actionHomeFragmentToAllOrdersFragment()
-                    navController.navigate(action)
+                    if (Navigation.findNavController(binding.root).currentDestination?.id == R.id.homeFragment) {
+                        val action = HomeFragmentDirections.actionHomeFragmentToAllOrdersFragment()
+                        navController.navigate(action)
+                    }
                 }
 
                 R.id.nav_settings -> {
                     // navigate to the settings fragment
-                    val action = HomeFragmentDirections.actionHomeFragmentToSettingsFragment()
-                    navController.navigate(action)
+                    if (navController.currentDestination?.id == R.id.homeFragment) {
+                        val action = HomeFragmentDirections.actionHomeFragmentToSettingsFragment()
+                        navController.navigate(action)
+                    }
                 }
 
                 R.id.nav_info -> {
                     // navigate to the user account fragment
-                    val action = HomeFragmentDirections.actionHomeFragmentToUserAccountFragment()
-                    navController.navigate(action)
+                    if (navController.currentDestination?.id == R.id.homeFragment) {
+                        val action = HomeFragmentDirections.actionHomeFragmentToUserAccountFragment()
+                        navController.navigate(action)
+                    }
                 }
 
                 R.id.nav_billing -> {

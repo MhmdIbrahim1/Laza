@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.laza.R
+import androidx.navigation.Navigation.findNavController
 import com.example.laza.adapters.BrandsAdapter
 import com.example.laza.databinding.FragmentBrandsBinding
 import com.example.laza.helper.getProductPrice
@@ -77,11 +78,10 @@ class BrandsFragment : Fragment() {
                 val updatedProduct = it.copy(price = priceAfterOffer)
 
                 // Navigate to the product details fragment and pass the updated product object
-                val action =
-                    BrandsFragmentDirections.actionBrandsFragmentToProductDetailsFragment(
-                        updatedProduct
-                    )
-                view.findNavController().navigate(action)
+                if (findNavController(binding.root).currentDestination?.id == R.id.brandsFragment) {
+                    val action = BrandsFragmentDirections.actionBrandsFragmentToProductDetailsFragment(updatedProduct)
+                    findNavController().navigate(action)
+                }
             }
         }
 

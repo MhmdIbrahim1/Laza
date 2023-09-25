@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import br.com.simplepass.loadingbutton.BuildConfig
 import com.bumptech.glide.Glide
 import com.example.laza.R
+import androidx.navigation.Navigation.findNavController
 import com.example.laza.databinding.FragmentSettingsBinding
 import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
 import com.example.laza.helper.setSubArrowImageBasedOnLayoutDirection
@@ -51,15 +52,27 @@ class SettingsFragment : Fragment() {
         observeGetUser()
 
         binding.constraintProfile.setOnClickListener {
-            findNavController().navigate(R.id.action_settingsFragment_to_userAccountFragment)
+            if (findNavController(binding.root).currentDestination?.id == R.id.settingsFragment) {
+                findNavController(binding.root).navigate(R.id.action_settingsFragment_to_userAccountFragment)
+            }
         }
 
         binding.linearAllOrders.setOnClickListener {
-            findNavController().navigate(R.id.action_settingsFragment_to_allOrdersFragment)
+            if (findNavController(binding.root).currentDestination?.id == R.id.settingsFragment) {
+                findNavController(binding.root).navigate(R.id.action_settingsFragment_to_allOrdersFragment)
+            }
         }
 
         binding.linearLanguage.setOnClickListener {
-            findNavController().navigate(R.id.action_settingsFragment_to_languageFragment)
+            if (findNavController(binding.root).currentDestination?.id == R.id.settingsFragment) {
+                findNavController(binding.root).navigate(R.id.action_settingsFragment_to_languageFragment)
+            }
+        }
+
+        binding.linearBilling.setOnClickListener {
+            if (findNavController(binding.root).currentDestination?.id == R.id.settingsFragment) {
+                findNavController(binding.root).navigate(R.id.action_settingsFragment_to_allAddressesFragment)
+            }
         }
 
         binding.tvVersion.text =  BuildConfig.VERSION_NAME
@@ -67,6 +80,7 @@ class SettingsFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().navigateUp()
         }
+
 
         binding.arrow01.setOnClickListener {
             findNavController().navigateUp()

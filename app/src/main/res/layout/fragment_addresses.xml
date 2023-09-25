@@ -44,13 +44,13 @@
 
 
             <TextView
-                android:id="@+id/tvAddress"
+                android:id="@+id/tv_Add_Address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="50dp"
                 android:fontFamily="@font/poppins_light"
                 android:gravity="center"
-                android:text="@string/addresses"
+                android:text="Add Address"
                 android:textColor="@color/background_intro__mentv_2"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"

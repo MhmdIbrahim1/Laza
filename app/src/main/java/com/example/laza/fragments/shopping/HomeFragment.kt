@@ -13,7 +13,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.laza.R
@@ -87,9 +89,20 @@ class HomeFragment : Fragment() {
                 val updatedProduct = it.copy(price = priceAfterOffer)
 
                 // Navigate to the product details fragment and pass the updated product object
-                val action =
-                    HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(updatedProduct)
-                view.findNavController().navigate(action)
+               if (findNavController(binding.root).currentDestination?.id == R.id.homeFragment) {
+                    val action =
+                        HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(
+                            updatedProduct
+                        )
+                    findNavController().navigate(action)
+                }
+            }
+        }
+
+        binding.cardSearch.setOnClickListener {
+            if (findNavController(binding.root).currentDestination?.id == R.id.homeFragment) {
+                val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
+                findNavController().navigate(action)
             }
         }
 

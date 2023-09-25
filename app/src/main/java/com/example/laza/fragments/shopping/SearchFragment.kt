@@ -37,6 +37,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private lateinit var searchAdapter: SearchRecyclerAdapter
     private var isTypingOrSearching = false
 
+    private var isLoading = false // Track whether data is currently being loaded
+    private var isLastPage = false // Track if all items have been loaded
+    private var currentPage = 1 // Track the current page
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,18 +50,16 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         setupSearchRecyclerView()
         showKeyboardAutomatically()
+        onSearchProductClick()
         onHomeClick()
         onCancelTvClick()
         searchProducts()
         observeSearch()
-        onSearchProductClick()
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             if (isTypingOrSearching) {
@@ -70,7 +72,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             findNavController().navigateUp()
         }
     }
-
 
     private fun setupSearchRecyclerView() {
         searchAdapter = SearchRecyclerAdapter(requireContext())
@@ -87,34 +88,33 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         // add spacing between grid items
         binding.rvSearch.addItemDecoration(ItemSpacingDecoration(20))
-
     }
-
-
 
     private fun observeSearch() {
         viewModel.search.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Loading -> {
                     Log.d("testSearch", "Loading")
+                    binding.progressbarSearch.visibility = View.VISIBLE
                 }
 
                 is NetworkResult.Success -> {
+                    binding.progressbarSearch.visibility = View.GONE
                     val products = response.data
                     searchAdapter.differ.submitList(products)
-                    showChancelTv()
+                    showCancelTv()
                     Log.d("testSearch", "Success - Product count: ${products?.size}")
                 }
 
                 is NetworkResult.Error -> {
-                    showChancelTv()
+                    binding.progressbarSearch.visibility = View.GONE
+                    showCancelTv()
                     Toast.makeText(
                         requireContext(),
                         response.message.toString(),
                         Toast.LENGTH_SHORT
                     ).show()
                     Log.e("testSearch", "Error: ${response.message}")
-
                 }
 
                 else -> Unit
@@ -155,7 +155,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
             imm!!.hideSoftInputFromWindow(requireView().windowToken, 0)
 
-
             findNavController().navigate(
                 R.id.action_searchFragment_to_productDetailsFragment,
                 bundle
@@ -185,8 +184,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         inputMethodManager.showSoftInput(binding.edSearch, InputMethodManager.SHOW_IMPLICIT)
     }
 
-
-    private fun showChancelTv() {
+    private fun showCancelTv() {
         binding.tvCancel.visibility = View.VISIBLE
         binding.cardMic.visibility = View.GONE
     }
@@ -194,6 +192,16 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun hideCancelTv() {
         binding.tvCancel.visibility = View.GONE
         binding.cardMic.visibility = View.VISIBLE
+
+        // hide keyboard
+        hideKeyboard()
+    }
+
+    // hide keyboard function
+    private fun hideKeyboard() {
+        val imm =
+            activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+        imm!!.hideSoftInputFromWindow(requireView().windowToken, 0)
     }
 
     private fun onCancelTvClick() {
@@ -215,6 +223,4 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         showKeyboardAutomatically()
         HideBottomNavigation()
     }
-
-
 }

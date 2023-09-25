@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/_10sdp"
+    app:cardElevation="@dimen/_5sdp"
+    app:cardUseCompatPadding="true"
+    android:backgroundTint="@color/background_color_general">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_address_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:drawablePadding="@dimen/_6sdp"
+            android:gravity="center"
+            android:text="Home"
+            android:textColor="@color/background_intro__mentv_2"
+            android:textSize="@dimen/_12ssp"
+            app:drawableStartCompat="@drawable/map_location"
+            app:layout_constraintEnd_toStartOf="@+id/guideline7"
+            app:layout_constraintStart_toStartOf="@+id/guideline10"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@color/background_intro__mentv_2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_address_location" />
+
+        <TextView
+            android:id="@+id/name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:text="Name "
+            android:textColor="@color/background_intro__mentv_2"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+
+        <TextView
+            android:id="@+id/tv_address_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_light"
+            android:text="Mohamed Ibrahim"
+            android:textColor="@color/background_intro__mentv_2"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toTopOf="@+id/name_label" />
+
+
+        <TextView
+            android:id="@+id/address_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_18sdp"
+            android:text="Address "
+            android:textColor="@color/background_intro__mentv_2"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintStart_toStartOf="@+id/name_label"
+            app:layout_constraintTop_toBottomOf="@+id/name_label" />
+
+        <TextView
+            android:id="@+id/tv_address_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:fontFamily="@font/poppins_light"
+            android:text="Awlad Ragab, El Mansoura, Dakahlia Governorate, Egypt"
+            android:textColor="@color/background_intro__mentv_2"
+            android:textSize="@dimen/_11ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/address_label"
+            app:layout_constraintEnd_toStartOf="@+id/guideline11"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toTopOf="@+id/address_label" />
+
+        <TextView
+            android:id="@+id/phone_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Phone "
+            android:textColor="@color/background_intro__mentv_2"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintStart_toStartOf="@+id/name_label"
+            app:layout_constraintTop_toBottomOf="@+id/tv_address_info" />
+
+        <TextView
+            android:id="@+id/tv_address_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="@font/poppins_light"
+            android:text="Edit"
+            android:textColor="@color/background_intro__mentv_2"
+            android:textSize="@dimen/_10ssp"
+            app:drawableStartCompat="@drawable/ic_edit"
+            app:layout_constraintBottom_toBottomOf="@+id/view2"
+            app:layout_constraintEnd_toStartOf="@+id/view2"
+            app:layout_constraintStart_toStartOf="@+id/guideline12"
+            app:layout_constraintTop_toTopOf="@+id/view2" />
+
+
+        <TextView
+            android:id="@+id/tv_address_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_light"
+            android:text="01000000000"
+            android:textColor="@color/background_intro__mentv_2"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toTopOf="@+id/phone_label" />
+
+        <TextView
+            android:id="@+id/tv_address_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/poppins_light"
+            android:text="Delete"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:textColor="@color/background_intro__mentv_2"
+            android:textSize="@dimen/_10ssp"
+            app:drawableStartCompat="@drawable/ic_delete"
+            app:layout_constraintBottom_toBottomOf="@+id/view2"
+            app:layout_constraintEnd_toStartOf="@+id/guideline13"
+            app:layout_constraintStart_toEndOf="@+id/view2"
+            app:layout_constraintTop_toTopOf="@+id/view2" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="1dp"
+            android:layout_height="@dimen/_14sdp"
+            android:background="@color/background_intro__mentv_2"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_address_location"
+            app:layout_constraintStart_toStartOf="@+id/view_guid"
+            app:layout_constraintTop_toTopOf="@+id/tv_address_location" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.01" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.69" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.99" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/view_guid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.81" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

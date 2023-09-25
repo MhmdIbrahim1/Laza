@@ -273,7 +273,7 @@ class WishlistFragment : Fragment(), WishlistUtil {
         itemTouchHelper.attachToRecyclerView(binding.brandsRv)
     }
     private fun setUpRecyclerView() {
-        wishListAdapter = WishListAdapter(this)
+        wishListAdapter = WishListAdapter(this,requireContext())
         binding.brandsRv.apply {
             val layoutManager = GridLayoutManager(
                 requireContext(),

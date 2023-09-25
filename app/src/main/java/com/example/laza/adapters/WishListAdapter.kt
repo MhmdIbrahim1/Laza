@@ -1,5 +1,6 @@
 package com.example.laza.adapters
 
+import android.content.Context
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
@@ -16,9 +17,9 @@ import com.example.laza.databinding.WishlistItemBinding
 import com.example.laza.helper.getProductPrice
 import com.example.laza.utils.WishlistUtil
 
-class WishListAdapter(private val wishlistUtil: WishlistUtil? = null) : RecyclerView.Adapter<WishListAdapter.WishListViewHolder>() {
+class WishListAdapter(private val wishlistUtil: WishlistUtil? = null, private val context: Context) : RecyclerView.Adapter<WishListAdapter.WishListViewHolder>() {
 
-    inner class WishListViewHolder(private val binding: WishlistItemBinding) :
+    inner class WishListViewHolder(val binding: WishlistItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(wishlistProduct: WishlistProduct,position: Int) {
@@ -91,6 +92,17 @@ class WishListAdapter(private val wishlistUtil: WishlistUtil? = null) : Recycler
     override fun onBindViewHolder(holder: WishListViewHolder, position: Int) {
         val wishlistProduct = differ.currentList[position]
         holder.bind(wishlistProduct,position)
+
+        // check if the rating is null or not
+        if (wishlistProduct.product.ratings.isEmpty()) {
+            holder.binding.ratingBar.visibility = View.GONE
+            holder.binding.tvRating.visibility = View.GONE
+            holder.binding.reviewsItemCount.visibility = View.GONE
+        } else {
+            holder.binding.ratingBar.rating = wishlistProduct.product.ratings.average().toFloat()
+            holder.binding.tvRating.text = String.format("%.1f", wishlistProduct.product.ratings.average())
+            holder.binding.reviewsItemCount.text = context.getString(R.string.reviews_item_count_, wishlistProduct.product.ratings.size.toString())
+        }
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.invoke(wishlistProduct.product)
