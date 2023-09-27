@@ -297,7 +297,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
             when (it.itemId) {
                 R.id.nav_orders -> {
                     // navigate to the all orders fragment
-                    if (Navigation.findNavController(binding.root).currentDestination?.id == R.id.homeFragment) {
+                    if (navController.currentDestination?.id == R.id.homeFragment) {
                         val action = HomeFragmentDirections.actionHomeFragmentToAllOrdersFragment()
                         navController.navigate(action)
                     }

@@ -16,6 +16,7 @@ import br.com.simplepass.loadingbutton.BuildConfig
 import com.bumptech.glide.Glide
 import com.example.laza.R
 import androidx.navigation.Navigation.findNavController
+import com.example.laza.data.Reviews
 import com.example.laza.databinding.FragmentSettingsBinding
 import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
 import com.example.laza.helper.setSubArrowImageBasedOnLayoutDirection
@@ -72,6 +73,21 @@ class SettingsFragment : Fragment() {
         binding.linearBilling.setOnClickListener {
             if (findNavController(binding.root).currentDestination?.id == R.id.settingsFragment) {
                 findNavController(binding.root).navigate(R.id.action_settingsFragment_to_allAddressesFragment)
+            }
+        }
+
+        binding.llUserReviews.setOnClickListener {
+            if (findNavController(binding.root).currentDestination?.id == R.id.settingsFragment) {
+                val action = SettingsFragmentDirections.actionSettingsFragmentToUserReviewsFragment(
+                    reviews = Reviews(
+                        name = "",
+                        review = "",
+                        ratingStars = 0.0,
+                        image = "",
+                        documentId = "",
+                    )
+                )
+                findNavController(binding.root).navigate(action)
             }
         }
 

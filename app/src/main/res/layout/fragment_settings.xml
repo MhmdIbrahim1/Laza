@@ -250,6 +250,41 @@
                         android:src="@drawable/ic_arrow"
                         app:tint="@color/g_blue_gray200" />
                 </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/llUserReviews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/review_icon" />
+
+                    <TextView
+                        android:id="@+id/tvUserReviews"
+                        style="@style/MediumTextViewThin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="15dp"
+                        android:layout_weight="1"
+                        android:text="@string/your_reviews"
+                        android:textColor="@color/background_intro__mentv_2"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/arrow6"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_arrow"
+                        app:tint="@color/g_blue_gray200" />
+                </LinearLayout>
             </LinearLayout>
 
 

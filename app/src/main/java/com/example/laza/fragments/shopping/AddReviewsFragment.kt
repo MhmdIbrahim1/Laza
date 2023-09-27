@@ -49,6 +49,9 @@ class AddReviewsFragment : Fragment() {
         val reviewsArgs = args.reviews
         val productId = reviewsArgs.documentId
 
+        binding.edName.setText(reviewsArgs.name)
+        binding.edReviewDescription.setText(reviewsArgs.review)
+        binding.ratingBar.rating = reviewsArgs.ratingStars.toFloat()
 
         binding.apply {
             btnSubmitReview.setOnClickListener {

@@ -59,8 +59,8 @@ class AllOrdersFragment : Fragment() {
            findNavController().navigateUp()
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback {
-              findNavController().navigate(R.id.action_allOrdersFragment_to_homeFragment)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().navigateUp()
         }
 
     }

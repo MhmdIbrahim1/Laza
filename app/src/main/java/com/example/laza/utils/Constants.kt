@@ -7,5 +7,6 @@ object Constants {
     const val ADDRESS_COLLECTION = "address"
     const val REVIEWS_COLLECTION = "reviews"
     const val ORDER_COLLECTION = "orders"
+    const val USER_REVIEWS_COLLECTION = "userReviews"
     const val INTRODUCTION_KEY = "IntroductionKey"
 }

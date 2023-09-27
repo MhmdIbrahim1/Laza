@@ -259,6 +259,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_allAddressesFragment"
             app:destination="@id/allAddressesFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_userReviewsFragment"
+            app:destination="@id/userReviewsFragment" />
     </fragment>
     <fragment
         android:id="@+id/languageFragment"
@@ -275,5 +278,18 @@
         <action
             android:id="@+id/action_allAddressesFragment_to_addressesFragment"
             app:destination="@id/addressesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userReviewsFragment"
+        android:name="com.example.laza.fragments.settings.UserReviewsFragment"
+        android:label="UserReviewsFragment"
+        tools:layout="@layout/user_review_rv_item"
+        >
+        <action
+            android:id="@+id/action_userReviewsFragment_to_addReviewsFragment"
+            app:destination="@id/addReviewsFragment" />
+        <argument
+            android:name="reviews"
+            app:argType="com.example.laza.data.Reviews" />
     </fragment>
 </navigation>

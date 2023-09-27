@@ -7,6 +7,7 @@ import com.example.laza.data.Reviews
 import com.example.laza.utils.Constants.PRODUCT_COLLECTION
 import com.example.laza.utils.Constants.REVIEWS_COLLECTION
 import com.example.laza.utils.Constants.USER_COLLECTION
+import com.example.laza.utils.Constants.USER_REVIEWS_COLLECTION
 import com.example.laza.utils.NetworkResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -39,7 +40,7 @@ class AddReviewsViewModel @Inject constructor(
             // Reference to the user's reviews collection
             val userReviewsCollection = firestore.collection(USER_COLLECTION)
                 .document(auth.uid!!)
-                .collection("userReviews")
+                .collection(USER_REVIEWS_COLLECTION)
 
             // Create a new document in the product's reviews collection
             val newProductDocRef = productReviewsCollection.document()
