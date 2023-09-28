@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.toColor
 import androidx.navigation.fragment.findNavController
@@ -24,6 +25,7 @@ import com.example.laza.utils.HideBottomNavigation
 import com.example.storein.utils.VerticalItemDecoration
 import com.shuhart.stepview.StepView
 
+private const val TAG = "OrderDetailsFragment"
 class OrderDetailsFragment : Fragment() {
     private var _binding: FragmentOrderDetailsBinding? = null
     private val binding get() = _binding!!
@@ -117,6 +119,10 @@ class OrderDetailsFragment : Fragment() {
         billingProductAdapter.differ.submitList(order.products)
 
         binding.arrow1.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().navigateUp()
         }
     }
