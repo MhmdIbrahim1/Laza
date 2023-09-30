@@ -1,6 +1,9 @@
 # Laza
 Laza targets people who are looking to buy high-quality Brands products, e.g., Adidas and Nike. And it targets merchants that sell brands and good product quality to enable them to spread their markets and put their products online so everyone can check them out and order them.
 
+## Download Link
+https://www.mediafire.com/file/uub53oc05l4ttyi/app-release.apk/file
+
 # preview shopping
 ![image](https://github.com/MhmdIbrahim1/Laza/assets/107378571/2b450787-74dc-4252-9682-fd12b724e178)
 ![image](https://github.com/MhmdIbrahim1/Laza/assets/107378571/d106c820-8bd5-433a-a577-472d78b091c7)
