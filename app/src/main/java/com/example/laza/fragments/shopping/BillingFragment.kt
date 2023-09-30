@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -207,8 +208,10 @@ class BillingFragment : Fragment() {
 
                         is NetworkResult.Success -> {
                             binding.buttonPlaceOrder.revertAnimation()
-                           val action = BillingFragmentDirections.actionBillingFragmentToOrderConfirmationFragment()
-                            findNavController().navigate(action)
+                            if (findNavController(binding.root).currentDestination?.id == R.id.billingFragment) {
+                                val action = BillingFragmentDirections.actionBillingFragmentToOrderConfirmationFragment()
+                                findNavController().navigate(action)
+                            }
                         }
 
                         is NetworkResult.Error -> {
