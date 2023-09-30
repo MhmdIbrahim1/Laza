@@ -1,12 +1,18 @@
 # Laza
 Laza targets people who are looking to buy high-quality Brands products, e.g., Adidas and Nike. And it targets merchants that sell brands and good product quality to enable them to spread their markets and put their products online so everyone can check them out and order them.
 
-# preview
-![image](https://github.com/MhmdIbrahim1/StoreIn/assets/107378571/98f408ea-e629-45d1-b199-e70ad68c6539)
-![image](https://github.com/MhmdIbrahim1/StoreIn/assets/107378571/fd1158a6-5f2d-4afa-ba12-64ede372ac66)
-![image](https://github.com/MhmdIbrahim1/StoreIn/assets/107378571/6eb50162-27ff-4e27-a547-340f0ae217c8)
-![image](https://github.com/MhmdIbrahim1/StoreIn/assets/107378571/27565e18-e79f-438c-ad89-c4e0bc2f09f4)
-![image](https://github.com/MhmdIbrahim1/StoreIn/assets/107378571/ffd54097-bbe5-47fd-827c-dacbba13fe18)
+# preview shopping
+![image](https://github.com/MhmdIbrahim1/Laza/assets/107378571/2b450787-74dc-4252-9682-fd12b724e178)
+![image](https://github.com/MhmdIbrahim1/Laza/assets/107378571/d106c820-8bd5-433a-a577-472d78b091c7)
+![image](https://github.com/MhmdIbrahim1/Laza/assets/107378571/c75655ea-19e7-4518-b503-f90a43f90117)
+![image](https://github.com/MhmdIbrahim1/Laza/assets/107378571/0c445e98-e5f6-42f0-a7a1-9d2f1bc321ca)
+![image](https://github.com/MhmdIbrahim1/Laza/assets/107378571/251d7158-6858-45b4-b7a5-84ca7b1fc36a)
+
+# preview Login and Register
+![image](https://github.com/MhmdIbrahim1/Laza/assets/107378571/cdbc38da-586f-4fc0-8ef6-5d34f65f319a)
+
+
+
 
 # Libraries and technologies used
 - Navigation component : one activity contains multiple fragments instead of creating multiple activites.
