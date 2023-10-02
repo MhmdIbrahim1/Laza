@@ -40,6 +40,7 @@ import com.example.laza.network.NetworkManager
 import com.example.laza.utils.MyContextWrapper
 import com.example.laza.utils.MyPreference
 import com.example.laza.utils.NetworkResult
+import com.example.laza.utils.getGoogleSignInClient
 import com.example.laza.viewmodels.CartViewModel
 import com.example.laza.viewmodels.UserAccountViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -230,6 +231,12 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
         startActivity(intent)
         finish()
         Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
+
+        // google sign out
+        val googleSignInClient = getGoogleSignInClient(this)
+        googleSignInClient.signOut()
+
+
     }
 
     private fun observeCartProductNumbers() {
@@ -341,6 +348,8 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
                 )
                 navController.navigate(action)
             }
+
+
         }
     }
 

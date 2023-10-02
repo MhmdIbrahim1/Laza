@@ -33,7 +33,7 @@
             app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
             app:itemPaddingBottom="@dimen/_10sdp"
             app:itemPaddingTop="@dimen/_10sdp"
-            app:itemRippleColor="@color/g_white"
+            app:itemRippleColor="@color/g_blue"
             app:labelVisibilityMode="unlabeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

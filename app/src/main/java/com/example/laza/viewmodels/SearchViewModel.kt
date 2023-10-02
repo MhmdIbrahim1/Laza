@@ -38,7 +38,7 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun searchProduct(searchQuery: String): Task<QuerySnapshot> {
-        val normalizedQuery = searchQuery.toLowerCase(Locale.ROOT)
+        val normalizedQuery = searchQuery.lowercase(Locale.ROOT)
         Log.d("testSearch", "Searching for: $normalizedQuery")
         return Firebase.firestore.collection("products")
             .orderBy("lowercaseName")

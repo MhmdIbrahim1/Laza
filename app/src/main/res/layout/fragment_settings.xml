@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/settings"
                 android:textColor="@color/background_intro__mentv_2"
-                app:layout_constraintBottom_toBottomOf="@+id/arrow_1"
+                app:layout_constraintBottom_toBottomOf="@+id/arrow_01"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/backArrow"
                 app:layout_constraintTop_toTopOf="@+id/backArrow" />

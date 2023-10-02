@@ -63,7 +63,7 @@
     <color name="arrow_image_back">@color/black</color>
 
     <color name="brand_rv_background_color">@color/white</color>
-    <color name="brand_rv_background__card_color">@color/white</color>
+    <color name="brand_rv_background__card_color">@color/g_blue</color>
 
     <color name="bottom_nav_item_shadow_color">#6e9bd2</color>
 
