@@ -9,12 +9,10 @@
         android:id="@+id/homeFragment"
         android:name="com.example.laza.fragments.shopping.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"
-        >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_brandsFragment"
             app:destination="@id/brandsFragment">
-
             <argument
                 android:name="brandImage"
                 app:argType="integer" />

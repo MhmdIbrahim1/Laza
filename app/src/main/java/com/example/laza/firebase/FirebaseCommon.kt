@@ -31,14 +31,19 @@ class FirebaseCommon(
 
 
     fun addProductToCart(cartProduct: CartProduct, onResult: (CartProduct?, Exception?) -> Unit) {
-        cartCollection!!.document()
-            .set(cartProduct)
-            .addOnSuccessListener {
-                onResult(cartProduct, null)
-            }
-            .addOnFailureListener {
-                onResult(null, it)
-            }
+        if (cartCollection != null) {
+            cartCollection.document()
+                .set(cartProduct)
+                .addOnSuccessListener {
+                    onResult(cartProduct, null)
+                }
+                .addOnFailureListener {
+                    onResult(null, it)
+                }
+        }else {
+            // Handle the case where cartCollection is null (e.g., user not authenticated)
+            onResult(null, Exception("Check Network Connection"))
+        }
     }
 
 

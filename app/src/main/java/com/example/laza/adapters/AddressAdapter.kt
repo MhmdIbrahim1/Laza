@@ -73,7 +73,6 @@ class AddressAdapter : RecyclerView.Adapter<AddressAdapter.AddressViewHolder>() 
     init {
         differ.addListListener{_, _ ->
             notifyItemChanged(selectedAddress)
-
         }
     }
     var onClick: ((Address) -> Unit)? = null

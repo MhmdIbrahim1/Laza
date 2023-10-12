@@ -83,6 +83,7 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
         setContentView(binding.root)
         onLogout()
         setNavigationItemSelectedListener()
+        setUpBottomNavigation()
         observeGetUser()
         showNoInternetDialog()
 
@@ -361,6 +362,8 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
         if (isSystemDarkMode) {
             window.statusBarColor = resources.getColor(R.color.darker, null)
         }
+
+
     }
     override fun onDestroy() {
         super.onDestroy()
@@ -373,6 +376,41 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
         super.attachBaseContext(MyContextWrapper.wrap(newBase,lang))
     }
 
+    private fun setUpBottomNavigation() {
+        binding.bottomNavigation.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.homeFragment -> {
+                    if (navController.currentDestination?.id != R.id.homeFragment) {
+                        navController.navigate(R.id.homeFragment)
+                    }
+                    true
+                }
+
+                R.id.cartFragment -> {
+                    if (navController.currentDestination?.id != R.id.cartFragment) {
+                        navController.navigate(R.id.cartFragment)
+                    }
+                    true
+                }
+
+                R.id.wishlistFragment -> {
+                    if (navController.currentDestination?.id != R.id.wishlistFragment) {
+                        navController.navigate(R.id.wishlistFragment)
+                    }
+                    true
+                }
+
+                R.id.searchFragment -> {
+                    if (navController.currentDestination?.id != R.id.searchFragment) {
+                        navController.navigate(R.id.searchFragment)
+                    }
+                    true
+                }
+
+                else -> false
+            }
+        }
+    }
 }
 
 

@@ -52,7 +52,6 @@ class BrandsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val imageResId = arguments?.getInt("brandImage") ?: 0
-        Log.d("BrandsFragment", "Image Resource ID: $imageResId")
         brandName = arguments?.getString("brandName") ?: ""
         Log.d("BrandsFragment", "Brand Name: $brandName")
 

@@ -19,6 +19,7 @@ import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.AddReviewsViewModel
 import com.example.laza.viewmodels.HomeFragmentViewModel
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -66,8 +67,8 @@ class AddReviewsFragment : Fragment() {
                     return@setOnClickListener
                 }
                 val rating = ratingBar.rating
-                // add default image from drawable
-                val image = R.drawable.profile
+                // add user image from firebase
+                val image = FirebaseAuth.getInstance().currentUser?.photoUrl
                 val date = System.currentTimeMillis().toString()
 
                 if (name.isNotEmpty() && reviewText.isNotEmpty()) {

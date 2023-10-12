@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.viewModels
@@ -55,6 +56,10 @@ class AllAddressesFragment : Fragment(), AllAddressesUtil {
         }
 
         binding.arrow1.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner){
             findNavController().navigateUp()
         }
     }
