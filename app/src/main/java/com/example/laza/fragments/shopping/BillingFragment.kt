@@ -144,7 +144,7 @@ class BillingFragment : Fragment() {
                 totalPrice,
                 products,
                 selectedAddress!!,
-                date = System.currentTimeMillis().toString()
+                date = System.currentTimeMillis().toString(),
             )
             orderViewModel.placeOrder(order)
             alertDialogBuilder.dismiss()

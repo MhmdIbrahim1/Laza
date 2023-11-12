@@ -159,5 +159,6 @@
     <string name="g_cancel">Cancel</string>
     <string name="are_you_sure_you_want_to_delete_this_address">Are you sure you want to delete this address?</string>
     <string name="your_reviews">Your Reviews</string>
+    <string name="please_enter_your_data_to_login">Please enter your data to login</string>
 
 </resources>

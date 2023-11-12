@@ -13,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,45 +22,40 @@ class OrderViewModel @Inject constructor(
     private val auth: FirebaseAuth
 ) : ViewModel() {
 
-
-    private var _orders = MutableStateFlow<NetworkResult<Order>>(NetworkResult.UnSpecified())
+    private val _orders = MutableStateFlow<NetworkResult<Order>>(NetworkResult.UnSpecified())
     val orders = _orders.asStateFlow()
-
 
     fun placeOrder(order: Order) {
         viewModelScope.launch {
-            _orders.emit(NetworkResult.Loading())
-        }
-        //TODO: Add order to users collection
-        //TODO: Add order into orders collection
-        //TODO: Delete the products from user cart collection
+            try {
+                _orders.emit(NetworkResult.Loading())
 
-        firestore.runBatch { batch ->
-            firestore.collection(USER_COLLECTION)
-                .document(auth.uid!!).collection(ORDER_COLLECTION)
-                .document().set(order)
+                val orderId = firestore.collection(ORDER_COLLECTION).document().id
 
-            firestore.collection(ORDER_COLLECTION)
-                .document().set(order)
+                val userOrderRef = firestore.collection(USER_COLLECTION)
+                    .document(auth.uid!!).collection(ORDER_COLLECTION)
+                    .document(orderId)
+                userOrderRef.set(order.copy(documentId = orderId, userId = auth.uid!!))
 
-            firestore.collection(USER_COLLECTION)
-                .document(auth.uid!!).collection(CART_COLLECTION)
-                .get().addOnSuccessListener { snapshot ->
-                    snapshot.documents.forEach {
-                        it.reference.delete()
-                    }
-                }
-                .addOnSuccessListener {
-                    viewModelScope.launch {
-                        _orders.emit(NetworkResult.Success(order))
-                    }
-                }
-                .addOnFailureListener {
-                    viewModelScope.launch {
-                        _orders.emit(NetworkResult.Error(it.message.toString()))
-                    }
-                }
+                val genericOrderRef = firestore.collection(ORDER_COLLECTION)
+                    .document(orderId)
+                genericOrderRef.set(order.copy(documentId = orderId, userId = auth.uid!!))
+
+
+
+                // Delete products from the user's cart collection
+                firestore.collection(USER_COLLECTION)
+                    .document(auth.uid!!).collection(CART_COLLECTION)
+                    .get().addOnSuccessListener { snapshot ->
+                        snapshot.documents.forEach {
+                            it.reference.delete()
+                        }
+                    }.await()
+
+                _orders.emit(NetworkResult.Success(order))
+            } catch (e: Exception) {
+                _orders.emit(NetworkResult.Error(e.message.toString()))
+            }
         }
     }
-
 }

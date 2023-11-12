@@ -43,13 +43,10 @@ class LoginViewModel @Inject constructor(
             _login.emit(NetworkResult.Loading())
         }
 
-        // Perform login with email and password
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener {
                 viewModelScope.launch {
-                    it.user?.let {
-                        _login.emit(NetworkResult.Success("Login Success"))
-                    }
+                    _login.emit(NetworkResult.Success("Login Success"))
                 }
             }
             .addOnFailureListener {
@@ -57,6 +54,7 @@ class LoginViewModel @Inject constructor(
                     _login.emit(NetworkResult.Error(it.message.toString()))
                 }
             }
+
     }
 
     // Function for resetting password

@@ -222,7 +222,7 @@ class HomeFragment : Fragment() {
     private fun setUpBrandRV() {
         brandAdapter = BrandRvItemsAdapter(brandItem)
         brandAdapter.onBrandClickListener =
-            BrandRvItemsAdapter.OnBrandClickListener { _, brandItem ->
+            BrandRvItemsAdapter.OnBrandClickListener { position, brandItem ->
                 val action = HomeFragmentDirections.actionHomeFragmentToBrandsFragment(
                     brandItem.imageResId,
                     brandItem.brandName

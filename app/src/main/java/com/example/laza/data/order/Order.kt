@@ -17,7 +17,9 @@ data class Order(
     val products: List<CartProduct>,
     val address: Address,
     val date: String = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(Date()),
-    val orderId: Long = nextLong(0, 100_000_000) + totalPrice.toLong()
+    val orderId: Long = nextLong(0, 100_000_000) + totalPrice.toLong(),
+    var documentId: String = "",
+    val userId: String = ""
 ):Parcelable {
     constructor(): this("", 0f, listOf<CartProduct>(), Address(),"",0)
 }
