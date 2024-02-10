@@ -16,6 +16,7 @@ import com.example.laza.R
 import com.example.laza.data.User
 import com.example.laza.databinding.FragmentRegisterBinding
 import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
+import com.example.laza.utils.CommonActivity.showToast
 import com.example.laza.utils.NetworkResult
 import com.example.laza.utils.RegisterValidation
 import com.example.laza.viewmodels.RegisterViewModel
@@ -85,11 +86,7 @@ class RegisterFragment : Fragment() {
                             }
                             findNavController().navigate(R.id.action_registerFragment_to_getStartedFragment)
                             // Navigate to login screen
-                            Toast.makeText(
-                                requireContext(),
-                                "Register success",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                           showToast(requireActivity(),"Account created successfully")
                         }
 
                         is NetworkResult.Error -> {

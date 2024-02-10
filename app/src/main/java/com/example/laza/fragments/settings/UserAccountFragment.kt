@@ -31,6 +31,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlin.math.log
 
 
 @AndroidEntryPoint
@@ -54,6 +55,8 @@ class UserAccountFragment : Fragment() {
     ): View {
         _binding = FragmentUserAccountBinding.inflate(inflater, container, false)
         setGArrowImageBasedOnLayoutDirection(resources,binding.arrow1)
+        Log.d("Test", "onCreateView: ")
+        observeGetUser()
 
         return binding.root
     }
@@ -73,7 +76,6 @@ class UserAccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observeGetUser()
         observeUpdateUser()
         observeResetPassword()
 

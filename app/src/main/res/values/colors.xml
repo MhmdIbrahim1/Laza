@@ -15,7 +15,7 @@
     <color name="g_hint">#666666</color>
     <color name="g_gray700">#666666</color>
     <color name="g_black">#171717</color>
-    <color name="g_blue">@color/g_white</color>
+    <color name="g_blue">#3D93F8</color>
     <color name="g_white">#F5F8FA</color>
     <color name="g_dark_blue">#000759</color>
     <color name="g_blue_gray200">#97AABD</color>
@@ -82,7 +82,17 @@
 
     <color name="color_button_address">#97AABD</color>
 
+    <color name="colorPrimary">#3d50fa</color>
+    <color name="colorPrimarySecond">@color/colorPrimary</color>
+    <color name="colorSearch">#303135</color> <!--#3444D1 @color/itemBackground-->
+    <color name="colorOngoing">#F53B66</color> <!--FF8181-->
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#3b65f5</color> <!-- 818fff-->
 
+    <color name="primaryGrayBackground">#2B2C30</color> <!--0f0f10 0E0E10 303135 2B2C30-->
+    <color name="primaryBlackBackground">#111111</color> <!--1C1C20 191a1f 19181E 202125 1C1C20-->
+    <color name="iconGrayBackground">#1C1C20</color> <!--141419 202125-->
+    <color name="boxItemBackground">#161616</color> <!-- 17171B 1B1B20-->
 
 
 </resources>

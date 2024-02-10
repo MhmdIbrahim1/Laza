@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory />
+    <PreferenceCategory
+            android:key="search"
+            android:title="Search"
+            app:isPreferenceVisible="true">
+        <SwitchPreference
+                android:icon="@drawable/search"
+                android:title="Advanced Search"
+                android:summary="Gives you the search results separated by provider"
+                app:defaultValue="true" />
+        <Preference
+                app:icon="@drawable/three_dots"
+                android:title="Search Providers"
+                app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

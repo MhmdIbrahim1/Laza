@@ -56,7 +56,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         setupSearchRecyclerView()
         showKeyboardAutomatically()
         onSearchProductClick()
-        onHomeClick()
+      //  onHomeClick()
         onCancelTvClick()
         searchProducts()
         observeSearch()
@@ -151,10 +151,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             val bundle = Bundle()
             bundle.putParcelable("product", product)
 
-            val imm =
-                activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-            imm!!.hideSoftInputFromWindow(requireView().windowToken, 0)
-
+              hideKeyboard()
             findNavController().navigate(
                 R.id.action_searchFragment_to_productDetailsFragment,
                 bundle
@@ -171,9 +168,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 bottomNav.visibility = View.VISIBLE
             }
         }
-        bottomNav?.menu?.getItem(0)?.setOnMenuItemClickListener {
-            activity?.onBackPressed()
-            true
+        bottomNav?.setOnItemSelectedListener {
+            if (isTypingOrSearching) {
+                // User is typing or searching, hide the bottom navigation view
+                isTypingOrSearching = false
+                bottomNav.visibility = View.VISIBLE
+            }
+            false
         }
     }
 

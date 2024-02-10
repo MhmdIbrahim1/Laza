@@ -1,18 +1,20 @@
 package com.example.laza.fragments.shopping
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.laza.R
+import com.example.laza.data.Product
 import com.example.laza.data.Reviews
 import com.example.laza.databinding.FragmentReviewsBinding
 import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
@@ -29,7 +31,7 @@ class AddReviewsFragment : Fragment() {
     private var _binding: FragmentReviewsBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<AddReviewsViewModel>()
-    private val homeViewModel by viewModels<HomeFragmentViewModel>()
+    private val homeViewModel by viewModels <HomeFragmentViewModel>()
     private val args by navArgs<AddReviewsFragmentArgs>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +50,7 @@ class AddReviewsFragment : Fragment() {
         observeAddReviews()
 
         val reviewsArgs = args.reviews
-        val productId = reviewsArgs.documentId
+        val documentId = reviewsArgs.documentId
 
         binding.edName.setText(reviewsArgs.name)
         binding.edReviewDescription.setText(reviewsArgs.review)
@@ -77,10 +79,13 @@ class AddReviewsFragment : Fragment() {
                         review = reviewText,
                         ratingStars = rating.toDouble(),
                         image = image.toString(),
+                        productId = reviewsArgs.productId,
                         date = date
                     )
-                    viewModel.addReview(productId, review)
+                    Log.d("Test" , "Review: $review")
 
+
+                    viewModel.addReview(documentId ,review)
                 } else {
                     Toast.makeText(
                         requireContext(),

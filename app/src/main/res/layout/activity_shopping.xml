@@ -7,11 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".activites.ShoppingActivity">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/shoppingHostFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
@@ -29,11 +34,9 @@
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/background_color_general_Card"
-            app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
-            app:itemPaddingBottom="@dimen/_10sdp"
-            app:itemPaddingTop="@dimen/_10sdp"
-            app:itemRippleColor="@color/g_blue"
+            android:background="@color/brand_rv_background_color"
+            app:itemIconTint="@color/item_select_color"
+            app:itemTextColor="@color/item_select_color"
             app:labelVisibilityMode="unlabeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

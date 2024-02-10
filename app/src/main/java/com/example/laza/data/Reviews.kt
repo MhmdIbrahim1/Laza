@@ -13,6 +13,7 @@ data class Reviews(
     val ratingStars: Double,
     val image: String,
     val documentId: String = "",
+    val productId: String = "",
     val date: String = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(Date()),
     ): Parcelable {
     constructor():this("","",0.0,"","")

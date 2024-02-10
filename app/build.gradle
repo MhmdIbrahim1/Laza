@@ -126,4 +126,7 @@ dependencies {
 
     implementation 'com.kofigyan.stateprogressbar:stateprogressbar:1.0.0'
 
+    implementation "androidx.preference:preference-ktx:1.2.0"
+
+
 }

@@ -23,6 +23,7 @@ import com.example.laza.adapters.BrandRvItemsAdapter
 import com.example.laza.adapters.NewArrivalAdapter
 import com.example.laza.databinding.FragmentHomeBinding
 import com.example.laza.helper.getProductPrice
+import com.example.laza.utils.Coroutines.ioSafe
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import com.example.laza.utils.ShowBottomNavigation
@@ -51,7 +52,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater)
         return binding.root
     }
 
@@ -118,22 +119,24 @@ class HomeFragment : Fragment() {
     private fun observeNewArrival() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.newArrival.collectLatest {
-                    when (it) {
+                viewModel.newArrival.collectLatest {product ->
+                    when (product) {
                         is NetworkResult.Loading -> {
                             showLoading()
                         }
 
                         is NetworkResult.Success -> {
                       //      Log.d("HomeFragment", "observeNewArrival: ${it.data}")
-                            newArrivalAdapter.differ.submitList(it.data)
+                            ioSafe {
+                                newArrivalAdapter.differ.submitList(product.data)
+                            }
                             hideLoading()
                         }
 
                         is NetworkResult.Error -> {
-                            Log.d("HomeFragment", "observeNewArrival: ${it.message}")
+                          //  Log.d("HomeFragment", "observeNewArrival: ${it.message}")
                             hideLoading()
-                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), product.message, Toast.LENGTH_SHORT).show()
                         }
 
                         else -> Unit
@@ -260,6 +263,11 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         ShowBottomNavigation()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.clear()
     }
 
 

@@ -3,12 +3,15 @@ package com.example.laza.activites
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.CompoundButton
 import android.widget.ImageView
@@ -17,10 +20,12 @@ import android.widget.Toast
 
 import androidx.activity.addCallback
 import androidx.activity.viewModels
+import androidx.annotation.IdRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -28,8 +33,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
 import com.example.laza.R
@@ -40,6 +50,8 @@ import com.example.laza.network.NetworkManager
 import com.example.laza.utils.MyContextWrapper
 import com.example.laza.utils.MyPreference
 import com.example.laza.utils.NetworkResult
+import com.example.laza.utils.UiHelper.getResourceColor
+import com.example.laza.utils.UiHelper.isLtr
 import com.example.laza.utils.getGoogleSignInClient
 import com.example.laza.viewmodels.CartViewModel
 import com.example.laza.viewmodels.UserAccountViewModel
@@ -83,16 +95,33 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
         setContentView(binding.root)
         onLogout()
         setNavigationItemSelectedListener()
-        setUpBottomNavigation()
+        //setUpBottomNavigation()
         observeGetUser()
         showNoInternetDialog()
 
         // observe the cart products numbers
         observeCartProductNumbers()
 
-        // set up the navigation controller
-        navController = findNavController(R.id.shoppingHostFragment)
-        binding.bottomNavigation.setupWithNavController(navController)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.shoppingHostFragment) as NavHostFragment
+        navController = navHostFragment.navController
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            onNavDestinationSelected(item, navController)
+        }
+
+        val rippleColor = ColorStateList.valueOf(getResourceColor(R.attr.blue, 0.1f))
+
+        binding.bottomNavigation.apply {
+            itemRippleColor = rippleColor
+            itemActiveIndicatorColor = rippleColor
+            setupWithNavController(navController)
+            setOnItemSelectedListener { item ->
+                onNavDestinationSelected(
+                    item,
+                    navController
+                )
+            }
+        }
 
         // Set up the switch listener
         val switchTheme = binding.navView.findViewById<SwitchCompat>(R.id.switch_theme)
@@ -376,41 +405,70 @@ class ShoppingActivity : AppCompatActivity(), HomeFragment.DrawerOpener {
         super.attachBaseContext(MyContextWrapper.wrap(newBase,lang))
     }
 
-    private fun setUpBottomNavigation() {
-        binding.bottomNavigation.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.homeFragment -> {
-                    if (navController.currentDestination?.id != R.id.homeFragment) {
-                        navController.navigate(R.id.homeFragment)
-                    }
-                    true
-                }
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.shoppingHostFragment) as NavHostFragment
+        navHostFragment.navController.currentDestination?.let { updateNavBar(it) }
+    }
+    private fun NavDestination.matchDestination(@IdRes destId: Int): Boolean =
+        hierarchy.any { it.id == destId }
 
-                R.id.cartFragment -> {
-                    if (navController.currentDestination?.id != R.id.cartFragment) {
-                        navController.navigate(R.id.cartFragment)
-                    }
-                    true
-                }
-
-                R.id.wishlistFragment -> {
-                    if (navController.currentDestination?.id != R.id.wishlistFragment) {
-                        navController.navigate(R.id.wishlistFragment)
-                    }
-                    true
-                }
-
-                R.id.searchFragment -> {
-                    if (navController.currentDestination?.id != R.id.searchFragment) {
-                        navController.navigate(R.id.searchFragment)
-                    }
-                    true
-                }
-
-                else -> false
-            }
+    private fun onNavDestinationSelected(item: MenuItem, navController: NavController): Boolean {
+        val builder = NavOptions.Builder().setLaunchSingleTop(true).setRestoreState(true)
+            .setEnterAnim(R.anim.enter_anim)
+            .setExitAnim(R.anim.exit_anim)
+            .setPopEnterAnim(R.anim.pop_enter)
+            .setPopExitAnim(R.anim.pop_exit)
+        if (item.order and Menu.CATEGORY_SECONDARY == 0) {
+            builder.setPopUpTo(
+                navController.graph.findStartDestination().id,
+                inclusive = false,
+                saveState = true
+            )
+        }
+        val options = builder.build()
+        return try {
+            navController.navigate(item.itemId, null, options)
+            navController.currentDestination?.matchDestination(item.itemId) == true
+        } catch (e: IllegalArgumentException) {
+            false
         }
     }
+
+    private fun updateNavBar(destination: NavDestination) {
+        //   this.hideKeyboard()
+
+        val dontPush = listOf(
+            R.id.homeFragment,
+            R.id.cartFragment,
+            R.id.searchFragment,
+            R.id.wishlistFragment
+        ).contains(destination.id)
+
+        binding.shoppingHostFragment.apply {
+            val params = layoutParams as ConstraintLayout.LayoutParams
+            val push =
+                if (!dontPush) resources.getDimensionPixelSize(R.dimen.edittextHeight) else 0
+            if (!this.isLtr()) {
+                params.setMargins(
+                    params.leftMargin,
+                    params.topMargin,
+                    push,
+                    params.bottomMargin
+                )
+            } else {
+                params.setMargins(
+                    push,
+                    params.topMargin,
+                    params.rightMargin,
+                    params.bottomMargin
+                )
+            }
+            layoutParams = params
+        }
+    }
+
 }
 
 

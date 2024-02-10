@@ -11,11 +11,13 @@ import com.example.laza.utils.NetworkResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -52,11 +54,13 @@ class HomeFragmentViewModel @Inject constructor(
                 _newArrival.emit(NetworkResult.Loading())
 
                 try {
-                    val result = firestore.collection(PRODUCT_COLLECTION)
-                        .whereIn("brand", listOf("Adidas", "New Arrival"))
-                        .limit(newArrivalPagingInfo.page * 10)
-                        .get()
-                        .await()
+                    val result = withContext(Dispatchers.IO) {
+                        firestore.collection(PRODUCT_COLLECTION)
+                            .whereIn("brand", listOf("Adidas", "New Arrival"))
+                            .limit(newArrivalPagingInfo.page * 4)
+                            .get()
+                            .await()
+                    }
 
                     val newArrivalList = result.toObjects(Product::class.java)
 
@@ -75,6 +79,7 @@ class HomeFragmentViewModel @Inject constructor(
             }
         }
     }
+
 
     // Function to fetch  the data in realtime
 //    fun fetchNewArrival() {
@@ -109,21 +114,25 @@ class HomeFragmentViewModel @Inject constructor(
 //    }
 
     fun setTotalReviewsCount(productId: String) {
-        val productRef = firestore.collection(PRODUCT_COLLECTION).document(productId)
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val productRef = firestore.collection(PRODUCT_COLLECTION).document(productId)
 
-        productRef.get().addOnSuccessListener { documentSnapshot ->
-            val currentTotalReviewsCount = documentSnapshot.getLong("reviewCount") ?: 0
-            val newTotalReviewsCount = currentTotalReviewsCount + 1
+                productRef.get().addOnSuccessListener { documentSnapshot ->
+                    val currentTotalReviewsCount = documentSnapshot.getLong("reviewCount") ?: 0
+                    val newTotalReviewsCount = currentTotalReviewsCount + 1
 
-            productRef.update("reviewCount", newTotalReviewsCount)
-                .addOnSuccessListener {
-                    // Successfully incremented the total reviews count
-                }
-                .addOnFailureListener { _ ->
+                    productRef.update("reviewCount", newTotalReviewsCount)
+                        .addOnSuccessListener {
+                            // Successfully incremented the total reviews count
+                        }
+                        .addOnFailureListener { exception ->
+                            // Handle the error here
+                        }
+                }.addOnFailureListener { exception ->
                     // Handle the error here
                 }
-        }.addOnFailureListener { _ ->
-            // Handle the error here
+            }
         }
     }
 
@@ -141,12 +150,15 @@ class HomeFragmentViewModel @Inject constructor(
         var isPagingEnd: Boolean = false
     )
 
-    private fun clear() {
-        viewModelScope.launch {
-            _newArrival.emit(NetworkResult.UnSpecified())
+     fun clear() {
+        newArrivalPagingInfo.page = 1
+        newArrivalPagingInfo.oldNewArrivalList = emptyList()
+        newArrivalPagingInfo.isPagingEnd = false
 
-        }
+    }
 
+    override fun onCleared() {
+        super.onCleared()
         viewModelScope.cancel()
     }
 }

@@ -1,0 +1,22 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toast_layout_root"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="4dp"
+    app:cardCornerRadius="12dp"
+    app:cardBackgroundColor="@color/black"
+    android:background="@color/black">
+
+
+    <TextView
+        android:padding="10dp"
+        android:id="@+id/textt"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textColor="@color/white"
+        android:drawablePadding="5dp"
+        app:drawableStartCompat="@drawable/baseline_message_24" />
+
+</androidx.cardview.widget.CardView>

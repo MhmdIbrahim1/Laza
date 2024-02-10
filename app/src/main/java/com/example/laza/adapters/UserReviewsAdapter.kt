@@ -78,7 +78,8 @@ class UserReviewsAdapter(private val context: Context, private val userReviewsUt
                                 image = differ.currentList[position].image,
                                 date = differ.currentList[position].date,
                                 documentId = differ.currentList[position].documentId
-                            )
+                            ),
+                            productId = differ.currentList[position].productId
                         )
                         Navigation.findNavController(view).navigate(action)
                      true

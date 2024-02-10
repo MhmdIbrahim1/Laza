@@ -142,5 +142,17 @@
         <item name="trackTint">@color/switch_color</item>
     </style>
 
+    <style name="AmoledMode">
+        <item name="primaryGrayBackground">@color/black</item>
+        <item name="primaryBlackBackground">@color/black</item>
+        <item name="iconGrayBackground">@color/primaryBlackBackground</item>
+        <item name="boxItemBackground">@color/black</item>
+        <item name="textColor">@color/textColor</item>
+        <item name="grayTextColor">@color/grayTextColor</item>
+        <item name="white">@color/white</item>
+        <item name="black">@color/black</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+
 
 </resources>

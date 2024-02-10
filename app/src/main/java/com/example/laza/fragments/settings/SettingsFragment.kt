@@ -22,6 +22,7 @@ import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
 import com.example.laza.helper.setSubArrowImageBasedOnLayoutDirection
 import com.example.laza.utils.HideBottomNavigation
 import com.example.laza.utils.NetworkResult
+import com.example.laza.utils.UiHelper.navigate
 import com.example.laza.viewmodels.UserAccountViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -53,15 +54,17 @@ class SettingsFragment : Fragment() {
         observeGetUser()
 
         binding.constraintProfile.setOnClickListener {
-            if (findNavController(binding.root).currentDestination?.id == R.id.settingsFragment) {
-                findNavController(binding.root).navigate(R.id.action_settingsFragment_to_userAccountFragment)
-            }
+//            if (findNavController(binding.root).currentDestination?.id == R.id.settingsFragment) {
+//                findNavController(binding.root).navigate(R.id.action_settingsFragment_to_userAccountFragment)
+//            }
+            activity?.navigate(R.id.action_settingsFragment_to_userAccountFragment)
         }
 
         binding.linearAllOrders.setOnClickListener {
-            if (findNavController(binding.root).currentDestination?.id == R.id.settingsFragment) {
-                findNavController(binding.root).navigate(R.id.action_settingsFragment_to_allOrdersFragment)
-            }
+//            if (findNavController(binding.root).currentDestination?.id == R.id.settingsFragment) {
+//                findNavController(binding.root).navigate(R.id.action_settingsFragment_to_allOrdersFragment)
+//            }
+            activity?.navigate(R.id.action_settingsFragment_to_allOrdersFragment)
         }
 
         binding.linearLanguage.setOnClickListener {

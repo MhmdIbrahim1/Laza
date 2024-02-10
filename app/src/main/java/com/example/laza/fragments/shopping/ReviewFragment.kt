@@ -18,6 +18,8 @@ import com.example.laza.adapters.ReviewsAdapter
 import com.example.laza.data.Product
 import com.example.laza.data.Reviews
 import com.example.laza.databinding.FragmentReviewBinding
+import com.example.laza.utils.Coroutines.ioSafe
+import com.example.laza.utils.Coroutines.main
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
 import com.example.laza.viewmodels.ReviewsViewModel
@@ -67,7 +69,8 @@ class ReviewFragment : Fragment() {
                     image = "",
                     documentId = product.id,
                     date = System.currentTimeMillis().toString()
-                )
+                ),
+                productId = product.id
             )
             findNavController().navigate(action)
 
@@ -84,7 +87,7 @@ class ReviewFragment : Fragment() {
                 viewModel.fetchReviews.collectLatest {
                     when (it) {
                         is NetworkResult.Loading -> {
-                            binding.progressBar.visibility = View.VISIBLE
+                            main { binding.progressBar.visibility = View.VISIBLE}
                         }
 
                         is NetworkResult.Success -> {
@@ -108,7 +111,7 @@ class ReviewFragment : Fragment() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.totalRating.collect {
-                    viewModel.fetchTotalRating(product.id)
+                    main { viewModel.fetchTotalRating(product.id) }
                     updateTotalRating(it)
                 }
             }
@@ -119,7 +122,7 @@ class ReviewFragment : Fragment() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.totalReviewsCount.collect{
-                    viewModel.fetchTotalReviewsCount(product.id)
+                    main { viewModel.fetchTotalReviewsCount(product.id) }
                     updateTotalReviewsCount(it)
                 }
             }
@@ -156,7 +159,7 @@ class ReviewFragment : Fragment() {
             val itemSpacingDecoration = ItemSpacingDecoration(10)
             addItemDecoration(itemSpacingDecoration)
 
-            viewModel.fetchReviews(product.id)
+            main { viewModel.fetchReviews(product.id) }
         }
     }
 

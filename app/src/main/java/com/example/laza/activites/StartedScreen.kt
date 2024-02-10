@@ -34,7 +34,7 @@ class StartedScreen : AppCompatActivity() {
         Handler(Looper.myLooper()!!).postDelayed({
             startActivity(Intent(this@StartedScreen, LoginRegisterActivity::class.java))
             finish()
-        }, 3000)
+        }, 2000)
     }
 
     private fun changeStatusBarColor() {

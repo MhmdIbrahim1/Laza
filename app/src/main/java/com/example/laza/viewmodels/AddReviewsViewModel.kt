@@ -28,13 +28,13 @@ class AddReviewsViewModel @Inject constructor(
         MutableStateFlow<NetworkResult<Reviews>>(NetworkResult.UnSpecified())
     val addNewReview = _addNewReview.asStateFlow()
 
-    fun addReview(productId: String,  review: Reviews) {
+    fun addReview(documentId: String,  review: Reviews) {
         viewModelScope.launch {
             _addNewReview.emit(NetworkResult.Loading())
 
             // Reference to the product's reviews collection
             val productReviewsCollection = firestore.collection(PRODUCT_COLLECTION)
-                .document(productId)
+                .document(documentId)
                 .collection(REVIEWS_COLLECTION)
 
             // Reference to the user's reviews collection
@@ -52,7 +52,7 @@ class AddReviewsViewModel @Inject constructor(
                         .addOnSuccessListener {
                             viewModelScope.launch {
                                 _addNewReview.emit(NetworkResult.Success(review))
-                                updateProductRatings(productId, review.ratingStars.toFloat())
+                                updateProductRatings(documentId, review.ratingStars.toFloat())
                             }
                         }
                         .addOnFailureListener { userError ->

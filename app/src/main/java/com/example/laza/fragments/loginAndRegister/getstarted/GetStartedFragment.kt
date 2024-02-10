@@ -22,6 +22,7 @@ import com.example.laza.activites.ShoppingActivity
 import com.example.laza.activites.TwitterActivity
 import com.example.laza.databinding.FragmentGetStartedBinding
 import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
+import com.example.laza.utils.CommonActivity.showToast
 import com.example.laza.utils.NetworkResult
 import com.example.laza.utils.getGoogleSignInClient
 import com.example.laza.viewmodels.LoginViewModel
@@ -134,8 +135,7 @@ class GetStartedFragment : Fragment() {
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                                 startActivity(intent)
                             }
-                            Toast.makeText(requireContext(), "Login Success", Toast.LENGTH_SHORT)
-                                .show()
+                           showToast(requireActivity(),"Login Successful")
                         }
 
                         is NetworkResult.Error -> {

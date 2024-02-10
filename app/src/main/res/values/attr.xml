@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <declare-styleable name="MainColors">
+        <attr name="colorPrimary" format="color" />
+        <attr name="colorSearch" format="color" />
+        <attr name="colorOngoing" format="color" />
+        <attr name="colorPrimaryDark" format="color" />
+
+        <attr name="primaryGrayBackground" format="color" />
+        <attr name="primaryBlackBackground" format="color" />
+        <attr name="iconGrayBackground" format="color" />
+        <attr name="boxItemBackground" format="color" />
+        <attr name="blue" format="color" />
+
+        <attr name="textColor" format="color" />
+        <attr name="grayTextColor" format="color" />
+        <attr name="iconColor" format="color" />
+        <attr name="white" format="color" />
+        <attr name="black" format="color" />
+    </declare-styleable>
+
+
+</resources>

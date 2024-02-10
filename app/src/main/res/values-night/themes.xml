@@ -6,6 +6,7 @@
 <!--        <item name="bottomNavigationStyle">@style/CustomBottomNavigationViewStyle</item>-->
 
         <item name="android:windowIsTranslucent">true</item>
+        <item name="blue">@color/g_blue</item>
 
     </style>
 

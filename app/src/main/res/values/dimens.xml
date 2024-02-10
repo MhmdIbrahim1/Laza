@@ -6,7 +6,7 @@
     <dimen name="buttonCorners">15dp</dimen>
     <dimen name="mediumButtonWidth">200dp</dimen>
     <dimen name="mediumButtonHeight">55dp</dimen>
-    <dimen name="edittextHeight">60dp</dimen>
+    <dimen name="edittextHeight">62dp</dimen>
     <dimen name="spacing">16dp</dimen> <!-- Adjust this value -->
     <dimen name="dialog_min_width_major">320dp</dimen>
     <dimen name="dialog_min_width_minor">240dp</dimen>

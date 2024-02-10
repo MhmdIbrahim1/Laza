@@ -28,6 +28,7 @@ import com.example.laza.data.WishlistProduct
 import com.example.laza.databinding.FragmentProductDetailsBinding
 import com.example.laza.helper.formatPrice
 import com.example.laza.helper.setGArrowImageBasedOnLayoutDirection
+import com.example.laza.utils.CommonActivity.showToast
 import com.example.laza.utils.HideBottomNavigation
 import com.example.laza.utils.ItemSpacingDecoration
 import com.example.laza.utils.NetworkResult
@@ -176,9 +177,11 @@ class ProductDetailsFragment : Fragment() {
                             review = "",
                             ratingStars = 0.0,
                             image = "",
-                            documentId = product.id
+                            documentId = product.id,
+                            productId = product.id,
+                        ),
+                        productId = product.id,
                         )
-                    )
                 findNavController().navigate(action)
             } else {
                 val action =
@@ -240,16 +243,11 @@ class ProductDetailsFragment : Fragment() {
                 viewModel.addToWishList.collect { result ->
                     when (result) {
                         is NetworkResult.Success -> {
-                            Toast.makeText(
-                                requireContext(),
-                                ("Added To WishList"),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            showToast(requireActivity(),"Added to Wishlist")
                         }
 
                         is NetworkResult.Error -> {
-                            Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT)
-                                .show()
+                            showToast(requireActivity(),result.message)
                         }
 
                         else -> Unit
@@ -265,11 +263,7 @@ class ProductDetailsFragment : Fragment() {
                 viewModel.removeFromWishList.collect { result ->
                     when (result) {
                         is NetworkResult.Success -> {
-                            Toast.makeText(
-                                requireContext(),
-                                ("Removed From WishList"),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            showToast(requireActivity(),"Removed from Wishlist")
                         }
 
                         is NetworkResult.Error -> {
@@ -311,7 +305,7 @@ class ProductDetailsFragment : Fragment() {
                                                 findNavController().navigate(action)
                                             }
                                         }
-                                    }.setAnchorView(binding.tvProductDescription)
+                                    }
                                 .show()
 
                             }
@@ -320,8 +314,7 @@ class ProductDetailsFragment : Fragment() {
                         is NetworkResult.Error -> {
                             binding.btnAddToCart.revertAnimation()
                             binding.progressbarCart.visibility = View.INVISIBLE
-                            Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT)
-                                .show()
+                            showToast(requireActivity(),result.message)
                         }
 
                         else -> Unit
@@ -348,8 +341,7 @@ class ProductDetailsFragment : Fragment() {
                         }
 
                         is NetworkResult.Error -> {
-                            Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT)
-                                .show()
+                            showToast(requireActivity(),result.message)
                         }
 
                         else -> Unit
@@ -471,8 +463,8 @@ class ProductDetailsFragment : Fragment() {
         }, 2000)
         binding.circleIndicator.setWithViewPager2(binding.viewPagerProductImages)
         binding.circleIndicator.itemCount = (args.product.images.size)
-      // binding.circleIndicator.setAnimationMode(CircleIndicator.AnimationMode.SLIDE)
-       binding.circleIndicator.setAnimationMode(CircleIndicator.AnimationMode.SCALE)
+       binding.circleIndicator.setAnimationMode(CircleIndicator.AnimationMode.SLIDE)
+      // binding.circleIndicator.setAnimationMode(CircleIndicator.AnimationMode.SCALE)
 
     }
 

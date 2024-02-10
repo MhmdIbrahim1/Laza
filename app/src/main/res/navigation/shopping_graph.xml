@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_brandsFragment"
-            app:destination="@id/brandsFragment">
+            app:destination="@id/brandsFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit">
             <argument
                 android:name="brandImage"
                 app:argType="integer" />
@@ -22,22 +26,51 @@
         </action>
         <action
             android:id="@+id/action_homeFragment_to_productDetailsFragment"
-            app:destination="@id/productDetailsFragment" />
+            app:destination="@id/productDetailsFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
         <action
             android:id="@+id/action_homeFragment_to_addressesFragment"
-            app:destination="@id/addressesFragment" />
+            app:destination="@id/addressesFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
         <action
             android:id="@+id/action_homeFragment_to_billingFragment"
-            app:destination="@id/billingFragment" />
+            app:destination="@id/billingFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
         <action
             android:id="@+id/action_homeFragment_to_userAccountFragment"
-            app:destination="@id/userAccountFragment" />
+            app:destination="@id/userAccountFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
         <action
             android:id="@+id/action_homeFragment_to_allOrdersFragment"
-            app:destination="@id/allOrdersFragment" />
+            app:destination="@id/allOrdersFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
         <action
             android:id="@+id/action_homeFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"/>
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
@@ -50,10 +83,20 @@
         >
         <action
             android:id="@+id/action_searchFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
         <action
             android:id="@+id/action_searchFragment_to_productDetailsFragment"
-            app:destination="@id/productDetailsFragment" />
+            app:destination="@id/productDetailsFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -63,13 +106,23 @@
         >
         <action
             android:id="@+id/action_cartFragment_to_productDetailsFragment"
-            app:destination="@id/productDetailsFragment" />
+            app:destination="@id/productDetailsFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
         <action
             android:id="@+id/action_cartFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
         <action
             android:id="@+id/action_cartFragment_to_billingFragment"
-            app:destination="@id/billingFragment" />
+            app:destination="@id/billingFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
     </fragment>
     <fragment
         android:id="@+id/wishlistFragment"
@@ -79,13 +132,23 @@
         >
         <action
             android:id="@+id/action_wishlistFragment_to_productDetailsFragment"
-            app:destination="@id/productDetailsFragment" />
+            app:destination="@id/productDetailsFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
         <action
             android:id="@+id/action_wishlistFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
         <action
             android:id="@+id/action_wishlistFragment_to_cartFragment"
-            app:destination="@id/cartFragment" />
+            app:destination="@id/cartFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
 
     </fragment>
     <fragment
@@ -95,10 +158,17 @@
         tools:layout="@layout/fragment_brands" >
         <action
             android:id="@+id/action_brandsFragment_to_productDetailsFragment"
-            app:destination="@id/productDetailsFragment" />
+            app:destination="@id/productDetailsFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
         <action
             android:id="@+id/action_brandsFragment_to_cartFragment"
             app:destination="@id/cartFragment"
+            app:enterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_right"
             app:launchSingleTop="true"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
@@ -114,10 +184,20 @@
             app:argType="com.example.laza.data.Product" />
         <action
             android:id="@+id/action_productDetailsFragment_to_addReviewsFragment"
-            app:destination="@id/addReviewsFragment" />
+            app:destination="@id/addReviewsFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
         <action
             android:id="@+id/action_productDetailsFragment_to_reviewFragment"
-            app:destination="@id/reviewFragment" />
+            app:destination="@id/reviewFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
         <action
             android:id="@+id/action_productDetailsFragment_to_cartFragment"
             app:destination="@id/cartFragment"
@@ -126,7 +206,20 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_productDetailsFragment_to_wishlistFragment"
-            app:destination="@id/wishlistFragment" />
+            app:destination="@id/wishlistFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
 
     </fragment>
 
@@ -148,7 +241,12 @@
         tools:layout="@layout/fragment_billing" >
         <action
             android:id="@+id/action_billingFragment_to_addressesFragment"
-            app:destination="@id/addressesFragment" />
+            app:destination="@id/addressesFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
         <argument
             android:name="totalPrice"
             app:argType="float" />
@@ -173,6 +271,9 @@
         <argument
             android:name="reviews"
             app:argType="com.example.laza.data.Reviews" />
+        <argument
+            android:name="productId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/reviewFragment"
@@ -185,7 +286,12 @@
             app:argType="com.example.laza.data.Product" />
         <action
             android:id="@+id/action_reviewFragment_to_addReviewsFragment"
-            app:destination="@id/addReviewsFragment" />
+            app:destination="@id/addReviewsFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
     </fragment>
     <fragment
         android:id="@+id/orderConfirmationFragment"
@@ -202,7 +308,10 @@
         <action
             android:id="@+id/action_orderConfirmationFragment_to_allOrdersFragment"
             app:destination="@id/allOrdersFragment"
-
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
             />
     </fragment>
     <fragment
@@ -227,7 +336,12 @@
             app:destination="@id/homeFragment" />
         <action
             android:id="@+id/action_allOrdersFragment_to_orderDetailsFragment"
-            app:destination="@id/orderDetailsFragment" />
+            app:destination="@id/orderDetailsFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
     </fragment>
     <fragment
         android:id="@+id/orderDetailsFragment"
@@ -247,19 +361,44 @@
         >
         <action
             android:id="@+id/action_settingsFragment_to_userAccountFragment"
-            app:destination="@id/userAccountFragment" />
+            app:destination="@id/userAccountFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
         <action
             android:id="@+id/action_settingsFragment_to_allOrdersFragment"
-            app:destination="@id/allOrdersFragment" />
+            app:destination="@id/allOrdersFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
         <action
             android:id="@+id/action_settingsFragment_to_languageFragment"
-            app:destination="@id/languageFragment" />
+            app:destination="@id/languageFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
         <action
             android:id="@+id/action_settingsFragment_to_allAddressesFragment"
-            app:destination="@id/allAddressesFragment" />
+            app:destination="@id/allAddressesFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
         <action
             android:id="@+id/action_settingsFragment_to_userReviewsFragment"
-            app:destination="@id/userReviewsFragment" />
+            app:destination="@id/userReviewsFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
     </fragment>
     <fragment
         android:id="@+id/languageFragment"
@@ -275,7 +414,12 @@
         >
         <action
             android:id="@+id/action_allAddressesFragment_to_addressesFragment"
-            app:destination="@id/addressesFragment" />
+            app:destination="@id/addressesFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
     </fragment>
     <fragment
         android:id="@+id/userReviewsFragment"
@@ -285,7 +429,12 @@
         >
         <action
             android:id="@+id/action_userReviewsFragment_to_addReviewsFragment"
-            app:destination="@id/addReviewsFragment" />
+            app:destination="@id/addReviewsFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
         <argument
             android:name="reviews"
             app:argType="com.example.laza.data.Reviews" />

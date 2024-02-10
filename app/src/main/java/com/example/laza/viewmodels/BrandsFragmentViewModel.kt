@@ -54,9 +54,13 @@ class BrandsFragmentViewModel @Inject constructor(
     fun fetchBrandsData(brandName: String) {
         if (!brandsPagingInfo.isPagingEnd) {
             viewModelScope.launch {
-                _brandsData.emit(NetworkResult.Loading())
-                // Call the suspend function for fetching data from Firestore
-                fetchBrandDataFromFirestore(brandName)
+                try {
+                    _brandsData.emit(NetworkResult.Loading())
+                    // Call the suspend function for fetching data from Firestore
+                    fetchBrandDataFromFirestore(brandName)
+                } catch (e: Exception) {
+                    // Handle exceptions here if needed
+                }
             }
         }
     }
